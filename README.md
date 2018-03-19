@@ -1,5 +1,4 @@
 
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # anomalize
@@ -70,7 +69,8 @@ tidyverse_cran_downloads %>%
     ggplot(aes(date, count)) +
     geom_point(color = "#2c3e50", alpha = 0.25) +
     facet_wrap(~ package, scale = "free_y", ncol = 3) +
-    theme_minimal() 
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -86,7 +86,8 @@ tidyverse_cran_downloads %>%
     anomalize(remainder, method = "iqr") %>%
     time_recompose() %>%
     plot_anomalies(time_recomposed = TRUE, ncol = 3, alpha_dots = 0.25) +
-    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") 
+    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") +
+    theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
