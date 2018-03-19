@@ -66,7 +66,7 @@ library(anomalize)
 
 First, let's get some data. We have a data set called `tidyverse_cran_downloads` that contains the daily CRAN download counts for 15 "tidy" packages from 2017-01-01 to 2018-03-01.
 
-```{r, fig.height=5}
+```{r tidyverse_plot, fig.height=5}
 tidyverse_cran_downloads %>%
     ggplot(aes(date, count)) +
     geom_point(color = "#2c3e50", alpha = 0.25) +
@@ -77,7 +77,7 @@ tidyverse_cran_downloads %>%
 
 Suppose we want to determine which daily "counts" are anomalous. It's as easy as using the three main functions (`time_decompose()`, `anomalize()`, and `time_recompose()`) along with a visualization function, `plot_anomalies()`.
 
-```{r, fig.height=8}
+```{r tidyverse_anoms, fig.height=8}
 tidyverse_cran_downloads %>%
     time_decompose(count, method = "stl") %>%
     anomalize(remainder, method = "iqr") %>%

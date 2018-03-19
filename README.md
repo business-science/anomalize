@@ -73,7 +73,7 @@ tidyverse_cran_downloads %>%
     theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-tidyverse_plot-1.png" width="100%" />
 
 Suppose we want to determine which daily “counts” are anomalous. It’s as
 easy as using the three main functions (`time_decompose()`,
@@ -90,7 +90,7 @@ tidyverse_cran_downloads %>%
     theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-tidyverse_anoms-1.png" width="100%" />
 
 If you’re familiar with Twitter’s `AnomalyDetection` package, you can
 implement that method by combining `time_decompose(method = "twitter")`
@@ -108,7 +108,7 @@ tidyverse_cran_downloads %>%
     labs(title = "Lubridate Anomalies", subtitle = "Twitter + GESD Methods")
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
 And, we can compare to STL + IQR methods, which use different
 decomposition and anomaly detection approaches.
@@ -123,7 +123,7 @@ tidyverse_cran_downloads %>%
     labs(title = "Lubridate Anomalies", subtitle = "STL + IQR Methods")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 There are a several extra capabilities:
 
