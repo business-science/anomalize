@@ -3,6 +3,11 @@
 
 # anomalize
 
+[![Travis build
+status](https://travis-ci.org/business-science/anomalize.svg?branch=master)](https://travis-ci.org/business-science/anomalize)
+[![Coverage
+status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://codecov.io/github/business-science/anomalize?branch=master)
+
 > Tidy anomaly detection
 
 `anomalize` enables a tidy workflow for detecting anomalies in data. The
