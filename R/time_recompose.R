@@ -42,7 +42,7 @@ time_recompose <- function(data) {
 
 #' @export
 time_recompose.default <- function(data) {
-    stop("Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
+    stop("Error time_recompose(): Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
 }
 
 #' @export

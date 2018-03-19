@@ -18,7 +18,7 @@
 #' - `tidyverse`
 #'
 #'
-#' @format A grouped `tbl_time` object with 6,375 rows and 3 variables:
+#' @format A `grouped_tbl_time` object with 6,375 rows and 3 variables:
 #' \describe{
 #'   \item{date}{Date of the daily observation}
 #'   \item{count}{Number of downloads that day}

@@ -38,6 +38,12 @@ time_apply <- function(data, target, period, .fun, ...,
 
 }
 
+#' @export
+time_apply.default <- function(data, target, period, .fun, ...,
+                               start_date = NULL, side = "end", clean = FALSE, message = TRUE) {
+    stop("Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
+}
+
 
 #' @export
 time_apply.data.frame <- function(data, target, period, .fun, ...,

@@ -86,8 +86,10 @@
 time_frequency <- function(data, period = "auto", template = time_scale_template(), message = TRUE) {
 
     # Checks
+    if (!is.data.frame(data)) stop("Error time_frequency(): Object must inherit class `data.frame`, `tbl_df` or `tbl_time`.")
+
     if (dplyr::is.grouped_df(data))
-        stop(glue::glue("Cannot use on a grouped data frame.
+        stop(glue::glue("Error time_frequency(): Cannot use on a grouped data frame.
                         Frequency should be performed on a single time series."))
 
     # Setup inputs
@@ -159,6 +161,8 @@ time_frequency <- function(data, period = "auto", template = time_scale_template
 time_trend <- function(data, period = "auto", template = time_scale_template(), message = TRUE) {
 
     # Checks
+    if (!is.data.frame(data)) stop("Error time_trend(): Object must inherit class `data.frame`, `tbl_df` or `tbl_time`.")
+
     if (dplyr::is.grouped_df(data))
         stop(glue::glue("Cannot use on a grouped data frame.
                         Frequency should be performed on a single time series."))

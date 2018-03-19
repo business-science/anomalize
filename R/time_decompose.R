@@ -111,7 +111,7 @@ time_decompose <- function(data, target, method = c("stl", "twitter", "multiplic
 #' @export
 time_decompose.default <- function(data, target, method = c("stl", "twitter", "multiplicative"),
                                    frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
-    stop("Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
+    stop("Error time_decompose(): Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
 }
 
 #' @export

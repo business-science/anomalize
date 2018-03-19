@@ -186,7 +186,8 @@ decompose_multiplicative <- function(data, target, frequency = "auto", trend = "
         dplyr::mutate(
             trend = stats::supsmu(seq_along(observed), seasadj)$y,
             remainder = observed / (trend * season)
-        )
+        ) %>%
+        dplyr::select(-seasadj)
 
     decomp_tbl <- anomalize::prep_tbl_time(decomp_tbl)
 

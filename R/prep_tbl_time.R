@@ -38,7 +38,8 @@ prep_tbl_time.default <- function(data, message = FALSE) {
 prep_tbl_time.data.frame <- function(data, message = FALSE) {
 
     cl  <- class(data)[[1]]
-    idx <- timetk::tk_get_timeseries_variables(data)[[1]]
+
+    idx <- tryCatch(timetk::tk_get_timeseries_variables(data)[[1]], error = function(e) stop("Error in prep_tbl_time(): No date or datetime column found."))
 
     data <- data %>%
         tibbletime::as_tbl_time(index = !! rlang::sym(idx))

@@ -1,15 +1,26 @@
 context("test-time_frequency.R")
 
 # Setup
+library(dplyr)
 
 tq_dloads <- tidyverse_cran_downloads %>%
-    dplyr::ungroup() %>%
-    dplyr::filter(package == "tidyquant")
+    ungroup() %>%
+    filter(package == "tidyquant")
 
 tq_dloads_small <- tq_dloads %>%
-    dplyr::slice(1:60)
+    slice(1:60)
 
 # Tests
+
+test_that("time_frequency fails with incorrect input", {
+    expect_error(time_frequency(5))
+    expect_error(time_frequency(tidyverse_cran_downloads))
+})
+
+test_that("time_trend fails with incorrect input", {
+    expect_error(time_trend(5))
+    expect_error(time_trend(tidyverse_cran_downloads))
+})
 
 test_that("time_frequency works: period = 'auto'", {
 
@@ -20,12 +31,12 @@ test_that("time_frequency works: period = 'auto'", {
 
 })
 
-test_that("time_frequency works: period = '2 weeks'", {
+test_that("time_frequency works: period = '1 month'", {
 
     freq <- tq_dloads %>%
-        time_frequency(period = "2 weeks")
+        time_frequency(period = "1 month")
 
-    expect_equal(freq, 14)
+    expect_equal(freq, 31)
 
 })
 

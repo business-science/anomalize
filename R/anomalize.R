@@ -81,7 +81,7 @@ anomalize <- function(data, target, method = c("iqr", "gesd"),
 #' @export
 anomalize.default <- function(data, target, method = c("iqr", "gesd"),
                               alpha = 0.05, max_anoms = 0.20, verbose = FALSE) {
-    stop("Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
+    stop("Error anomalize(): Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
 }
 
 #' @export
