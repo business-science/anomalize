@@ -13,7 +13,7 @@
 #' @name anomalize_package
 #'
 #' @importFrom rlang := !! !!!
-#' @importFrom dplyr %>% n row_number contains
-#' @importFrom stats median mad qt
+#' @importFrom dplyr %>% n row_number contains quo_name
+#' @importFrom stats median mad qt as.formula
 
 NULL

@@ -7,12 +7,14 @@
 \alias{decompose_multiplicative}
 \title{Methods that power time_decompose()}
 \usage{
-decompose_twitter(data, target, frequency = "auto", median_spans = "auto",
+decompose_twitter(data, target, frequency = "auto", trend = "auto",
   message = TRUE)
 
-decompose_stl(data, target, frequency = "auto", message = TRUE)
+decompose_stl(data, target, frequency = "auto", trend = "auto",
+  message = TRUE)
 
-decompose_multiplicative(data, target, frequency = "auto", message = TRUE)
+decompose_multiplicative(data, target, frequency = "auto", trend = "auto",
+  message = TRUE)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}
@@ -24,8 +26,10 @@ Input can be either "auto", a time-based definition (e.g. "2 weeks"),
 or a numeric number of observations per frequency (e.g. 10).
 Refer to \code{\link[=time_frequency]{time_frequency()}}.}
 
-\item{median_spans}{Applies to the "twitter" method only.
-The median spans are used to remove the trend and center the remainder.}
+\item{trend}{Applies to the "twitter" method and "stl" methods only.
+For twitter, the trend controls the median spans, which are used to remove the trend and center the remainder.
+For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
+For multiplicative, the trend is made using a \code{\link[stats:supsmu]{stats::supsmu()}} (super smooether).}
 
 \item{message}{A boolean. If \code{TRUE}, will output information related to \code{tbl_time} conversions, frequencies,
 and median spans (if applicable).}

@@ -26,5 +26,8 @@ globalVariables(c(
     "trend",
     "target",
     "anomaly",
-    "key"
+    "key",
+    "median_spans",
+    "recomposed_l1",
+    "recomposed_l2"
     ))

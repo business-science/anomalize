@@ -54,8 +54,8 @@ time_recompose.tbl_time <- function(data) {
     if (!all(check_names)) stop('Error in time_recompose(): key names are missing. Make sure observed:remainder, remainder_l1, and remainder_l2 are present', call. = FALSE)
 
     # Setup
-    target_expr <- dplyr::enquo(target)
-    method      <- tolower(method[[1]])
+    # target_expr <- dplyr::enquo(target)
+    # method      <- tolower(method[[1]])
 
     l1 <- data %>%
         dplyr::select(observed:remainder, contains("_l1")) %>%

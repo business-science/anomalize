@@ -5,7 +5,8 @@
 \title{Decompose a time series in preparation for anomaly detection}
 \usage{
 time_decompose(data, target, method = c("stl", "twitter", "multiplicative"),
-  frequency = "auto", ..., merge = FALSE, message = TRUE)
+  frequency = "auto", trend = "auto", ..., merge = FALSE,
+  message = TRUE)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}
@@ -14,13 +15,18 @@ time_decompose(data, target, method = c("stl", "twitter", "multiplicative"),
 
 \item{method}{The time series decomposition method. One of \code{"stl"}, \code{"twitter"}, or
 \code{"multiplicative"}. The STL method uses seasonal decomposition (see \code{\link[=decompose_stl]{decompose_stl()}}).
-The Twitter method uses \code{median_spans} to remove the trend (see \code{\link[=decompose_twitter]{decompose_twitter()}}).
+The Twitter method uses \code{trend} to remove the trend (see \code{\link[=decompose_twitter]{decompose_twitter()}}).
 The Multiplicative method uses multiplicative decomposition (see \code{\link[=decompose_multiplicative]{decompose_multiplicative()}}).}
 
 \item{frequency}{Controls the seasonal adjustment (removal of seasonality).
 Input can be either "auto", a time-based definition (e.g. "2 weeks"),
 or a numeric number of observations per frequency (e.g. 10).
 Refer to \code{\link[=time_frequency]{time_frequency()}}.}
+
+\item{trend}{Applies to the "twitter" method and "stl" methods only.
+For twitter, the trend controls the median spans, which are used to remove the trend and center the remainder.
+For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
+For multiplicative, the trend is made using a \code{\link[stats:supsmu]{stats::supsmu()}} (super smooether).}
 
 \item{...}{Additional parameters passed to the underlying method functions.}
 
@@ -50,9 +56,14 @@ the underlying \code{\link[=decompose_stl]{decompose_stl()}} function. If you ar
 the function is a "tidy" version that is designed to work with \code{tbl_time} objects.
 The decomposition separates the "season" and "trend" components from
 the "observed" values leaving the "remainder" for anomaly detection.
-The main parameter that controls the seasonal adjustment is \code{frequency}.
-Setting \code{frequency = "auto"} will lets the \code{\link[=time_frequency]{time_frequency()}} function
-automatically determine the frequency based on the scale of the time series.
+The user can control two parameters: \code{frequency} and \code{trend}.
+The \code{frequency} parameter adjusts the "season" component that is removed
+from the "observed" values. The \code{trend} parameter adjusts the
+trend window (\code{t.window} parameter from \code{stl()}) that is used.
+The user may supply both \code{frequency}
+and \code{trend} as time-based durations (e.g. "6 weeks") or numeric values
+(e.g. 180) or "auto", which predetermines the frequency and/or trend
+based on the scale of the time series.
 
 \strong{Twitter}:
 
@@ -62,11 +73,11 @@ The decomposition separates the "seasonal" component and then removes
 the median data, which is a different approach than the STL method for removing
 the trend. This approach works very well for low-growth + high seasonality data.
 STL may be a better approach when trend is a large factor.
-The user can control two parameters: \code{frequency} and \code{median_spans}.
+The user can control two parameters: \code{frequency} and \code{trend}.
 The \code{frequency} parameter adjusts the "season" component that is removed
-from the "observed" values. The \code{median_spans} parameter adjusts the
+from the "observed" values. The \code{trend} parameter adjusts the
 number of median spans that are used. The user may supply both \code{frequency}
-and \code{median_spans} as time-based durations (e.g. "6 weeks") or numeric values
+and \code{trend} as time-based durations (e.g. "6 weeks") or numeric values
 (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 based on the scale of the time series.
 
@@ -75,7 +86,9 @@ based on the scale of the time series.
 The Multiplicative method (\code{method = "multiplicative"}) time series decomposition
 uses the \code{\link[stats:decompose]{stats::decompose()}} function with \code{type = "multiplicative"}. This
 method is useful in circumstances where variance is non-constantant and typically
-growing in a multiplicative fashion. The parameters are the same as the STL method.
+growing in a multiplicative fashion.
+The parameters are the same as the STL method except that the \code{trend} parameter is unused.
+The trend for multiplicative is made using a \code{\link[stats:supsmu]{stats::supsmu()}} (Friedman's SuperSmoother).
 Alternatively, users may wish to try a transformation (e.g. \code{log()} or \code{sqrt()}) in combination
 with the STL method to get near-constant variance.
 }
@@ -89,12 +102,12 @@ data(tidyverse_cran_downloads)
 tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl")
 
-# twitter + median_spans
+# twitter + trend
 tidyverse_cran_downloads \%>\%
     time_decompose(count,
                    method       = "twitter",
                    frequency    = "1 week",
-                   median_spans = "3 months",
+                   trend        = "3 months",
                    merge        = TRUE,
                    message      = FALSE)
 

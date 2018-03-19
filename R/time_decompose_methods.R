@@ -25,9 +25,7 @@
 
 #' @export
 #' @rdname decompose_methods
-#' @param median_spans Applies to the "twitter" method only.
-#' The median spans are used to remove the trend and center the remainder.
-decompose_twitter <- function(data, target, frequency = "auto", median_spans = "auto", message = TRUE) {
+decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_twitter(): argument "target" is missing, with no default', call. = FALSE)
@@ -41,10 +39,13 @@ decompose_twitter <- function(data, target, frequency = "auto", median_spans = "
     date_col_name <- timetk::tk_get_timeseries_variables(data)[[1]]
     date_col_expr <- rlang::sym(date_col_name)
 
+    freq <- time_frequency(data, period = frequency, message = message)
+    # trnd <- time_trend(data, period = trend)
+
     # Time Series Decomposition
     decomp_tbl <- data %>%
         dplyr::pull(!! target_expr) %>%
-        stats::ts(frequency = time_frequency(data, period = frequency, message = message)) %>%
+        stats::ts(frequency = freq) %>%
         stats::stl(s.window = "periodic", robust = TRUE) %>%
         sweep::sw_tidy_decomp() %>%
         dplyr::select(-c(index, seasadj)) %>%
@@ -56,7 +57,7 @@ decompose_twitter <- function(data, target, frequency = "auto", median_spans = "
         dplyr::select(!! date_col_expr, observed, season, seasadj, trend, remainder) %>%
 
         # Median Groups
-        time_median(observed, period = median_spans, message = message) %>%
+        time_median(observed, period = trend, message = message) %>%
 
         # Observed transformations
         dplyr::mutate(
@@ -70,13 +71,50 @@ decompose_twitter <- function(data, target, frequency = "auto", median_spans = "
 
 }
 
+# Helper function for decompose_twitter
+time_median <- function(data, target, period = "auto", template = time_scale_template(), message = TRUE) {
+
+    # Setup inputs
+    data <- prep_tbl_time(data, message = F)
+
+    date_col_expr <- tibbletime::get_index_quo(data)
+    date_col_name <- dplyr::quo_name(date_col_expr)
+
+    target_expr   <- dplyr::enquo(target)
+
+    # For median_span (trend) = "auto" use template
+    if (period == "auto") {
+
+        # Get timeseries summary attributes
+        ts_summary <- data %>%
+            tibbletime::get_index_col() %>%
+            timetk::tk_get_timeseries_summary()
+
+        ts_scale <- ts_summary$scale
+
+        period <- template %>%
+            target_time_decomposition_scale(ts_scale, "trend", index_shift = 0)
+
+    }
+
+    # Use time_apply()
+    ret <- data %>%
+        time_apply(!! target_expr, period = period,
+                   .fun = median, na.rm = T, clean = F, message = message) %>%
+        dplyr::rename(median_spans = time_apply)
+
+    if (message) message(glue::glue("median_span = {period}"))
+
+    return(ret)
+
+}
 
 
 # 2B. STL ----
 
 #' @export
 #' @rdname decompose_methods
-decompose_stl <- function(data, target, frequency = "auto", message = TRUE) {
+decompose_stl <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_stl(): argument "target" is missing, with no default', call. = FALSE)
@@ -90,11 +128,14 @@ decompose_stl <- function(data, target, frequency = "auto", message = TRUE) {
     date_col_name <- timetk::tk_get_timeseries_variables(data)[[1]]
     date_col_expr <- rlang::sym(date_col_name)
 
+    freq <- time_frequency(data, period = frequency, message = message)
+    trnd <- time_trend(data, period = trend, message = message)
+
     # Time Series Decomposition
     decomp_tbl <- data %>%
         dplyr::pull(!! target_expr) %>%
-        stats::ts(frequency = time_frequency(data, period = frequency, message = message)) %>%
-        stats::stl(s.window = "periodic", robust = TRUE) %>%
+        stats::ts(frequency = freq) %>%
+        stats::stl(s.window = "periodic", t.window = trnd, robust = TRUE) %>%
         sweep::sw_tidy_decomp() %>%
         # forecast::mstl() %>%
         # as.tibble() %>%
@@ -114,7 +155,7 @@ decompose_stl <- function(data, target, frequency = "auto", message = TRUE) {
 
 #' @export
 #' @rdname decompose_methods
-decompose_multiplicative <- function(data, target, frequency = "auto", message = TRUE) {
+decompose_multiplicative <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_multiplicative(): argument "target" is missing, with no default', call. = FALSE)
@@ -129,6 +170,7 @@ decompose_multiplicative <- function(data, target, frequency = "auto", message =
     date_col_expr <- rlang::sym(date_col_name)
 
     frequency <- anomalize::time_frequency(data, period = frequency, message = message)
+    # Note that trend is unused in super smoother (`supsmu()`)
 
     # Time Series Decomposition
     decomp_tbl <- data %>%

@@ -4,12 +4,16 @@
 #' @param data A `tibble` or `tbl_time` object.
 #' @param method The time series decomposition method. One of `"stl"`, `"twitter"`, or
 #' `"multiplicative"`. The STL method uses seasonal decomposition (see [decompose_stl()]).
-#' The Twitter method uses `median_spans` to remove the trend (see [decompose_twitter()]).
+#' The Twitter method uses `trend` to remove the trend (see [decompose_twitter()]).
 #' The Multiplicative method uses multiplicative decomposition (see [decompose_multiplicative()]).
 #' @param frequency Controls the seasonal adjustment (removal of seasonality).
 #' Input can be either "auto", a time-based definition (e.g. "2 weeks"),
 #' or a numeric number of observations per frequency (e.g. 10).
 #' Refer to [time_frequency()].
+#' @param trend Applies to the "twitter" method and "stl" methods only.
+#' For twitter, the trend controls the median spans, which are used to remove the trend and center the remainder.
+#' For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
+#' For multiplicative, the trend is made using a [stats::supsmu()] (super smooether).
 #' @param ... Additional parameters passed to the underlying method functions.
 #' @param merge A boolean. `FALSE` by default. If `TRUE`, will append results to the original data.
 #' @param message A boolean. If `TRUE`, will output information related to `tbl_time` conversions, frequencies,
@@ -32,9 +36,15 @@
 #' the function is a "tidy" version that is designed to work with `tbl_time` objects.
 #' The decomposition separates the "season" and "trend" components from
 #' the "observed" values leaving the "remainder" for anomaly detection.
-#' The main parameter that controls the seasonal adjustment is `frequency`.
-#' Setting `frequency = "auto"` will lets the [time_frequency()] function
-#' automatically determine the frequency based on the scale of the time series.
+#' The user can control two parameters: `frequency` and `trend`.
+#' The `frequency` parameter adjusts the "season" component that is removed
+#' from the "observed" values. The `trend` parameter adjusts the
+#' trend window (`t.window` parameter from `stl()`) that is used.
+#' The user may supply both `frequency`
+#' and `trend` as time-based durations (e.g. "6 weeks") or numeric values
+#' (e.g. 180) or "auto", which predetermines the frequency and/or trend
+#' based on the scale of the time series.
+#'
 #'
 #' __Twitter__:
 #'
@@ -44,11 +54,11 @@
 #' the median data, which is a different approach than the STL method for removing
 #' the trend. This approach works very well for low-growth + high seasonality data.
 #' STL may be a better approach when trend is a large factor.
-#' The user can control two parameters: `frequency` and `median_spans`.
+#' The user can control two parameters: `frequency` and `trend`.
 #' The `frequency` parameter adjusts the "season" component that is removed
-#' from the "observed" values. The `median_spans` parameter adjusts the
+#' from the "observed" values. The `trend` parameter adjusts the
 #' number of median spans that are used. The user may supply both `frequency`
-#' and `median_spans` as time-based durations (e.g. "6 weeks") or numeric values
+#' and `trend` as time-based durations (e.g. "6 weeks") or numeric values
 #' (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 #' based on the scale of the time series.
 #'
@@ -57,7 +67,9 @@
 #' The Multiplicative method (`method = "multiplicative"`) time series decomposition
 #' uses the [stats::decompose()] function with `type = "multiplicative"`. This
 #' method is useful in circumstances where variance is non-constantant and typically
-#' growing in a multiplicative fashion. The parameters are the same as the STL method.
+#' growing in a multiplicative fashion.
+#' The parameters are the same as the STL method except that the `trend` parameter is unused.
+#' The trend for multiplicative is made using a [stats::supsmu()] (Friedman's SuperSmoother).
 #' Alternatively, users may wish to try a transformation (e.g. `log()` or `sqrt()`) in combination
 #' with the STL method to get near-constant variance.
 #'
@@ -81,30 +93,30 @@
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl")
 #'
-#' # twitter + median_spans
+#' # twitter + trend
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count,
 #'                    method       = "twitter",
 #'                    frequency    = "1 week",
-#'                    median_spans = "3 months",
+#'                    trend        = "3 months",
 #'                    merge        = TRUE,
 #'                    message      = FALSE)
 #'
 #' @export
 time_decompose <- function(data, target, method = c("stl", "twitter", "multiplicative"),
-                           frequency = "auto", ..., merge = FALSE, message = TRUE) {
+                           frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
     UseMethod("time_decompose", data)
 }
 
 #' @export
 time_decompose.default <- function(data, target, method = c("stl", "twitter", "multiplicative"),
-                                   frequency = "auto", ..., merge = FALSE, message = TRUE) {
+                                   frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
     stop("Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
 }
 
 #' @export
 time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter", "multiplicative"),
-                                    frequency = "auto", ..., merge = FALSE, message = TRUE) {
+                                    frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in time_decompose(): argument "target" is missing, with no default', call. = FALSE)
@@ -116,10 +128,10 @@ time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter", "
     # Set method
     if (method == "twitter") {
         decomp_tbl <- data %>%
-            decompose_twitter(!! target_expr, frequency = frequency, message = message, ...)
+            decompose_twitter(!! target_expr, frequency = frequency, trend = trend, message = message, ...)
     } else if (method == "stl") {
         decomp_tbl <- data %>%
-            decompose_stl(!! target_expr, frequency = frequency, message = message, ...)
+            decompose_stl(!! target_expr, frequency = frequency, trend = trend, message = message, ...)
     } else if (method == "multiplicative") {
         decomp_tbl <- data %>%
             decompose_multiplicative(!! target_expr, frequency = frequency, message = message, ...)
@@ -140,7 +152,7 @@ time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter", "
 
 #' @export
 time_decompose.tbl_df <- function(data, target, method = c("stl", "twitter", "multiplicative"),
-                                  frequency = "auto", ..., merge = FALSE, message = TRUE) {
+                                  frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in time_decompose(): argument "target" is missing, with no default', call. = FALSE)
@@ -153,6 +165,7 @@ time_decompose.tbl_df <- function(data, target, method = c("stl", "twitter", "mu
                    target    = !! dplyr::enquo(target),
                    method    = method[[1]],
                    frequency = frequency,
+                   trend     = trend,
                    ...       = ...,
                    merge     = merge,
                    message   = message)
@@ -164,7 +177,7 @@ time_decompose.tbl_df <- function(data, target, method = c("stl", "twitter", "mu
 
 #' @export
 time_decompose.grouped_tbl_time <- function(data, target, method = c("stl", "twitter", "multiplicative"),
-                                            frequency = "auto", merge = FALSE, message = FALSE, ...) {
+                                            frequency = "auto", trend = "auto", ..., merge = FALSE, message = FALSE) {
 
     # Checks
     if (missing(target)) stop('Error in time_decompose(): argument "target" is missing, with no default', call. = FALSE)
@@ -179,9 +192,10 @@ time_decompose.grouped_tbl_time <- function(data, target, method = c("stl", "twi
             target    = !! target_expr,
             method    = method[[1]],
             frequency = frequency,
+            trend     = trend,
+            ...       = ...,
             merge     = merge,
-            message   = message,
-            ...)
+            message   = message)
 
     return(ret)
 
@@ -189,7 +203,7 @@ time_decompose.grouped_tbl_time <- function(data, target, method = c("stl", "twi
 
 #' @export
 time_decompose.grouped_df <- function(data, target, method = c("stl", "twitter", "multiplicative"),
-                                      frequency = "auto", merge = FALSE, message = FALSE, ...) {
+                                      frequency = "auto", trend = "auto", ..., merge = FALSE, message = FALSE) {
 
     data <- prep_tbl_time(data, message = message)
 
@@ -198,6 +212,7 @@ time_decompose.grouped_df <- function(data, target, method = c("stl", "twitter",
                    target    = !! dplyr::enquo(target),
                    method    = method[[1]],
                    frequency = frequency,
+                   trend     = trend,
                    ...       = ...,
                    merge     = merge,
                    message   = message)

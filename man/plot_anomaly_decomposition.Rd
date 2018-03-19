@@ -28,7 +28,7 @@ plot_anomaly_decomposition(data, ncol = 1, color_no = "#2c3e50",
 \item{strip.position}{Controls the placement of the strip that identifies the time series decomposition components.}
 }
 \value{
-Returns a \code{ggplot2} object.
+Returns a \code{ggplot} object.
 }
 \description{
 Visualize the time series decomposition with anomalies shown
