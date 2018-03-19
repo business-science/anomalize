@@ -1,0 +1,38 @@
+Package: anomalize
+Type: Package
+Title: Tidy anomaly detection
+Version: 0.1.0
+Author: c(
+    person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
+    person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
+  )
+Maintainer: Matt Dancho <mdancho@business-science.io>
+Description:
+    The `anomalize` package enables a "tidy" workflow for detecting anomalies in data.
+    The main functions are `time_decompose()`, `anomalize()`, and `time_recompose()`.
+    When combined, it's quite simple to decompose time series, detect anomalies,
+    and create bands separating the "normal" data from the anomalous data. 
+URL: https://github.com/business-science/anomalize
+BugReports: https://github.com/business-science/anomalize/issues
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.0.0)
+Imports: 
+    dplyr,
+    glue,
+    tidyquant,
+    timetk,
+    sweep,
+    tibbletime,
+    purrr,
+    rlang,
+    tibble,
+    stringr,
+    tidyr,
+    ggplot2
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
+Suggests: 
+    testthat

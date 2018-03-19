@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^cran-comments\.md$
+^_pkgdown\.yml$
+^docs$
+^data-raw$
