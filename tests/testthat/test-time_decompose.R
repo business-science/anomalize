@@ -82,35 +82,35 @@ test_that("method = twitter, numeric freq/trend", {
 
 })
 
-test_that("method = multiplicative, auto freq/trend", {
-    mult_tbl_time <- tidyverse_cran_downloads %>%
-        time_decompose(count, method = "multiplicative", frequency = "auto", trend = "auto")
-
-    expect_equal(ncol(mult_tbl_time), 6)
-    expect_equal(nrow(mult_tbl_time), 6375)
-    expect_equal(group_size(mult_tbl_time) %>% length(), 15)
-
-})
-
-test_that("method = multiplicative, character freq/trend", {
-    mult_tbl_time <- tidyverse_cran_downloads %>%
-        time_decompose(count, method = "multiplicative", frequency = "1 week", trend = "1 month")
-
-    expect_equal(ncol(mult_tbl_time), 6)
-    expect_equal(nrow(mult_tbl_time), 6375)
-    expect_equal(group_size(mult_tbl_time) %>% length(), 15)
-
-})
-
-test_that("method = multiplicative, numeric freq/trend", {
-    mult_tbl_time <- tidyverse_cran_downloads %>%
-        time_decompose(count, method = "multiplicative", frequency = 7, trend = 90)
-
-    expect_equal(ncol(mult_tbl_time), 6)
-    expect_equal(nrow(mult_tbl_time), 6375)
-    expect_equal(group_size(mult_tbl_time) %>% length(), 15)
-
-})
+# test_that("method = multiplicative, auto freq/trend", {
+#     mult_tbl_time <- tidyverse_cran_downloads %>%
+#         time_decompose(count, method = "multiplicative", frequency = "auto", trend = "auto")
+#
+#     expect_equal(ncol(mult_tbl_time), 6)
+#     expect_equal(nrow(mult_tbl_time), 6375)
+#     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+#
+# })
+#
+# test_that("method = multiplicative, character freq/trend", {
+#     mult_tbl_time <- tidyverse_cran_downloads %>%
+#         time_decompose(count, method = "multiplicative", frequency = "1 week", trend = "1 month")
+#
+#     expect_equal(ncol(mult_tbl_time), 6)
+#     expect_equal(nrow(mult_tbl_time), 6375)
+#     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+#
+# })
+#
+# test_that("method = multiplicative, numeric freq/trend", {
+#     mult_tbl_time <- tidyverse_cran_downloads %>%
+#         time_decompose(count, method = "multiplicative", frequency = 7, trend = 90)
+#
+#     expect_equal(ncol(mult_tbl_time), 6)
+#     expect_equal(nrow(mult_tbl_time), 6375)
+#     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+#
+# })
 
 test_that("grouped_df works", {
     grouped_data <- tidyverse_cran_downloads %>%

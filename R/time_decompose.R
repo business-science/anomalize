@@ -2,10 +2,9 @@
 #'
 #' @inheritParams anomalize
 #' @param data A `tibble` or `tbl_time` object.
-#' @param method The time series decomposition method. One of `"stl"`, `"twitter"`, or
-#' `"multiplicative"`. The STL method uses seasonal decomposition (see [decompose_stl()]).
+#' @param method The time series decomposition method. One of `"stl"` or `"twitter"`.
+#' The STL method uses seasonal decomposition (see [decompose_stl()]).
 #' The Twitter method uses `trend` to remove the trend (see [decompose_twitter()]).
-#' The Multiplicative method uses multiplicative decomposition (see [decompose_multiplicative()]).
 #' @param frequency Controls the seasonal adjustment (removal of seasonality).
 #' Input can be either "auto", a time-based definition (e.g. "2 weeks"),
 #' or a numeric number of observations per frequency (e.g. 10).
@@ -13,7 +12,6 @@
 #' @param trend Applies to the "twitter" method and "stl" methods only.
 #' For twitter, the trend controls the median spans, which are used to remove the trend and center the remainder.
 #' For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
-#' For multiplicative, the trend is made using a [stats::supsmu()] (super smooether).
 #' @param ... Additional parameters passed to the underlying method functions.
 #' @param merge A boolean. `FALSE` by default. If `TRUE`, will append results to the original data.
 #' @param message A boolean. If `TRUE`, will output information related to `tbl_time` conversions, frequencies,
@@ -62,22 +60,11 @@
 #' (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 #' based on the scale of the time series.
 #'
-#' __Multiplicative__:
-#'
-#' The Multiplicative method (`method = "multiplicative"`) time series decomposition
-#' uses the [stats::decompose()] function with `type = "multiplicative"`. This
-#' method is useful in circumstances where variance is non-constantant and typically
-#' growing in a multiplicative fashion.
-#' The parameters are the same as the STL method except that the `trend` parameter is unused.
-#' The trend for multiplicative is made using a [stats::supsmu()] (Friedman's SuperSmoother).
-#' Alternatively, users may wish to try a transformation (e.g. `log()` or `sqrt()`) in combination
-#' with the STL method to get near-constant variance.
 #'
 #' @seealso
 #' Decomposition Methods (Powers `time_decompose`)
 #' - [decompose_stl()]
 #' - [decompose_twitter()]
-#' - [decompose_multiplicative()]
 #'
 #' Time Series Anomaly Detection Functions (anomaly detection workflow):
 #' - [anomalize()]
@@ -103,19 +90,19 @@
 #'                    message      = FALSE)
 #'
 #' @export
-time_decompose <- function(data, target, method = c("stl", "twitter", "multiplicative"),
+time_decompose <- function(data, target, method = c("stl", "twitter"),
                            frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
     UseMethod("time_decompose", data)
 }
 
 #' @export
-time_decompose.default <- function(data, target, method = c("stl", "twitter", "multiplicative"),
+time_decompose.default <- function(data, target, method = c("stl", "twitter"),
                                    frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
     stop("Error time_decompose(): Object is not of class `tbl_df` or `tbl_time`.", call. = FALSE)
 }
 
 #' @export
-time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter", "multiplicative"),
+time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter"),
                                     frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
 
     # Checks
@@ -132,9 +119,9 @@ time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter", "
     } else if (method == "stl") {
         decomp_tbl <- data %>%
             decompose_stl(!! target_expr, frequency = frequency, trend = trend, message = message, ...)
-    } else if (method == "multiplicative") {
-        decomp_tbl <- data %>%
-            decompose_multiplicative(!! target_expr, frequency = frequency, message = message, ...)
+    # } else if (method == "multiplicative") {
+    #     decomp_tbl <- data %>%
+    #         decompose_multiplicative(!! target_expr, frequency = frequency, message = message, ...)
     } else {
         stop(paste0("method = '", method[[1]], "' is not a valid option."))
     }
@@ -151,7 +138,7 @@ time_decompose.tbl_time <- function(data, target, method = c("stl", "twitter", "
 }
 
 #' @export
-time_decompose.tbl_df <- function(data, target, method = c("stl", "twitter", "multiplicative"),
+time_decompose.tbl_df <- function(data, target, method = c("stl", "twitter"),
                                   frequency = "auto", trend = "auto", ..., merge = FALSE, message = TRUE) {
 
     # Checks
@@ -176,7 +163,7 @@ time_decompose.tbl_df <- function(data, target, method = c("stl", "twitter", "mu
 
 
 #' @export
-time_decompose.grouped_tbl_time <- function(data, target, method = c("stl", "twitter", "multiplicative"),
+time_decompose.grouped_tbl_time <- function(data, target, method = c("stl", "twitter"),
                                             frequency = "auto", trend = "auto", ..., merge = FALSE, message = FALSE) {
 
     # Checks
@@ -202,7 +189,7 @@ time_decompose.grouped_tbl_time <- function(data, target, method = c("stl", "twi
 }
 
 #' @export
-time_decompose.grouped_df <- function(data, target, method = c("stl", "twitter", "multiplicative"),
+time_decompose.grouped_df <- function(data, target, method = c("stl", "twitter"),
                                       frequency = "auto", trend = "auto", ..., merge = FALSE, message = FALSE) {
 
     data <- prep_tbl_time(data, message = message)

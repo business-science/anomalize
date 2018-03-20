@@ -150,47 +150,47 @@ decompose_stl <- function(data, target, frequency = "auto", trend = "auto", mess
 
 
 
-
-# 2C. Multiplicative ----
-
-#' @export
-#' @rdname decompose_methods
-decompose_multiplicative <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
-
-    # Checks
-    if (missing(target)) stop('Error in decompose_multiplicative(): argument "target" is missing, with no default', call. = FALSE)
-
-    # Setup inputs
-    data <- prep_tbl_time(data)
-    date_col_vals <- tibbletime::get_index_col(data)
-
-    target_expr <- dplyr::enquo(target)
-
-    date_col_name <- timetk::tk_get_timeseries_variables(data)[[1]]
-    date_col_expr <- rlang::sym(date_col_name)
-
-    frequency <- anomalize::time_frequency(data, period = frequency, message = message)
-    # Note that trend is unused in super smoother (`supsmu()`)
-
-    # Time Series Decomposition
-    decomp_tbl <- data %>%
-        dplyr::pull(!! target_expr) %>%
-        stats::ts(frequency = frequency) %>%
-        stats::decompose(type = "multiplicative") %>%
-        sweep::sw_tidy_decomp() %>%
-        dplyr::select(-index) %>%
-        dplyr::rename(remainder = random) %>%
-        dplyr::select(observed, season, seasadj, trend, remainder) %>%
-        tibble::add_column(!! date_col_name := date_col_vals, .after = 0)  %>%
-        # Fix trend and remainder
-        dplyr::mutate(
-            trend = stats::supsmu(seq_along(observed), seasadj)$y,
-            remainder = observed / (trend * season)
-        ) %>%
-        dplyr::select(-seasadj)
-
-    decomp_tbl <- anomalize::prep_tbl_time(decomp_tbl)
-
-    return(decomp_tbl)
-
-}
+# NOT USED: USE TRANSFORMATIONS INSTEAD
+# # 2C. Multiplicative ----
+#
+# #' @export
+# #' @rdname decompose_methods
+# decompose_multiplicative <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
+#
+#     # Checks
+#     if (missing(target)) stop('Error in decompose_multiplicative(): argument "target" is missing, with no default', call. = FALSE)
+#
+#     # Setup inputs
+#     data <- prep_tbl_time(data)
+#     date_col_vals <- tibbletime::get_index_col(data)
+#
+#     target_expr <- dplyr::enquo(target)
+#
+#     date_col_name <- timetk::tk_get_timeseries_variables(data)[[1]]
+#     date_col_expr <- rlang::sym(date_col_name)
+#
+#     frequency <- anomalize::time_frequency(data, period = frequency, message = message)
+#     # Note that trend is unused in super smoother (`supsmu()`)
+#
+#     # Time Series Decomposition
+#     decomp_tbl <- data %>%
+#         dplyr::pull(!! target_expr) %>%
+#         stats::ts(frequency = frequency) %>%
+#         stats::decompose(type = "multiplicative") %>%
+#         sweep::sw_tidy_decomp() %>%
+#         dplyr::select(-index) %>%
+#         dplyr::rename(remainder = random) %>%
+#         dplyr::select(observed, season, seasadj, trend, remainder) %>%
+#         tibble::add_column(!! date_col_name := date_col_vals, .after = 0)  %>%
+#         # Fix trend and remainder
+#         dplyr::mutate(
+#             trend = stats::supsmu(seq_along(observed), seasadj)$y,
+#             remainder = observed / (trend * season)
+#         ) %>%
+#         dplyr::select(-seasadj)
+#
+#     decomp_tbl <- anomalize::prep_tbl_time(decomp_tbl)
+#
+#     return(decomp_tbl)
+#
+# }
