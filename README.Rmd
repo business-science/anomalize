@@ -85,7 +85,7 @@ tidyverse_cran_downloads %>%
 
 Suppose we want to determine which daily download "counts" are anomalous. It's as easy as using the three main functions (`time_decompose()`, `anomalize()`, and `time_recompose()`) along with a visualization function, `plot_anomalies()`.
 
-```{r tidyverse_anoms, fig.height=8}
+```{r tidyverse_anoms_1, fig.height=8}
 tidyverse_cran_downloads %>%
     # Data Manipulation / Anomaly Detection
     time_decompose(count, method = "stl") %>%
@@ -93,8 +93,7 @@ tidyverse_cran_downloads %>%
     time_recompose() %>%
     # Anomaly Visualization
     plot_anomalies(time_recomposed = TRUE, ncol = 3, alpha_dots = 0.25) +
-    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") +
-    theme(axis.text.x = element_text(angle = 30, hjust = 1))
+    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") 
 ```
 
 If you're familiar with Twitter's `AnomalyDetection` package, you can implement that method by combining `time_decompose(method = "twitter")` with `anomalize(method = "gesd")`. Additionally, we'll adjust the `trend = "2 months"` to adjust the median spans, which is how Twitter's decomposition method works.

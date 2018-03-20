@@ -110,7 +110,8 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
 
         g <- g +
             ggplot2::facet_wrap(as.formula(paste0(" ~ ", facet_group)),
-                                scales = "free_y", ncol = ncol)
+                                scales = "free_y", ncol = ncol) +
+            theme(axis.text.x = element_text(angle = 30, hjust = 1))
 
     }
 

@@ -11,14 +11,25 @@ test_that("No target errors", {
     expect_error(time_decompose(ungroup(tidyverse_cran_downloads)))
 })
 
-test_that("single tbl_time", {
+test_that("single tbl_df", {
     stl_tbl_time <- tidyverse_cran_downloads %>%
         filter(package == "lubridate") %>%
         ungroup() %>%
+        as.tibble() %>%
         time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
 
     expect_equal(ncol(stl_tbl_time), 5)
     expect_equal(nrow(stl_tbl_time), 425)
+
+})
+
+test_that("grouped tbl_df", {
+    stl_tbl_time <- tidyverse_cran_downloads %>%
+        as.tibble() %>%
+        time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
+
+    expect_equal(ncol(stl_tbl_time), 6)
+    expect_equal(nrow(stl_tbl_time), 6375)
 
 })
 

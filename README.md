@@ -95,11 +95,10 @@ tidyverse_cran_downloads %>%
     time_recompose() %>%
     # Anomaly Visualization
     plot_anomalies(time_recomposed = TRUE, ncol = 3, alpha_dots = 0.25) +
-    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") +
-    theme(axis.text.x = element_text(angle = 30, hjust = 1))
+    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") 
 ```
 
-<img src="man/figures/README-tidyverse_anoms-1.png" width="100%" />
+<img src="man/figures/README-tidyverse_anoms_1-1.png" width="100%" />
 
 If you’re familiar with Twitter’s `AnomalyDetection` package, you can
 implement that method by combining `time_decompose(method = "twitter")`
