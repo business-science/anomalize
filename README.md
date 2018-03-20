@@ -77,10 +77,12 @@ tidyverse_cran_downloads %>%
     geom_point(color = "#2c3e50", alpha = 0.25) +
     facet_wrap(~ package, scale = "free_y", ncol = 3) +
     theme_minimal() +
-    theme(axis.text.x = element_text(angle = 30, hjust = 1))
+    theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+    labs(title = "Tidyverse Package Daily Download Counts",
+         subtitle = "Data from CRAN by way of cranlogs package")
 ```
 
-<img src="man/figures/README-tidyverse_plot-1.png" width="100%" />
+<img src="man/figures/README-tidyverse_plot_1-1.png" width="100%" />
 
 Suppose we want to determine which daily download “counts” are
 anomalous. It’s as easy as using the three main functions
