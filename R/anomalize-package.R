@@ -15,5 +15,6 @@
 #' @importFrom rlang := !! !!!
 #' @importFrom dplyr %>% n row_number contains quo_name
 #' @importFrom stats median mad qt as.formula
+#' @import ggplot2
 
 NULL

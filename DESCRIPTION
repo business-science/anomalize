@@ -22,7 +22,6 @@ Depends:
 Imports: 
     dplyr,
     glue,
-    tidyquant,
     timetk,
     sweep,
     tibbletime,
@@ -34,5 +33,7 @@ Imports:
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
+    tidyverse,
+    tidyquant,
     testthat,
     covr

@@ -2,7 +2,7 @@ context("test-anomalize.R")
 
 # Setup
 
-library(tidyverse)
+library(dplyr)
 
 tq_dloads <- tidyverse_cran_downloads %>%
     dplyr::ungroup() %>%

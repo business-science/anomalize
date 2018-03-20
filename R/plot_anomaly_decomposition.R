@@ -89,8 +89,8 @@ plot_anomaly_decomposition.tbl_time <- function(data, ncol = 1, color_no = "#2c3
         ggplot2::geom_point(size = size_circles, shape = 1, alpha = alpha_circles,
                    data = data_anomaly_tbl %>% dplyr::filter(anomaly == "Yes")) +
         # Horizontal Line at Y = 0
-        ggplot2::geom_hline(yintercept = 0, color = tidyquant::palette_light()[[1]]) +
-        tidyquant::theme_tq() +
+        ggplot2::geom_hline(yintercept = 0, color = palette_light()[[1]]) +
+        theme_tq() +
         ggplot2::facet_wrap(~ key, ncol = ncol, scales = "free_y", strip.position = strip.position) +
         ggplot2::scale_color_manual(values = c("No" = color_no, "Yes" = color_yes))
 
