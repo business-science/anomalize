@@ -11,6 +11,17 @@ test_that("No target errors", {
     expect_error(time_decompose(ungroup(tidyverse_cran_downloads)))
 })
 
+test_that("single tbl_time", {
+    stl_tbl_time <- tidyverse_cran_downloads %>%
+        filter(package == "lubridate") %>%
+        ungroup() %>%
+        time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
+
+    expect_equal(ncol(stl_tbl_time), 5)
+    expect_equal(nrow(stl_tbl_time), 425)
+
+})
+
 test_that("method = stl, auto freq/trend", {
     stl_tbl_time <- tidyverse_cran_downloads %>%
         time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
@@ -98,5 +109,16 @@ test_that("method = multiplicative, numeric freq/trend", {
     expect_equal(ncol(mult_tbl_time), 6)
     expect_equal(nrow(mult_tbl_time), 6375)
     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+
+})
+
+test_that("grouped_df works", {
+    grouped_data <- tidyverse_cran_downloads %>%
+        as.tibble() %>%
+        time_decompose(count)
+
+    expect_equal(ncol(grouped_data), 6)
+    expect_equal(nrow(grouped_data), 6375)
+    expect_equal(group_size(grouped_data) %>% length(), 15)
 
 })

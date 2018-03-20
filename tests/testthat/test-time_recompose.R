@@ -23,3 +23,4 @@ test_that("time_recompose works on tbl_time", {
         time_recompose()
     expect_true("recomposed_l2" %in% names(single_recomp))
 })
+
