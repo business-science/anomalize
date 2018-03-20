@@ -77,13 +77,12 @@ replace_duplicate_colnames <- function(tib1, tib2) {
         while (duplicates_exist) {
 
             dup_names_stripped <-
-                stringr::str_split(name_list[duplicated(name_list)],
-                                   pattern = "\\.\\.",
-                                   simplify = FALSE) %>%
+                strsplit(name_list[duplicated(name_list)],
+                                   split = "\\.\\.") %>%
                 sapply(function(x) x[[1]])
 
             name_list[duplicated(name_list)] <-
-                stringr::str_c(dup_names_stripped, "..", i)
+                paste0(dup_names_stripped, "..", i)
 
             i <- i + 1
 
@@ -112,9 +111,10 @@ replace_bad_names <- function(tib, fun_name) {
     bad_names_regex <- "open|high|low|close|volume|adjusted|price"
 
     name_list_tib <- colnames(tib)
-    name_list_tib_lower <- stringr::str_to_lower(name_list_tib)
+    name_list_tib_lower <- tolower(name_list_tib)
 
-    detect_bad_names <- stringr::str_detect(name_list_tib_lower, bad_names_regex)
+    detect_bad_names <- grepl(pattern = bad_names_regex,
+                              x       = name_list_tib_lower)
 
     if (any(detect_bad_names)) {
 

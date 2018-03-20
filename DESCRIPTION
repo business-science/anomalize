@@ -29,7 +29,6 @@ Imports:
     purrr,
     rlang,
     tibble,
-    stringr,
     tidyr,
     ggplot2
 RoxygenNote: 6.0.1

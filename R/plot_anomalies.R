@@ -106,12 +106,12 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
         facet_group <- dplyr::groups(data) %>%
             purrr::map(quo_name) %>%
             unlist() %>%
-            stringr::str_c(collapse = " + ")
+            paste0(collapse = " + ")
 
         g <- g +
             ggplot2::facet_wrap(as.formula(paste0(" ~ ", facet_group)),
                                 scales = "free_y", ncol = ncol) +
-            theme(axis.text.x = element_text(angle = 30, hjust = 1))
+            ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30, hjust = 1))
 
     }
 
