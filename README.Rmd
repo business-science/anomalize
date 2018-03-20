@@ -62,13 +62,17 @@ devtools::install_github("business-science/anomalize")
 - `anomalize()`: Applies anomaly detection methods to the remainder component.
 - `time_recompose()`: Calculates limits that separate the "normal" data from the anomalies!
 
+## Getting Started
+
+Load the `tidyverse` and `anomalize` packages.
+
 ```{r, eval = F}
 library(tidyverse)
 library(anomalize)
 ```
 
 
-First, let's get some data. We have a data set called `tidyverse_cran_downloads` that contains the daily CRAN download counts for 15 "tidy" packages from 2017-01-01 to 2018-03-01.
+Next, let's get some data.  `anomalize` ships with a data set called `tidyverse_cran_downloads` that contains the daily CRAN download counts for 15 "tidy" packages from 2017-01-01 to 2018-03-01.
 
 ```{r tidyverse_plot, fig.height=5}
 tidyverse_cran_downloads %>%
@@ -79,13 +83,15 @@ tidyverse_cran_downloads %>%
     theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
-Suppose we want to determine which daily "counts" are anomalous. It's as easy as using the three main functions (`time_decompose()`, `anomalize()`, and `time_recompose()`) along with a visualization function, `plot_anomalies()`.
+Suppose we want to determine which daily download "counts" are anomalous. It's as easy as using the three main functions (`time_decompose()`, `anomalize()`, and `time_recompose()`) along with a visualization function, `plot_anomalies()`.
 
 ```{r tidyverse_anoms, fig.height=8}
 tidyverse_cran_downloads %>%
+    # Data Manipulation / Anomaly Detection
     time_decompose(count, method = "stl") %>%
     anomalize(remainder, method = "iqr") %>%
     time_recompose() %>%
+    # Anomaly Visualization
     plot_anomalies(time_recomposed = TRUE, ncol = 3, alpha_dots = 0.25) +
     labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") +
     theme(axis.text.x = element_text(angle = 30, hjust = 1))
@@ -94,37 +100,94 @@ tidyverse_cran_downloads %>%
 If you're familiar with Twitter's `AnomalyDetection` package, you can implement that method by combining `time_decompose(method = "twitter")` with `anomalize(method = "gesd")`. Additionally, we'll adjust the `trend = "2 months"` to adjust the median spans, which is how Twitter's decomposition method works.
 
 ```{r}
-tidyverse_cran_downloads %>%
-    filter(package == "lubridate") %>%
+# Get only lubridate downloads
+lubridate_dloads <- tidyverse_cran_downloads %>%
+    filter(package == "lubridate") %>% 
+    ungroup()
+
+# Anomalize!!
+lubridate_dloads %>%
+    # Twitter + GESD
     time_decompose(count, method = "twitter", trend = "2 months") %>%
     anomalize(remainder, method = "gesd") %>%
     time_recompose() %>%
-    plot_anomalies(time_recomposed = T) +
+    # Anomaly Visualziation
+    plot_anomalies(time_recomposed = TRUE) +
     labs(title = "Lubridate Anomalies", subtitle = "Twitter + GESD Methods")
     
 ```
 
-And, we can compare to STL + IQR methods, which use different decomposition and anomaly detection approaches.
+Last, we can compare to STL + IQR methods, which use different decomposition and anomaly detection approaches.
 
 ```{r}
-tidyverse_cran_downloads %>%
-    filter(package == "lubridate") %>%
+lubridate_dloads %>%
+    # STL + IQR Anomaly Detection
     time_decompose(count, method = "stl", trend = "2 months") %>%
     anomalize(remainder, method = "iqr") %>%
     time_recompose() %>%
-    plot_anomalies(time_recomposed = T) +
+    # Anomaly Visualization
+    plot_anomalies(time_recomposed = TRUE) +
     labs(title = "Lubridate Anomalies", subtitle = "STL + IQR Methods")
 ```
+
+## But Wait, There's More!
 
 There are a several extra capabilities:
 
 - `time_frequency()` and `time_trend()` for generating frequency and trend spans using date and datetime information, which is more intuitive than selecting numeric values. Also, `period = "auto"` automatically selects frequency and trend spans based on the time scale of the data.
 
-- `plot_anomaly_decomposition()` for visualizing the inner workings of how the "remainder" is analyzed for anomalies. 
+```{r, message = T}
+# Time Frequency
+time_frequency(lubridate_dloads, period = "auto")
+```
+
+```{r, message = T}
+# Time Trend
+time_trend(lubridate_dloads, period = "auto")
+```
+
+
+- `plot_anomaly_decomposition()` for visualizing the inner workings of how algorithm detects anomalies in the "remainder". 
+
+```{r, fig.height=7}
+tidyverse_cran_downloads %>%
+    filter(package == "lubridate") %>%
+    ungroup() %>%
+    time_decompose(count) %>%
+    anomalize(remainder) %>%
+    plot_anomaly_decomposition() +
+    labs(title = "Decomposition of Anomalized Lubridate Downloads")
+```
+
+<!-- - Other `time_decompose` methods: In addition to "stl" and "twitter", we have added "multiplicative" for time series with non-constant variance. Word of caution that statistical transformations such as logarithmic or power transformations may perform better. -->
+
+- Vector functions for anomaly detection: `iqr()` and `gesd()`. These are great for just using on numeric data.
+
+```{r}
+# Data with outliers
+set.seed(100)
+x <- rnorm(100)
+idx_outliers <- sample(100, size = 5)
+x[idx_outliers] <- x[idx_outliers] + 10
+
+# IQR method
+iqr(x, alpha = 0.05, max_anoms = 0.2)
+```
+
+- Anomaly Reports: Using `verbose = TRUE`, we can return a nice report of useful information related to the outliers.
+
+```{r}
+lubridate_dloads %>%
+    time_decompose(count) %>%
+    anomalize(remainder, verbose = TRUE)
+```
+
+
+
 
 ## References
 
-We investigated several other packages when developing anomaly detection methods used in `anomalize`:
+Several other packages were instrumental in developing anomaly detection methods used in `anomalize`:
 
 - Twitter's `AnomalyDetection`, which implements decomposition using median spans and the Generalized Extreme Studentized Deviation (GESD) test for anomalies.
 - `forecast::tsoutliers()` function, which implements the IQR method. 
