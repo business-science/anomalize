@@ -161,7 +161,7 @@ tidyverse_cran_downloads %>%
 
 <!-- - Other `time_decompose` methods: In addition to "stl" and "twitter", we have added "multiplicative" for time series with non-constant variance. Word of caution that statistical transformations such as logarithmic or power transformations may perform better. -->
 
-- Vector functions for anomaly detection: `iqr()` and `gesd()`. These are great for just using on numeric data.
+- Vector functions for anomaly detection: `iqr()` and `gesd()`. These are great for just using on numeric data. Note that trend and seasonality should already be removed for time series data.
 
 ```{r}
 # Data with outliers
