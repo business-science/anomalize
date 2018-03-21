@@ -97,7 +97,9 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
                            size = size_circles, shape = 1, alpha = alpha_circles,
                            data = data %>% dplyr::filter(anomaly == "Yes")) +
         theme_tq() +
-        ggplot2::scale_color_manual(values = c("No" = color_no, "Yes" = color_yes))
+        ggplot2::scale_color_manual(values = c("No" = color_no, "Yes" = color_yes)) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30, hjust = 1))
+
 
 
 
@@ -110,9 +112,7 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
 
         g <- g +
             ggplot2::facet_wrap(as.formula(paste0(" ~ ", facet_group)),
-                                scales = "free_y", ncol = ncol) +
-            ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30, hjust = 1))
-
+                                scales = "free_y", ncol = ncol)
     }
 
     return(g)

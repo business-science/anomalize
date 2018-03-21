@@ -92,7 +92,9 @@ plot_anomaly_decomposition.tbl_time <- function(data, ncol = 1, color_no = "#2c3
         ggplot2::geom_hline(yintercept = 0, color = palette_light()[[1]]) +
         theme_tq() +
         ggplot2::facet_wrap(~ key, ncol = ncol, scales = "free_y", strip.position = strip.position) +
-        ggplot2::scale_color_manual(values = c("No" = color_no, "Yes" = color_yes))
+        ggplot2::scale_color_manual(values = c("No" = color_no, "Yes" = color_yes)) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 30, hjust = 1))
+
 
     return(g)
 
