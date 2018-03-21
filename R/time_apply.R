@@ -74,10 +74,10 @@ time_apply.data.frame <- function(data, target, period, .fun, ...,
             dplyr::mutate(!! date_col_name := data %>% dplyr::pull(!! date_col_expr))
 
     } else {
-        # Numeric (e.g. 15 data points)
+        # Numeric (e.g. every 15 data points)
         ret <- data %>%
             dplyr::mutate(
-                .period_groups = rep(1:period, length.out = nrow(.)) %>% sort()
+                .period_groups = c(0, (1:(nrow(.) - 1) %/% period))
             ) %>%
             dplyr::group_by(.period_groups) %>%
             dplyr::mutate(

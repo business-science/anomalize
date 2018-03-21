@@ -9,8 +9,10 @@
 #' Input can be either "auto", a time-based definition (e.g. "2 weeks"),
 #' or a numeric number of observations per frequency (e.g. 10).
 #' Refer to [time_frequency()].
-#' @param trend Applies to the "twitter" method and "stl" methods only.
-#' For twitter, the trend controls the median spans, which are used to remove the trend and center the remainder.
+#' @param trend Controls the trend component
+#' For twitter, the trend controls the values grouped into a median span,
+#' which are used to remove the trend and center the remainder
+#' (as an alternative, try the `median_spans` argument to ensure an even distribution of observations is split into each median span).
 #' For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
 #' @param ... Additional parameters passed to the underlying method functions.
 #' @param merge A boolean. `FALSE` by default. If `TRUE`, will append results to the original data.
@@ -59,6 +61,8 @@
 #' and `trend` as time-based durations (e.g. "6 weeks") or numeric values
 #' (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 #' based on the scale of the time series.
+#' One problem with `trend` is that the final median span may have a small number of observations.
+#' Use `median_spans` to evenly distribute the observations into n distinct median groups.
 #'
 #'
 #' @seealso
@@ -80,12 +84,12 @@
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl")
 #'
-#' # twitter + trend
+#' # twitter using median_spans argument
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count,
 #'                    method       = "twitter",
 #'                    frequency    = "1 week",
-#'                    trend        = "3 months",
+#'                    median_spans = 3,
 #'                    merge        = TRUE,
 #'                    message      = FALSE)
 #'

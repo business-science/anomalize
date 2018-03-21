@@ -25,11 +25,15 @@
 
 #' @export
 #' @rdname decompose_methods
-decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
+#' @param median_spans Applies to method = "twitter" only.
+#' Set to `NULL` by default. If provided will split the medians into
+#' n distinct groups with approximately equal numbers of observations.
+decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", median_spans = NULL, message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_twitter(): argument "target" is missing, with no default', call. = FALSE)
-
+    if (!is.null(median_spans))
+        if (!is.numeric(median_spans)) stop('Error in decompse_twitter(): argument "median_spans" must be numeric.', call. = FALSE)
 
     data <- prep_tbl_time(data)
     date_col_vals <- tibbletime::get_index_col(data)
@@ -54,12 +58,29 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
         tibble::add_column(!! date_col_name := date_col_vals, .after = 0) %>%
         purrr::set_names(c(date_col_name, "observed", "season", "trend", "remainder")) %>%
         dplyr::mutate(seasadj = observed - season) %>%
-        dplyr::select(!! date_col_expr, observed, season, seasadj, trend, remainder) %>%
+        dplyr::select(!! date_col_expr, observed, season, seasadj, trend, remainder)
 
-        # Median Groups
-        time_median(observed, period = trend, message = message) %>%
+    # Median Spans
+    if (is.null(median_spans)) {
 
-        # Observed transformations
+        decomp_tbl <- decomp_tbl %>%
+            time_median(observed, period = trend, message = message)
+
+    } else {
+
+        decomp_tbl <- decomp_tbl %>%
+            dplyr::mutate(
+                .period_groups = rep(1:median_spans, length.out = nrow(.)) %>% sort()
+            ) %>%
+            dplyr::group_by(.period_groups) %>%
+            dplyr::mutate(median_spans = median(observed, na.rm = T)) %>%
+            dplyr::ungroup() %>%
+            dplyr::select(-.period_groups)
+
+    }
+
+    # Observed transformations
+    decomp_tbl <- decomp_tbl %>%
         dplyr::mutate(
             remainder = observed - season - median_spans
         ) %>%
@@ -151,7 +172,7 @@ decompose_stl <- function(data, target, frequency = "auto", trend = "auto", mess
 
 
 # NOT USED: USE TRANSFORMATIONS INSTEAD
-# # 2C. Multiplicative ----
+# # 2C. Multiplicative
 #
 # #' @export
 # #' @rdname decompose_methods

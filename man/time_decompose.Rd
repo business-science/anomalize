@@ -22,8 +22,10 @@ Input can be either "auto", a time-based definition (e.g. "2 weeks"),
 or a numeric number of observations per frequency (e.g. 10).
 Refer to \code{\link[=time_frequency]{time_frequency()}}.}
 
-\item{trend}{Applies to the "twitter" method and "stl" methods only.
-For twitter, the trend controls the median spans, which are used to remove the trend and center the remainder.
+\item{trend}{Controls the trend component
+For twitter, the trend controls the values grouped into a median span,
+which are used to remove the trend and center the remainder
+(as an alternative, try the \code{median_spans} argument to ensure an even distribution of observations is split into each median span).
 For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.}
 
 \item{...}{Additional parameters passed to the underlying method functions.}
@@ -78,6 +80,8 @@ number of median spans that are used. The user may supply both \code{frequency}
 and \code{trend} as time-based durations (e.g. "6 weeks") or numeric values
 (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 based on the scale of the time series.
+One problem with \code{trend} is that the final median span may have a small number of observations.
+Use \code{median_spans} to evenly distribute the observations into n distinct median groups.
 }
 \examples{
 
@@ -89,12 +93,12 @@ data(tidyverse_cran_downloads)
 tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl")
 
-# twitter + trend
+# twitter using median_spans argument
 tidyverse_cran_downloads \%>\%
     time_decompose(count,
                    method       = "twitter",
                    frequency    = "1 week",
-                   trend        = "3 months",
+                   median_spans = 3,
                    merge        = TRUE,
                    message      = FALSE)
 
