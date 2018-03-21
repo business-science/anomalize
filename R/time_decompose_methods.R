@@ -64,7 +64,21 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
     if (is.null(median_spans)) {
 
         decomp_tbl <- decomp_tbl %>%
-            time_median(observed, period = trend, message = message)
+            time_median(observed, period = trend, message = FALSE)
+
+        if (message) {
+            med_span <- decomp_tbl %>%
+                dplyr::count(median_spans) %>%
+                dplyr::pull(n) %>%
+                median(na.rm = TRUE)
+
+            med_scale <- decomp_tbl %>%
+                timetk::tk_index() %>%
+                timetk::tk_get_timeseries_summary() %>%
+                dplyr::pull(scale)
+
+            message(glue::glue("median_span = {med_span} {med_scale}s"))
+        }
 
     } else {
 
@@ -74,9 +88,24 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
             ) %>%
             dplyr::group_by(.period_groups) %>%
             dplyr::mutate(median_spans = median(observed, na.rm = T)) %>%
-            dplyr::ungroup() %>%
-            dplyr::select(-.period_groups)
+            dplyr::ungroup()
 
+        if (message) {
+            med_span <- decomp_tbl %>%
+                dplyr::count(.period_groups) %>%
+                dplyr::pull(n) %>%
+                median(na.rm = TRUE)
+
+            med_scale <- decomp_tbl %>%
+                timetk::tk_index() %>%
+                timetk::tk_get_timeseries_summary() %>%
+                dplyr::pull(scale)
+
+            message(glue::glue("median_span = {med_span} {med_scale}s"))
+        }
+
+        decomp_tbl <- decomp_tbl %>%
+            dplyr::select(-.period_groups)
     }
 
     # Observed transformations
