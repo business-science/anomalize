@@ -10,14 +10,12 @@
 #' or a numeric number of observations per frequency (e.g. 10).
 #' Refer to [time_frequency()].
 #' @param trend Controls the trend component
-#' For twitter, the trend controls the values grouped into a median span,
-#' which are used to remove the trend and center the remainder
-#' (as an alternative, try the `median_spans` argument to ensure an even distribution of observations is split into each median span).
 #' For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
+#' For twitter, the trend controls the period width of the median, which are used to remove the trend and center the remainder.
 #' @param ... Additional parameters passed to the underlying method functions.
 #' @param merge A boolean. `FALSE` by default. If `TRUE`, will append results to the original data.
 #' @param message A boolean. If `TRUE`, will output information related to `tbl_time` conversions, frequencies,
-#' and median spans (if applicable).
+#' and trend / median spans (if applicable).
 #'
 #' @return Returns a `tbl_time` object.
 #'
@@ -57,12 +55,10 @@
 #' The user can control two parameters: `frequency` and `trend`.
 #' The `frequency` parameter adjusts the "season" component that is removed
 #' from the "observed" values. The `trend` parameter adjusts the
-#' number of median spans that are used. The user may supply both `frequency`
+#' period width of the median spans that are used. The user may supply both `frequency`
 #' and `trend` as time-based durations (e.g. "6 weeks") or numeric values
 #' (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 #' based on the scale of the time series.
-#' One problem with `trend` is that the final median span may have a small number of observations.
-#' Use `median_spans` to evenly distribute the observations into n distinct median groups.
 #'
 #'
 #' @seealso
@@ -84,12 +80,12 @@
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl")
 #'
-#' # twitter using median_spans argument
+#' # twitter
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count,
 #'                    method       = "twitter",
 #'                    frequency    = "1 week",
-#'                    median_spans = 3,
+#'                    trend        = "2 months",
 #'                    merge        = TRUE,
 #'                    message      = FALSE)
 #'

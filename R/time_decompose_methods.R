@@ -25,15 +25,12 @@
 
 #' @export
 #' @rdname decompose_methods
-#' @param median_spans Applies to method = "twitter" only.
-#' Set to `NULL` by default. If provided will split the medians into
-#' n distinct groups with approximately equal numbers of observations.
-decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", median_spans = NULL, message = TRUE) {
+decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_twitter(): argument "target" is missing, with no default', call. = FALSE)
-    if (!is.null(median_spans))
-        if (!is.numeric(median_spans)) stop('Error in decompse_twitter(): argument "median_spans" must be numeric.', call. = FALSE)
+    # if (!is.null(median_spans))
+    #     if (!is.numeric(median_spans)) stop('Error in decompse_twitter(): argument "median_spans" must be numeric.', call. = FALSE)
 
     data <- prep_tbl_time(data)
     date_col_vals <- tibbletime::get_index_col(data)
@@ -60,55 +57,34 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
         dplyr::mutate(seasadj = observed - season) %>%
         dplyr::select(!! date_col_expr, observed, season, seasadj, trend, remainder)
 
-    # Median Spans
-    if (is.null(median_spans)) {
+    # Median Span Logic
+    trnd <- time_trend(data, period = trend, message = FALSE)
+    median_spans_needed <- round(nrow(data) / trnd)
 
-        decomp_tbl <- decomp_tbl %>%
-            time_median(observed, period = trend, message = FALSE)
+    decomp_tbl <- decomp_tbl %>%
+        dplyr::mutate(
+            .period_groups = rep(1:median_spans_needed, length.out = nrow(.)) %>% sort()
+        ) %>%
+        dplyr::group_by(.period_groups) %>%
+        dplyr::mutate(median_spans = median(observed, na.rm = T)) %>%
+        dplyr::ungroup() %>%
+        dplyr::select(-.period_groups)
 
-        if (message) {
-            med_span <- decomp_tbl %>%
-                dplyr::count(median_spans) %>%
-                dplyr::pull(n) %>%
-                median(na.rm = TRUE)
+    if (message) {
+        med_span <- decomp_tbl %>%
+            dplyr::count(median_spans) %>%
+            dplyr::pull(n) %>%
+            median(na.rm = TRUE)
 
-            med_scale <- decomp_tbl %>%
-                timetk::tk_index() %>%
-                timetk::tk_get_timeseries_summary() %>%
-                dplyr::pull(scale)
+        med_scale <- decomp_tbl %>%
+            timetk::tk_index() %>%
+            timetk::tk_get_timeseries_summary() %>%
+            dplyr::pull(scale)
 
-            message(glue::glue("median_span = {med_span} {med_scale}s"))
-        }
-
-    } else {
-
-        decomp_tbl <- decomp_tbl %>%
-            dplyr::mutate(
-                .period_groups = rep(1:median_spans, length.out = nrow(.)) %>% sort()
-            ) %>%
-            dplyr::group_by(.period_groups) %>%
-            dplyr::mutate(median_spans = median(observed, na.rm = T)) %>%
-            dplyr::ungroup()
-
-        if (message) {
-            med_span <- decomp_tbl %>%
-                dplyr::count(.period_groups) %>%
-                dplyr::pull(n) %>%
-                median(na.rm = TRUE)
-
-            med_scale <- decomp_tbl %>%
-                timetk::tk_index() %>%
-                timetk::tk_get_timeseries_summary() %>%
-                dplyr::pull(scale)
-
-            message(glue::glue("median_span = {med_span} {med_scale}s"))
-        }
-
-        decomp_tbl <- decomp_tbl %>%
-            dplyr::select(-.period_groups)
+        message(glue::glue("median_span = {med_span} {med_scale}s"))
     }
 
-    # Observed transformations
+    # Remainder calculation
     decomp_tbl <- decomp_tbl %>%
         dplyr::mutate(
             remainder = observed - season - median_spans
