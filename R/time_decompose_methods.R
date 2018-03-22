@@ -97,43 +97,44 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
 
 }
 
+# NOT USED
 # Helper function for decompose_twitter
-time_median <- function(data, target, period = "auto", template = time_scale_template(), message = TRUE) {
-
-    # Setup inputs
-    data <- prep_tbl_time(data, message = F)
-
-    date_col_expr <- tibbletime::get_index_quo(data)
-    date_col_name <- dplyr::quo_name(date_col_expr)
-
-    target_expr   <- dplyr::enquo(target)
-
-    # For median_span (trend) = "auto" use template
-    if (period == "auto") {
-
-        # Get timeseries summary attributes
-        ts_summary <- data %>%
-            tibbletime::get_index_col() %>%
-            timetk::tk_get_timeseries_summary()
-
-        ts_scale <- ts_summary$scale
-
-        period <- template %>%
-            target_time_decomposition_scale(ts_scale, "trend", index_shift = 0)
-
-    }
-
-    # Use time_apply()
-    ret <- data %>%
-        time_apply(!! target_expr, period = period,
-                   .fun = median, na.rm = T, clean = F, message = message) %>%
-        dplyr::rename(median_spans = time_apply)
-
-    if (message) message(glue::glue("median_span = {period}"))
-
-    return(ret)
-
-}
+# time_median <- function(data, target, period = "auto", template = time_scale_template(), message = TRUE) {
+#
+#     # Setup inputs
+#     data <- prep_tbl_time(data, message = F)
+#
+#     date_col_expr <- tibbletime::get_index_quo(data)
+#     date_col_name <- dplyr::quo_name(date_col_expr)
+#
+#     target_expr   <- dplyr::enquo(target)
+#
+#     # For median_span (trend) = "auto" use template
+#     if (period == "auto") {
+#
+#         # Get timeseries summary attributes
+#         ts_summary <- data %>%
+#             tibbletime::get_index_col() %>%
+#             timetk::tk_get_timeseries_summary()
+#
+#         ts_scale <- ts_summary$scale
+#
+#         period <- template %>%
+#             target_time_decomposition_scale(ts_scale, "trend", index_shift = 0)
+#
+#     }
+#
+#     # Use time_apply()
+#     ret <- data %>%
+#         time_apply(!! target_expr, period = period,
+#                    .fun = median, na.rm = T, clean = F, message = message) %>%
+#         dplyr::rename(median_spans = time_apply)
+#
+#     if (message) message(glue::glue("median_span = {period}"))
+#
+#     return(ret)
+#
+# }
 
 
 # 2B. STL ----
