@@ -39,5 +39,6 @@ Suggests:
     covr,
     knitr,
     rmarkdown,
-    devtools
+    devtools,
+    roxygen2
 VignetteBuilder: knitr
