@@ -1,6 +1,5 @@
 context("test-time_decompose.R")
 
-library(dplyr)
 
 test_that("Incorrect data type errors", {
     expect_error(time_decompose(5))

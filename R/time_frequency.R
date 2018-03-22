@@ -4,8 +4,6 @@
 #' @param period Either "auto", a time-based definition (e.g. "2 weeks"),
 #' or a numeric number of observations per frequency (e.g. 10).
 #' See [tibbletime::collapse_by()] for period notation.
-#' @param template A template that converts the scale of the data to
-#' the expected frequency and trend spans.
 #' @param message A boolean. If `message = TRUE`, the frequency used is output
 #' along with the units in the scale of the data.
 #'
@@ -39,7 +37,7 @@
 #' number of observations per target frequency. A frequency is then chosen on be the
 #' best match. The predefined template is stored in a function `time_scale_template()`.
 #' However, the user can come up with his or her own template changing the values
-#' for frequency in the data frame.
+#' for frequency in the data frame and saving it to `anomalize_options$time_scale_template`.
 #'
 #' __Trend__:
 #'
@@ -63,7 +61,7 @@
 #' tidyverse_cran_downloads %>%
 #'     filter(package == "tidyquant") %>%
 #'     ungroup() %>%
-#'     time_frequency(period = "auto", template = time_scale_template())
+#'     time_frequency(period = "auto")
 #'
 #' time_scale_template()
 #'
@@ -83,7 +81,7 @@
 
 #' @export
 #' @rdname time_frequency
-time_frequency <- function(data, period = "auto", template = time_scale_template(), message = TRUE) {
+time_frequency <- function(data, period = "auto", message = TRUE) {
 
     # Checks
     if (!is.data.frame(data)) stop("Error time_frequency(): Object must inherit class `data.frame`, `tbl_df` or `tbl_time`.")
@@ -93,6 +91,7 @@ time_frequency <- function(data, period = "auto", template = time_scale_template
                         Frequency should be performed on a single time series."))
 
     # Setup inputs
+    template <- get_time_scale_template()
     data <- prep_tbl_time(data, message = F)
 
     index_expr <- data %>% tibbletime::get_index_quo()
@@ -122,7 +121,7 @@ time_frequency <- function(data, period = "auto", template = time_scale_template
     } else {
         # 3. period = "auto"
 
-        periodicity_target <- time_scale_template() %>%
+        periodicity_target <- template %>%
             target_time_decomposition_scale(time_scale = ts_scale, target = "frequency", index_shift = 0)
 
         freq <- data %>%
@@ -133,7 +132,7 @@ time_frequency <- function(data, period = "auto", template = time_scale_template
 
         # Insufficient observations: nobs-to-freq should be at least 3-1
         if (ts_nobs < 3*freq) {
-            periodicity_target <- time_scale_template() %>%
+            periodicity_target <- template %>%
                 target_time_decomposition_scale(time_scale = ts_scale, target = "frequency", index_shift = 1)
 
             freq <- data %>%
@@ -158,7 +157,7 @@ time_frequency <- function(data, period = "auto", template = time_scale_template
 
 #' @export
 #' @rdname time_frequency
-time_trend <- function(data, period = "auto", template = time_scale_template(), message = TRUE) {
+time_trend <- function(data, period = "auto", message = TRUE) {
 
     # Checks
     if (!is.data.frame(data)) stop("Error time_trend(): Object must inherit class `data.frame`, `tbl_df` or `tbl_time`.")
@@ -168,6 +167,7 @@ time_trend <- function(data, period = "auto", template = time_scale_template(), 
                         Frequency should be performed on a single time series."))
 
     # Setup inputs
+    template <- get_time_scale_template()
     data <- prep_tbl_time(data, message = F)
 
     index_expr <- data %>% tibbletime::get_index_quo()
@@ -197,7 +197,7 @@ time_trend <- function(data, period = "auto", template = time_scale_template(), 
     } else {
         # 3. period = "auto"
 
-        periodicity_target <- time_scale_template() %>%
+        periodicity_target <- template %>%
             target_time_decomposition_scale(time_scale = ts_scale, target = "trend", index_shift = 0)
 
         trend <- data %>%
@@ -208,7 +208,7 @@ time_trend <- function(data, period = "auto", template = time_scale_template(), 
 
         # Insufficient observations: nobs-to-trend should be at least 2-1
         if (ts_nobs / trend < 2) {
-            periodicity_target <- time_scale_template() %>%
+            periodicity_target <- template %>%
                 target_time_decomposition_scale(time_scale = ts_scale, target = "trend", index_shift = 1)
 
             trend <- data %>%
@@ -234,24 +234,6 @@ time_trend <- function(data, period = "auto", template = time_scale_template(), 
     return(trend)
 }
 
-#' @export
-#' @rdname time_frequency
-time_scale_template <- function() {
-
-    tibble::tribble(
-        ~ "time_scale",   ~ "frequency",        ~ "trend",
-        "second",         "1 hour",             "12 hours",
-        "minute",         "1 day",              "14 days",
-        "hour",           "1 day",              "1 month",
-        "day",            "1 week",             "3 months",
-        "week",           "1 quarter",          "1 year",
-        "month",          "1 year",             "5 years",
-        "quarter",        "1 year",             "10 years",
-        "year",           "5 years",            "30 years"
-    )
-
-}
-
 # Helper function to get the time decomposition scale
 target_time_decomposition_scale <- function(template, time_scale, target = c("frequency", "trend"), index_shift = 0) {
 
@@ -264,12 +246,3 @@ target_time_decomposition_scale <- function(template, time_scale, target = c("fr
         dplyr::filter(time_scale == key_value) %>%
         dplyr::pull(!! target_expr)
 }
-
-# time_scale_template() %>%
-#     target_time_decomposition_scale(time_scale = "minute", target = "frequency")
-#
-# time_scale_template() %>%
-#     target_time_decomposition_scale(time_scale = "minute", target = "trend")
-
-
-

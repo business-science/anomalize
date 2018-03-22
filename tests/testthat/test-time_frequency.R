@@ -1,7 +1,6 @@
 context("test-time_frequency.R")
 
 # Setup
-library(dplyr)
 
 tq_dloads <- tidyverse_cran_downloads %>%
     ungroup() %>%

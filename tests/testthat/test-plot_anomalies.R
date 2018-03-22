@@ -1,8 +1,5 @@
 context("test-plot_anomalies.R")
 
-library(dplyr)
-library(ggplot2)
-
 test_that("errors on incorrect input", {
   expect_error(plot_anomalies(3))
 })

@@ -23,17 +23,15 @@ or a numeric number of observations per frequency (e.g. 10).
 Refer to \code{\link[=time_frequency]{time_frequency()}}.}
 
 \item{trend}{Controls the trend component
-For twitter, the trend controls the values grouped into a median span,
-which are used to remove the trend and center the remainder
-(as an alternative, try the \code{median_spans} argument to ensure an even distribution of observations is split into each median span).
-For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.}
+For stl, the trend controls the sensitivity of the lowess smoother, which is used to remove the remainder.
+For twitter, the trend controls the period width of the median, which are used to remove the trend and center the remainder.}
 
 \item{...}{Additional parameters passed to the underlying method functions.}
 
 \item{merge}{A boolean. \code{FALSE} by default. If \code{TRUE}, will append results to the original data.}
 
 \item{message}{A boolean. If \code{TRUE}, will output information related to \code{tbl_time} conversions, frequencies,
-and median spans (if applicable).}
+and trend / median spans (if applicable).}
 }
 \value{
 Returns a \code{tbl_time} object.
@@ -76,12 +74,10 @@ STL may be a better approach when trend is a large factor.
 The user can control two parameters: \code{frequency} and \code{trend}.
 The \code{frequency} parameter adjusts the "season" component that is removed
 from the "observed" values. The \code{trend} parameter adjusts the
-number of median spans that are used. The user may supply both \code{frequency}
+period width of the median spans that are used. The user may supply both \code{frequency}
 and \code{trend} as time-based durations (e.g. "6 weeks") or numeric values
 (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 based on the scale of the time series.
-One problem with \code{trend} is that the final median span may have a small number of observations.
-Use \code{median_spans} to evenly distribute the observations into n distinct median groups.
 }
 \examples{
 
@@ -93,12 +89,12 @@ data(tidyverse_cran_downloads)
 tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl")
 
-# twitter using median_spans argument
+# twitter
 tidyverse_cran_downloads \%>\%
     time_decompose(count,
                    method       = "twitter",
                    frequency    = "1 week",
-                   median_spans = 3,
+                   trend        = "2 months",
                    merge        = TRUE,
                    message      = FALSE)
 

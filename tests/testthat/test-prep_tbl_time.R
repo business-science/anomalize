@@ -1,8 +1,5 @@
 context("test-prep_tbl_time.R")
 
-library(dplyr)
-library(tibble)
-
 test_that("prep_tbl_time errors on incorrect input", {
     expect_error(prep_tbl_time(1))
     expect_error(prep_tbl_time(tibble(x = stats::rnorm(100))))

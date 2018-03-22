@@ -3,16 +3,11 @@
 \name{time_frequency}
 \alias{time_frequency}
 \alias{time_trend}
-\alias{time_scale_template}
 \title{Generate a time series frequency from a periodicity}
 \usage{
-time_frequency(data, period = "auto", template = time_scale_template(),
-  message = TRUE)
+time_frequency(data, period = "auto", message = TRUE)
 
-time_trend(data, period = "auto", template = time_scale_template(),
-  message = TRUE)
-
-time_scale_template()
+time_trend(data, period = "auto", message = TRUE)
 }
 \arguments{
 \item{data}{A \code{tibble} with a date or datetime index.}
@@ -20,9 +15,6 @@ time_scale_template()
 \item{period}{Either "auto", a time-based definition (e.g. "2 weeks"),
 or a numeric number of observations per frequency (e.g. 10).
 See \code{\link[tibbletime:collapse_by]{tibbletime::collapse_by()}} for period notation.}
-
-\item{template}{A template that converts the scale of the data to
-the expected frequency and trend spans.}
 
 \item{message}{A boolean. If \code{message = TRUE}, the frequency used is output
 along with the units in the scale of the data.}
@@ -63,7 +55,7 @@ the scale of the time series and select the best frequency that matches the scal
 number of observations per target frequency. A frequency is then chosen on be the
 best match. The predefined template is stored in a function \code{time_scale_template()}.
 However, the user can come up with his or her own template changing the values
-for frequency in the data frame.
+for frequency in the data frame and saving it to \code{anomalize_options$time_scale_template}.
 
 \strong{Trend}:
 
@@ -87,7 +79,7 @@ data(tidyverse_cran_downloads)
 tidyverse_cran_downloads \%>\%
     filter(package == "tidyquant") \%>\%
     ungroup() \%>\%
-    time_frequency(period = "auto", template = time_scale_template())
+    time_frequency(period = "auto")
 
 time_scale_template()
 

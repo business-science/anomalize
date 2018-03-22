@@ -36,4 +36,8 @@ Suggests:
     tidyverse,
     tidyquant,
     testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown,
+    devtools
+VignetteBuilder: knitr

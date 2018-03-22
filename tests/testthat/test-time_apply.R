@@ -1,6 +1,5 @@
 context("test-time_apply.R")
 
-library(dplyr)
 
 test_that("errors on incorrect input", {
     expect_error(time_apply(2))

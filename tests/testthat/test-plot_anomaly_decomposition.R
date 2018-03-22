@@ -1,7 +1,6 @@
 context("test-plot_anomaly_decomposition.R")
 
-library(dplyr)
-library(ggplot2)
+
 
 test_that("errors on incorrect input", {
     expect_error(plot_anomaly_decomposition(3))
