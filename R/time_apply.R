@@ -91,6 +91,7 @@ time_apply.data.frame <- function(data, target, period, .fun, ...,
 
 }
 
+#' @export
 time_apply.grouped_df <- function(data, target, period, .fun, ...,
                                   start_date = NULL, side = "end", clean = FALSE, message = TRUE) {
 
