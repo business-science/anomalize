@@ -9,7 +9,6 @@
 #' @details
 #' Detects a date or datetime index column and automatically
 #'
-#' @seealso [tibbletime::as_tbl_time()]
 #'
 #' @examples
 #'

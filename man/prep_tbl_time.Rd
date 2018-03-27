@@ -34,6 +34,3 @@ data_tbl <- tibble(
 prep_tbl_time(data_tbl)
 
 }
-\seealso{
-\code{\link[tibbletime:as_tbl_time]{tibbletime::as_tbl_time()}}
-}
