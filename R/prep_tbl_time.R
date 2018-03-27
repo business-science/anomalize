@@ -27,7 +27,7 @@ prep_tbl_time <- function(data, message = FALSE) {
     UseMethod("prep_tbl_time", data)
 }
 
-
+#' @export
 prep_tbl_time.default <- function(data, message = FALSE) {
     stop("Object is not of class `data.frame`.", call. = FALSE)
 }
