@@ -52,8 +52,7 @@ time_scale_template <- function() {
 
 }
 
-# By default set time_scale_template_options to time_scale_template()
-options(time_scale_template = time_scale_template())
+
 
 
 
