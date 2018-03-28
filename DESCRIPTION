@@ -1,6 +1,6 @@
 Package: anomalize
 Type: Package
-Title: Tidy anomaly detection
+Title: Tidy Anomaly Detection
 Version: 0.1.0
 Author: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),

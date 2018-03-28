@@ -20,7 +20,7 @@ library(tidyverse)
 ```
 
 
-# anomalize
+# anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
 
 [![Travis build status](https://travis-ci.org/business-science/anomalize.svg?branch=master)](https://travis-ci.org/business-science/anomalize)
 [![Coverage status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://codecov.io/github/business-science/anomalize?branch=master)
