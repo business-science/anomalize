@@ -1,0 +1,25 @@
+template:
+  params:
+    bootswatch: flatly
+    ganalytics: UA-76139189-1
+
+navbar:
+  title: "anomalize"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Function Reference"
+      href: reference/index.html
+    - text: "Vignettes"
+      href: articles/index.html
+      menu:
+        - text: "Anomalize Quick Start Guide"
+          href: articles/anomalize_quick_start_guide.html
+        - text: "Anomalize Methods"
+          href: articles/anomalize_methods.html
+    - text: "News"
+      href: news/index.html
+
+  right:
+    - icon: fa-github
+      href: https://github.com/business-science/anomalize
