@@ -40,6 +40,9 @@
 #' To increase the IQR Factor controling the limits, decrease the alpha, which makes
 #' it more difficult to be an outlier. Increase alpha to make it easier to be an outlier.
 #'
+#' The IQR method is used in [`forecast::tsoutliers()`](https://github.com/robjhyndman/forecast).
+#'
+#'
 #' __GESD__:
 #'
 #' The GESD Method (Generlized Extreme Studentized Deviate Test) progressively
@@ -48,6 +51,17 @@
 #' drops below the critical value, all outliers are considered removed. Because this method
 #' involves continuous updating via a loop, it is slower than the IQR method. However, it
 #' tends to be the best performing method for outlier removal.
+#'
+#' The GESD method is used in [`AnomalyDection::AnomalyDetectionTs()`](https://github.com/twitter/AnomalyDetection).
+#'
+#' @references
+#' 1. [How to correct outliers once detected for time series data forecasting? Cross Validated, https://stats.stackexchange.com](https://stats.stackexchange.com/questions/69874/how-to-correct-outliers-once-detected-for-time-series-data-forecasting)
+#' 2. [Cross Validated: Simple algorithm for online outlier detection of a generic time series. Cross Validated, https://stats.stackexchange.com](https://stats.stackexchange.com/questions/1142/simple-algorithm-for-online-outlier-detection-of-a-generic-time-series?)
+#' 3. [Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).
+#' A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.](https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf)
+#' 4. [Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection Using
+#' Seasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.](https://github.com/twitter/AnomalyDetection)
+#' 5. [Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn](https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf)
 #'
 #' @seealso
 #' Anomaly Detection Methods (Powers `anomalize`)
@@ -71,9 +85,6 @@
 #'     time_decompose(count, method = "stl") %>%
 #'     anomalize(remainder, method = "iqr")
 #'
-#' @references
-#' - The IQR method is used in [`forecast::tsoutliers()`](https://github.com/robjhyndman/forecast/blob/master/R/clean.R)
-#' - The GESD method is used in Twitter's [`AnomalyDetection`](https://github.com/twitter/AnomalyDetection) package and is also available as a function in [@raunakms's GESD method](https://github.com/raunakms/GESD/blob/master/runGESD.R)
 #'
 #' @export
 anomalize <- function(data, target, method = c("iqr", "gesd"),

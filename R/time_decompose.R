@@ -60,6 +60,13 @@
 #' (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 #' based on the scale of the time series.
 #'
+#' @references
+#' 1. CLEVELAND, R. B., CLEVELAND, W. S., MCRAE, J. E., AND TERPENNING, I.
+#' STL: A Seasonal-Trend Decomposition Procedure Based on Loess. Journal of Official Statistics, Vol. 6, No. 1 (1990), pp. 3-73.
+#' 2. [Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).
+#' A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.](https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf)
+#' 3. [Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection Using
+#' Seasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.](https://github.com/twitter/AnomalyDetection)
 #'
 #' @seealso
 #' Decomposition Methods (Powers `time_decompose`)

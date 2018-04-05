@@ -6,12 +6,18 @@ Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
   )
-Maintainer: Matt Dancho <mdancho@business-science.io>
 Description:
-    The `anomalize` package enables a "tidy" workflow for detecting anomalies in data.
-    The main functions are `time_decompose()`, `anomalize()`, and `time_recompose()`.
+    The 'anomalize' package enables a "tidy" workflow for detecting anomalies in data.
+    The main functions are time_decompose(), anomalize(), and time_recompose().
     When combined, it's quite simple to decompose time series, detect anomalies,
-    and create bands separating the "normal" data from the anomalous data. 
+    and create bands separating the "normal" data from the anomalous data at scale (i.e. for multiple time series). 
+    Time series decomposition is used to remove trend and seasonal components via the time_decompose() function
+    and methods include seasonal decomposition of time series by Loess ("stl") and 
+    seasonal decomposition by piecewise medians ("twitter"). The anomalize() function implements
+    two methods for anomaly detection of residuals including using an inner quartile range ("iqr")
+    and generalized extreme studentized deviation ("gesd"). These methods are based on
+    those used in the `forecast` package and the Twitter `AnomalyDetection` package. 
+    Refer to the associated functions for specific references for these methods. 
 URL: https://github.com/business-science/anomalize
 BugReports: https://github.com/business-science/anomalize/issues
 License: GPL (>= 3)

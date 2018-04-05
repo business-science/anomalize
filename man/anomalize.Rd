@@ -57,6 +57,8 @@ the 25/75 baseline by an IQR Factor of 3 (3X). The IQR Factor = 0.15 / alpha (he
 To increase the IQR Factor controling the limits, decrease the alpha, which makes
 it more difficult to be an outlier. Increase alpha to make it easier to be an outlier.
 
+The IQR method is used in \href{https://github.com/robjhyndman/forecast}{forecast::tsoutliers()}.
+
 \strong{GESD}:
 
 The GESD Method (Generlized Extreme Studentized Deviate Test) progressively
@@ -65,6 +67,8 @@ Each time an outlier is removed, the test statistic is updated. Once test statis
 drops below the critical value, all outliers are considered removed. Because this method
 involves continuous updating via a loop, it is slower than the IQR method. However, it
 tends to be the best performing method for outlier removal.
+
+The GESD method is used in \href{https://github.com/twitter/AnomalyDetection}{AnomalyDection::AnomalyDetectionTs()}.
 }
 \examples{
 
@@ -79,11 +83,15 @@ tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl") \%>\%
     anomalize(remainder, method = "iqr")
 
+
 }
 \references{
-\itemize{
-\item The IQR method is used in \href{https://github.com/robjhyndman/forecast/blob/master/R/clean.R}{forecast::tsoutliers()}
-\item The GESD method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{AnomalyDetection} package and is also available as a function in \href{https://github.com/raunakms/GESD/blob/master/runGESD.R}{@raunakms's GESD method}
+\enumerate{
+\item \href{https://stats.stackexchange.com/questions/69874/how-to-correct-outliers-once-detected-for-time-series-data-forecasting}{How to correct outliers once detected for time series data forecasting? Cross Validated, https://stats.stackexchange.com}
+\item \href{https://stats.stackexchange.com/questions/1142/simple-algorithm-for-online-outlier-detection-of-a-generic-time-series?}{Cross Validated: Simple algorithm for online outlier detection of a generic time series. Cross Validated, https://stats.stackexchange.com}
+\item \href{https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.}
+\item \href{https://github.com/twitter/AnomalyDetection}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection UsingSeasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.}
+\item \href{https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf}{Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn}
 }
 }
 \seealso{
