@@ -16,7 +16,7 @@ Description:
     seasonal decomposition by piecewise medians ("twitter"). The anomalize() function implements
     two methods for anomaly detection of residuals including using an inner quartile range ("iqr")
     and generalized extreme studentized deviation ("gesd"). These methods are based on
-    those used in the `forecast` package and the Twitter `AnomalyDetection` package. 
+    those used in the 'forecast' package and the Twitter 'AnomalyDetection' package. 
     Refer to the associated functions for specific references for these methods. 
 URL: https://github.com/business-science/anomalize
 BugReports: https://github.com/business-science/anomalize/issues
