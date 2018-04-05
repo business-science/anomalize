@@ -190,6 +190,7 @@ the median. With the default <code>alpha = 0.05</code>, the limits are establish
 the 25/75 baseline by an IQR Factor of 3 (3X). The IQR Factor = 0.15 / alpha (hense 3X with alpha = 0.05).
 To increase the IQR Factor controling the limits, decrease the alpha, which makes
 it more difficult to be an outlier. Increase alpha to make it easier to be an outlier.</p>
+<p>The IQR method is used in <a href='https://github.com/robjhyndman/forecast'>forecast::tsoutliers()</a>.</p>
 <p><strong>GESD</strong>:</p>
 <p>The GESD Method (Generlized Extreme Studentized Deviate Test) progressively
 eliminates outliers using a Student's T-Test comparing the test statistic to a critical value.
@@ -197,13 +198,17 @@ Each time an outlier is removed, the test statistic is updated. Once test statis
 drops below the critical value, all outliers are considered removed. Because this method
 involves continuous updating via a loop, it is slower than the IQR method. However, it
 tends to be the best performing method for outlier removal.</p>
+<p>The GESD method is used in <a href='https://github.com/twitter/AnomalyDetection'>AnomalyDection::AnomalyDetectionTs()</a>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <ul>
-<li><p>The IQR method is used in <a href='https://github.com/robjhyndman/forecast/blob/master/R/clean.R'>forecast::tsoutliers()</a></p></li>
-<li><p>The GESD method is used in Twitter's <a href='https://github.com/twitter/AnomalyDetection'>AnomalyDetection</a> package and is also available as a function in <a href='https://github.com/raunakms/GESD/blob/master/runGESD.R'>@raunakms's GESD method</a></p></li>
-</ul>
+    <ol>
+<li><p><a href='https://stats.stackexchange.com/questions/69874/how-to-correct-outliers-once-detected-for-time-series-data-forecasting'>How to correct outliers once detected for time series data forecasting? Cross Validated, https://stats.stackexchange.com</a></p></li>
+<li><p><a href='https://stats.stackexchange.com/questions/1142/simple-algorithm-for-online-outlier-detection-of-a-generic-time-series?'>Cross Validated: Simple algorithm for online outlier detection of a generic time series. Cross Validated, https://stats.stackexchange.com</a></p></li>
+<li><p><a href='https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf'>Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</a></p></li>
+<li><p><a href='https://github.com/twitter/AnomalyDetection'>Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection UsingSeasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.</a></p></li>
+<li><p><a href='https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf'>Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn</a></p></li>
+</ol>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -219,14 +224,8 @@ tends to be the best performing method for outlier removal.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
+<span class='fu'>library</span>(<span class='no'>dplyr</span>)
+
 <span class='co'># Needed to pass CRAN check / This is loaded by default</span>
 <span class='fu'><a href='time_scale_template.html'>set_time_scale_template</a></span>(<span class='fu'><a href='time_scale_template.html'>time_scale_template</a></span>())
 
@@ -250,6 +249,7 @@ tends to be the best performing method for outlier removal.</p>
 #&gt;  9 tidyr   2017-01-09    3678.   901. 5006.    -2229.       -3748.        3708.
 #&gt; 10 tidyr   2017-01-10    7086.  1460. 5000.      626.       -3748.        3708.
 #&gt; # ... with 6,365 more rows, and 1 more variable: anomaly &lt;chr&gt;</div><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
