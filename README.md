@@ -7,6 +7,9 @@
 status](https://travis-ci.org/business-science/anomalize.svg?branch=master)](https://travis-ci.org/business-science/anomalize)
 [![Coverage
 status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://codecov.io/github/business-science/anomalize?branch=master)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/anomalize)](https://cran.r-project.org/package=anomalize)
+![](http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen)
+![](http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen)
 
 > Tidy anomaly detection
 
@@ -41,10 +44,12 @@ data.
 
 <!-- You can install the released version of anomalize from [CRAN](https://CRAN.R-project.org) with: -->
 
-You can install the development version with `devtools`:
+You can install the development version with `devtools` or the most
+recent CRAN version with `install.packages()`:
 
 ``` r
-devtools::install_github("business-science/anomalize")
+# devtools::install_github("business-science/anomalize")
+install.packages("anomalize")
 ```
 
 ## How It Works

@@ -156,10 +156,8 @@ conversion details important to know during the conversion to <code>tbl_time</co
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='fu'>library</span>(<span class='no'>tibbletime</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘tibbletime’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter</span></div><div class='input'>
+<span class='fu'>library</span>(<span class='no'>tibbletime</span>)
+
 <span class='no'>data_tbl</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tibble</a></span>(
     <span class='kw'>date</span>  <span class='kw'>=</span> <span class='fu'>seq.Date</span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'>as.Date</span>(<span class='st'>"2018-01-01"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"day"</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>),
     <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>10</span>)
@@ -169,16 +167,16 @@ conversion details important to know during the conversion to <code>tbl_time</co
 #&gt; # Index: date
 #&gt;    date        value
 #&gt;    &lt;date&gt;      &lt;dbl&gt;
-#&gt;  1 2018-01-01  0.843
-#&gt;  2 2018-01-02 -1.46 
-#&gt;  3 2018-01-03 -0.400
-#&gt;  4 2018-01-04 -0.776
-#&gt;  5 2018-01-05 -0.369
-#&gt;  6 2018-01-06  1.24 
-#&gt;  7 2018-01-07 -0.107
-#&gt;  8 2018-01-08  0.173
-#&gt;  9 2018-01-09  0.255
-#&gt; 10 2018-01-10 -0.615</div><div class='input'>
+#&gt;  1 2018-01-01  1.16 
+#&gt;  2 2018-01-02  0.283
+#&gt;  3 2018-01-03 -0.198
+#&gt;  4 2018-01-04  0.680
+#&gt;  5 2018-01-05 -0.547
+#&gt;  6 2018-01-06  0.337
+#&gt;  7 2018-01-07  0.656
+#&gt;  8 2018-01-08 -1.80 
+#&gt;  9 2018-01-09 -0.153
+#&gt; 10 2018-01-10  1.66 </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -11,7 +11,7 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><meta property="og:title" content="Tidy Anomaly Detection">
 <meta property="og:description" content="
-    The `anomalize` package enables a " tidy workflow for detecting anomalies in data. the main functions are and when combined it quite simple to decompose time series detect create bands separating data from anomalous>
+    The 'anomalize' package enables a " tidy workflow for detecting anomalies in data. the main functions are time_decompose anomalize and time_recompose when combined it quite simple to decompose time series detect create bands separating data from anomalous at scale multiple decomposition is used remove trend seasonal components via function methods include of by loess piecewise medians implements two anomaly detection residuals including using an inner quartile range generalized extreme studentized deviation these based on those package twitter package. refer associated specific references methods.>
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -98,7 +98,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#anomalize" class="anchor"></a>anomalize <img src="reference/figures/anomalize-logo.png" width="147" height="170" align="right">
 </h1></div>
-
+<p><a href="https://travis-ci.org/business-science/anomalize"><img src="https://travis-ci.org/business-science/anomalize.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/github/business-science/anomalize?branch=master"><img src="https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg" alt="Coverage status"></a> <a href="https://cran.r-project.org/package=anomalize"><img src="http://www.r-pkg.org/badges/version/anomalize" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen"></p>
 <blockquote>
 <p>Tidy anomaly detection</p>
 </blockquote>
@@ -117,8 +117,9 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <!-- You can install the released version of anomalize from [CRAN](https://CRAN.R-project.org) with: -->
-<p>You can install the development version with <code>devtools</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"business-science/anomalize"</span>)</a></code></pre></div>
+<p>You can install the development version with <code>devtools</code> or the most recent CRAN version with <code>install.packages()</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># devtools::install_github("business-science/anomalize")</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"anomalize"</span>)</a></code></pre></div>
 </div>
 <div id="how-it-works" class="section level2">
 <h2 class="hasAnchor">
@@ -352,6 +353,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=anomalize">https://​cloud.r-project.org/​package=anomalize</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/business-science/anomalize">https://​github.com/​business-science/​anomalize</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/business-science/anomalize/issues">https://​github.com/​business-science/​anomalize/​issues</a>
@@ -372,14 +375,7 @@
 </ul>
 </div>
 
-      <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://travis-ci.org/business-science/anomalize"><img src="https://travis-ci.org/business-science/anomalize.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://codecov.io/github/business-science/anomalize?branch=master"><img src="https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
-</ul>
-</div>
-</div>
+      </div>
 
 </div>
 
