@@ -33,23 +33,12 @@ library(tidyverse)
 
 `anomalize` enables a tidy workflow for detecting anomalies in data. The main functions are `time_decompose()`, `anomalize()`, and `time_recompose()`. When combined, it's quite simple to decompose time series, detect anomalies, and create bands separating the "normal" data from the anomalous data.
 
-<!-- ## Benefits -->
+## Anomalize In 2 Minutes
 
-<!-- With `anomalize` you can: -->
+<iframe width="100%" height="350" src="https://www.youtube.com/embed/Gk_HwjhlQJs" frameborder="1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-<!-- - Perform anomaly detection on grouped data -->
-<!-- - Get bands that separates the "normal" data from the anomalies! -->
-<!-- - Implement the best decomposition techniques including Seasonal Decomposition (STL), Twitter AnomalyDetection, and Multiplicative Decomposition -->
-<!-- - Use two outlier detection methods including IQR (fast and reliable) and GESD (best performance) -->
-<!-- - Visualize:  -->
-<!--     - Time series decomposition on a single time series, which is useful for seeing the affects of the parameters -->
-<!--     - Anomaly detection on many time series (grouped in one data frame) -->
-
-<!-- Let's check `anomalize` out! -->
 
 ## Installation
-
-<!-- You can install the released version of anomalize from [CRAN](https://CRAN.R-project.org) with: -->
 
 You can install the development version with `devtools` or the most recent CRAN version with `install.packages()`:
 

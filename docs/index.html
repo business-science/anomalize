@@ -103,20 +103,15 @@
 <p>Tidy anomaly detection</p>
 </blockquote>
 <p><code>anomalize</code> enables a tidy workflow for detecting anomalies in data. The main functions are <code><a href="reference/time_decompose.html">time_decompose()</a></code>, <code><a href="reference/anomalize.html">anomalize()</a></code>, and <code><a href="reference/time_recompose.html">time_recompose()</a></code>. When combined, it’s quite simple to decompose time series, detect anomalies, and create bands separating the “normal” data from the anomalous data.</p>
-<!-- ## Benefits -->
-<!-- With `anomalize` you can: -->
-<!-- - Perform anomaly detection on grouped data -->
-<!-- - Get bands that separates the "normal" data from the anomalies! -->
-<!-- - Implement the best decomposition techniques including Seasonal Decomposition (STL), Twitter AnomalyDetection, and Multiplicative Decomposition -->
-<!-- - Use two outlier detection methods including IQR (fast and reliable) and GESD (best performance) -->
-<!-- - Visualize:  -->
-<!--     - Time series decomposition on a single time series, which is useful for seeing the affects of the parameters -->
-<!--     - Anomaly detection on many time series (grouped in one data frame) -->
-<!-- Let's check `anomalize` out! -->
+<div id="anomalize-in-2-minutes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#anomalize-in-2-minutes" class="anchor"></a>Anomalize In 2 Minutes</h2>
+<iframe width="100%" height="350" src="https://www.youtube.com/embed/Gk_HwjhlQJs" frameborder="1" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+</div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<!-- You can install the released version of anomalize from [CRAN](https://CRAN.R-project.org) with: -->
 <p>You can install the development version with <code>devtools</code> or the most recent CRAN version with <code>install.packages()</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># devtools::install_github("business-science/anomalize")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"anomalize"</span>)</a></code></pre></div>
