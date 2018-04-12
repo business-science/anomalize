@@ -79,7 +79,7 @@ plot_anomaly_decomposition.tbl_time <- function(data, ncol = 1, color_no = "#2c3
 
     data_anomaly_tbl <- data %>%
         dplyr::select(!! date_expr, observed:remainder, anomaly) %>%
-        tidyr::gather(key = key, value = value, -c(!! date_col, anomaly), factor_key = T)
+        tidyr::gather(key = key, value = value, -dplyr::one_of(c(!! date_col, 'anomaly')), factor_key = T)
 
     g <- data_anomaly_tbl  %>%
         ggplot2::ggplot(ggplot2::aes_string(x = date_col, y = "value", color = "anomaly")) +
