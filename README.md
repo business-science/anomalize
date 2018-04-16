@@ -23,7 +23,7 @@ data.
 ## Anomalize In 2 Minutes
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v= Gk_HwjhlQJs" target="_blank"><img src="http://img.youtube.com/vi/Gk_HwjhlQJs/0.jpg" 
-alt="Anomalize" width="100%" height="350"/></a>
+alt="Anomalize" width="70%" height="350"/></a>
 
 ## Installation
 
