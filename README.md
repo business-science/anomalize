@@ -20,10 +20,14 @@ series, detect anomalies, and create bands separating the “normal” data
 from the anomalous
 data.
 
-## Anomalize In 2 Minutes
+## Anomalize In 2 Minutes (YouTube)
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v= Gk_HwjhlQJs" target="_blank"><img src="http://img.youtube.com/vi/Gk_HwjhlQJs/0.jpg" 
-alt="Anomalize" width="70%" height="350"/></a>
+alt="Anomalize" width="100%" height="350"/></a>
+
+Check out our entire [Software Intro
+Series](https://www.youtube.com/watch?v=Gk_HwjhlQJs&list=PLo32uKohmrXsYNhpdwr15W143rX6uMAze)
+on YouTube\!
 
 ## Installation
 

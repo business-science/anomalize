@@ -27,6 +27,14 @@ library(tibbletime)
 
 The `anomalize` package is a feature rich package for performing anomaly detection. It's geared towards time series analysis, which is one of the biggest needs for understanding when anomalies occur. We have a quick start section called "5-Minutes to Anomalize" for those looking to jump right in. We also have a detailed section on parameter adjustment for those looking to understand what nobs they can turn. Finally, for those really looking to get under the hood, we have another vignette called "Anomalize Methods" that gets into a deep discussion on STL, Twitter, IQR and GESD methods that are used to power `anomalize`. 
 
+## Anomalize Intro on YouTube
+
+As a first step, you may wish to watch our `anomalize` introduction video on YouTube.
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v= Gk_HwjhlQJs" target="_blank"><img src="http://img.youtube.com/vi/Gk_HwjhlQJs/0.jpg" 
+alt="Anomalize" width="100%" height="350"/></a>
+
+Check out our entire [Software Intro Series](https://www.youtube.com/watch?v=Gk_HwjhlQJs&list=PLo32uKohmrXsYNhpdwr15W143rX6uMAze) on YouTube!
 
 ## 5-Minutes To Anomalize
 
