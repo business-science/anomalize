@@ -62,9 +62,9 @@ test_that("time_trend works: period = 'auto'", {
 test_that("time_trend works: period = '90 days'", {
 
     trend <- tq_dloads %>%
-        time_trend(period = "90 days")
+        time_trend(period = "30 days")
 
-    expect_equal(trend, 90)
+    expect_equal(trend, 30)
 
 })
 
@@ -85,3 +85,4 @@ test_that("time_trend works with small data: period = 'auto'", {
     expect_equal(trend, 28)
 
 })
+
