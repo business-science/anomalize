@@ -66,7 +66,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalize</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.1</span>
       </span>
     </div>
 
@@ -131,23 +131,11 @@
       <tbody>
         <tr>
           <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+            <h2 id="section-general" class="hasAnchor"><a href="#section-general" class="anchor"></a>General</h2>
             <p class="section-desc"></p>
           </th>
         </tr>
         <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="anomalize.html">anomalize()</a></code> </p>
-          </td>
-          <td><p>Detect anomalies using the tidyverse</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="anomalize_methods.html">iqr()</a></code> <code><a href="anomalize_methods.html">gesd()</a></code> </p>
-          </td>
-          <td><p>Methods that power anomalize()</p></td>
-        </tr><tr>
           <!--  -->
           <td>
             <p><code><a href="anomalize_package.html">anomalize_package</a></code> </p>
@@ -156,10 +144,44 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="decompose_methods.html">decompose_twitter()</a></code> <code><a href="decompose_methods.html">decompose_stl()</a></code> </p>
+            <p><code><a href="tidyverse_cran_downloads.html">tidyverse_cran_downloads</a></code> </p>
           </td>
-          <td><p>Methods that power time_decompose()</p></td>
+          <td><p>Downloads of various "tidyverse" packages from CRAN</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-anomalize-workflow" class="hasAnchor"><a href="#section-anomalize-workflow" class="anchor"></a>Anomalize workflow</h2>
+            <p class="section-desc"><p><strong>The main functions used to anomalize time series data.</strong></p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="time_decompose.html">time_decompose()</a></code> </p>
+          </td>
+          <td><p>Decompose a time series in preparation for anomaly detection</p></td>
         </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="anomalize.html">anomalize()</a></code> </p>
+          </td>
+          <td><p>Detect anomalies using the tidyverse</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="time_recompose.html">time_recompose()</a></code> </p>
+          </td>
+          <td><p>Recompose bands separating anomalies from "normal" observations</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-visualization-functions" class="hasAnchor"><a href="#section-visualization-functions" class="anchor"></a>Visualization functions</h2>
+            <p class="section-desc"><p><strong>Plotting utilities for visualizing anomalies.</strong></p></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
             <p><code><a href="plot_anomalies.html">plot_anomalies()</a></code> </p>
@@ -171,31 +193,15 @@
             <p><code><a href="plot_anomaly_decomposition.html">plot_anomaly_decomposition()</a></code> </p>
           </td>
           <td><p>Visualize the time series decomposition with anomalies shown</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="prep_tbl_time.html">prep_tbl_time()</a></code> </p>
-          </td>
-          <td><p>Automatically create tibbletime objects from tibbles</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tidyverse_cran_downloads.html">tidyverse_cran_downloads</a></code> </p>
-          </td>
-          <td><p>Downloads of various "tidyverse" packages from CRAN</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="time_apply.html">time_apply()</a></code> </p>
-          </td>
-          <td><p>Apply a function to a time series by period</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="time_decompose.html">time_decompose()</a></code> </p>
-          </td>
-          <td><p>Decompose a time series in preparation for anomaly detection</p></td>
-        </tr><tr>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-frequency-and-trend" class="hasAnchor"><a href="#section-frequency-and-trend" class="anchor"></a>Frequency and trend</h2>
+            <p class="section-desc"><p><strong>Working with the frequency, trend, and time scale.</strong></p></p>
+          </th>
+        </tr>
+        <tr>
           <!--  -->
           <td>
             <p><code><a href="time_frequency.html">time_frequency()</a></code> <code><a href="time_frequency.html">time_trend()</a></code> </p>
@@ -204,15 +210,49 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="time_recompose.html">time_recompose()</a></code> </p>
-          </td>
-          <td><p>Recompose bands separating anomalies from "normal" observations</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="time_scale_template.html">set_time_scale_template()</a></code> <code><a href="time_scale_template.html">get_time_scale_template()</a></code> <code><a href="time_scale_template.html">time_scale_template()</a></code> </p>
           </td>
           <td><p>Get and modify time scale template</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-methods" class="hasAnchor"><a href="#section-methods" class="anchor"></a>Methods</h2>
+            <p class="section-desc"><p><strong>Functions that power the main anomalize functions.</strong></p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="decompose_methods.html">decompose_twitter()</a></code> <code><a href="decompose_methods.html">decompose_stl()</a></code> </p>
+          </td>
+          <td><p>Methods that power time_decompose()</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="anomalize_methods.html">iqr()</a></code> <code><a href="anomalize_methods.html">gesd()</a></code> </p>
+          </td>
+          <td><p>Methods that power anomalize()</p></td>
+        </tr>
+      </tbody><tbody>
+        <tr>
+          <th colspan="2">
+            <h2 id="section-misc" class="hasAnchor"><a href="#section-misc" class="anchor"></a>Misc</h2>
+            <p class="section-desc"><p><strong>Miscellaneous functions and utilites.</strong></p></p>
+          </th>
+        </tr>
+        <tr>
+          <!--  -->
+          <td>
+            <p><code><a href="prep_tbl_time.html">prep_tbl_time()</a></code> </p>
+          </td>
+          <td><p>Automatically create tibbletime objects from tibbles</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="time_apply.html">time_apply()</a></code> </p>
+          </td>
+          <td><p>Apply a function to a time series by period</p></td>
         </tr>
       </tbody>
       </table>
@@ -222,7 +262,12 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-general">General</a></li>
+      <li><a href="#section-anomalize-workflow">Anomalize workflow</a></li>
+      <li><a href="#section-visualization-functions">Visualization functions</a></li>
+      <li><a href="#section-frequency-and-trend">Frequency and trend</a></li>
+      <li><a href="#section-methods">Methods</a></li>
+      <li><a href="#section-misc">Misc</a></li>
     </ul>
   </div>
 </div>

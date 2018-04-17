@@ -23,3 +23,36 @@ navbar:
   right:
     - icon: fa-github
       href: https://github.com/business-science/anomalize
+
+reference:
+  - title: General
+    contents:
+    - anomalize_package
+    - tidyverse_cran_downloads
+  - title: Anomalize workflow
+    desc: __The main functions used to anomalize time series data.__
+    contents:
+    - starts_with("time_decompose")
+    - anomalize
+    - starts_with("time_recompose")
+  - title: Visualization functions
+    desc: __Plotting utilities for visualizing anomalies.__
+    contents:
+    - starts_with("plot_")
+  - title: Frequency and trend
+    desc: __Working with the frequency, trend, and time scale.__
+    contents:
+    - ends_with("frequency")
+    - ends_with("trend")
+    - contains("time_scale")
+  - title: Methods
+    desc: __Functions that power the main anomalize functions.__
+    contents:
+    - starts_with("decompose_")
+    - iqr
+    - gesd
+  - title: Misc
+    desc: __Miscellaneous functions and utilites.__
+    contents:
+    - starts_with("prep_")
+    - time_apply
