@@ -174,6 +174,7 @@ gesd <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
         m <- i
       }
     }
+  }
 
     vals_tbl <- tibble::tibble(
       rank = as.numeric(1:r),
@@ -235,5 +236,5 @@ gesd <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
     } else {
       return(outlier_response)
     }
-  }
 }
+
