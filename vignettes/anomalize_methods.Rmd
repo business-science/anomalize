@@ -190,11 +190,11 @@ ggsetup <- function(data) {
 # Visualize
 p3 <- iqr_outliers %>% 
     ggsetup() +
-    ggtitle("IQR: Top outlers sorted by rank") 
+    ggtitle("IQR: Top outliers sorted by rank") 
 
 p4 <- gesd_outliers %>% 
     ggsetup() +
-    ggtitle("GESD: Top outlers sorted by rank") 
+    ggtitle("GESD: Top outliers sorted by rank") 
     
 # Show plots
 p3
