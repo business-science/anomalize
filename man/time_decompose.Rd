@@ -103,8 +103,8 @@ tidyverse_cran_downloads \%>\%
 \enumerate{
 \item CLEVELAND, R. B., CLEVELAND, W. S., MCRAE, J. E., AND TERPENNING, I.
 STL: A Seasonal-Trend Decomposition Procedure Based on Loess. Journal of Official Statistics, Vol. 6, No. 1 (1990), pp. 3-73.
-\item \href{https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.}
-\item \href{https://github.com/twitter/AnomalyDetection}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection UsingSeasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.}
+\item \href{https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.}
+\item \href{https://github.com/twitter/AnomalyDetection}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection Using Seasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.}
 }
 }
 \seealso{

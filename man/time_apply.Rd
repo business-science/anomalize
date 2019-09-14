@@ -4,8 +4,8 @@
 \alias{time_apply}
 \title{Apply a function to a time series by period}
 \usage{
-time_apply(data, target, period, .fun, ..., start_date = NULL, side = "end",
-  clean = FALSE, message = TRUE)
+time_apply(data, target, period, .fun, ..., start_date = NULL,
+  side = "end", clean = FALSE, message = TRUE)
 }
 \arguments{
 \item{data}{A \code{tibble} with a date or datetime index.}

@@ -89,8 +89,8 @@ tidyverse_cran_downloads \%>\%
 \enumerate{
 \item \href{https://stats.stackexchange.com/questions/69874/how-to-correct-outliers-once-detected-for-time-series-data-forecasting}{How to correct outliers once detected for time series data forecasting? Cross Validated, https://stats.stackexchange.com}
 \item \href{https://stats.stackexchange.com/questions/1142/simple-algorithm-for-online-outlier-detection-of-a-generic-time-series?}{Cross Validated: Simple algorithm for online outlier detection of a generic time series. Cross Validated, https://stats.stackexchange.com}
-\item \href{https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014).A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.}
-\item \href{https://github.com/twitter/AnomalyDetection}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection UsingSeasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.}
+\item \href{https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.}
+\item \href{https://github.com/twitter/AnomalyDetection}{Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection Using Seasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.}
 \item \href{https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf}{Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn}
 }
 }
