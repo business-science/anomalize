@@ -57,17 +57,17 @@ theme_tq <- function(base_size = 11, base_family = "") {
 
 palette_light <- function() {
     c(
-        "#2c3e50", # blue
-        "#e31a1c", # red
-        "#18BC9C", # green
-        "#CCBE93", # yellow
-        "#a6cee3", # steel_blue
-        "#1f78b4", # navy_blue
-        "#b2df8a", # light_green
-        "#fb9a99", # pink
-        "#fdbf6f", # light_orange
-        "#ff7f00", # orange
-        "#cab2d6", # light_purple
-        "#6a3d9a"  # purple
-    )
+        blue         = "#2c3e50", # blue
+        red          = "#e31a1c", # red
+        green        = "#18BC9C", # green
+        yellow       = "#CCBE93", # yellow
+        steel_blue   = "#a6cee3", # steel_blue
+        navy_blue    = "#1f78b4", # navy_blue
+        light_green  = "#b2df8a", # light_green
+        pink         = "#fb9a99", # pink
+        light_orange = "#fdbf6f", # light_orange
+        orange       = "#ff7f00", # orange
+        light_purple = "#cab2d6", # light_purple
+        purple       = "#6a3d9a"  # purple
+    ) %>% toupper()
 }
