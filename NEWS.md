@@ -1,3 +1,7 @@
+# anomalize 0.2.0
+
+* `clean_anomalies()` - A new function to simplify cleaning anomalies by replacing with trend and seasonal components. This is useful in preparing data for forecasting. 
+
 # anomalize 0.1.1
 
 * [Issue #2](https://github.com/business-science/anomalize/issues/2): Bugfixes for various `ggplot2` issues in `plot_anomalies()`. Solves "Error in FUN(X[[i]], ...) : object '.group' not found".
