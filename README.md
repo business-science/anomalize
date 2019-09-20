@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<!-- # anomalize -->
+
 # anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
 
 [![Travis build
@@ -22,7 +24,7 @@ data.
 
 ## Anomalize In 2 Minutes (YouTube)
 
-<a href="https://www.youtube.com/watch?v=Gk_HwjhlQJs" target="_blank"><img src="http://img.youtube.com/vi/Gk_HwjhlQJs/0.jpg" 
+<a href="https://www.youtube.com/watch?v=Gk_HwjhlQJs" target="_blank"><img src="http://img.youtube.com/vi/Gk_HwjhlQJs/0.jpg"
 alt="Anomalize" width="100%" height="350"/></a>
 
 Check out our entire [Software Intro
@@ -63,19 +65,6 @@ Next, let’s get some data. `anomalize` ships with a data set called
 `tidyverse_cran_downloads` that contains the daily CRAN download counts
 for 15 “tidy” packages from 2017-01-01 to 2018-03-01.
 
-``` r
-tidyverse_cran_downloads %>%
-    ggplot(aes(date, count)) +
-    geom_point(color = "#2c3e50", alpha = 0.25) +
-    facet_wrap(~ package, scale = "free_y", ncol = 3) +
-    theme_minimal() +
-    theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
-    labs(title = "Tidyverse Package Daily Download Counts",
-         subtitle = "Data from CRAN by way of cranlogs package")
-```
-
-<img src="man/figures/README-tidyverse_plot_1-1.png" width="100%" />
-
 Suppose we want to determine which daily download “counts” are
 anomalous. It’s as easy as using the three main functions
 (`time_decompose()`, `anomalize()`, and `time_recompose()`) along with a
@@ -94,46 +83,8 @@ tidyverse_cran_downloads %>%
 
 <img src="man/figures/README-tidyverse_anoms_1-1.png" width="100%" />
 
-If you’re familiar with Twitter’s `AnomalyDetection` package, you can
-implement that method by combining `time_decompose(method = "twitter")`
-with `anomalize(method = "gesd")`. Additionally, we’ll adjust the `trend
-= "2 months"` to adjust the median spans, which is how Twitter’s
-decomposition method works.
-
-``` r
-# Get only lubridate downloads
-lubridate_dloads <- tidyverse_cran_downloads %>%
-    filter(package == "lubridate") %>% 
-    ungroup()
-
-# Anomalize!!
-lubridate_dloads %>%
-    # Twitter + GESD
-    time_decompose(count, method = "twitter", trend = "2 months") %>%
-    anomalize(remainder, method = "gesd") %>%
-    time_recompose() %>%
-    # Anomaly Visualziation
-    plot_anomalies(time_recomposed = TRUE) +
-    labs(title = "Lubridate Anomalies", subtitle = "Twitter + GESD Methods")
-```
-
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
-
-Last, we can compare to STL + IQR methods, which use different
-decomposition and anomaly detection approaches.
-
-``` r
-lubridate_dloads %>%
-    # STL + IQR Anomaly Detection
-    time_decompose(count, method = "stl", trend = "2 months") %>%
-    anomalize(remainder, method = "iqr") %>%
-    time_recompose() %>%
-    # Anomaly Visualization
-    plot_anomalies(time_recomposed = TRUE) +
-    labs(title = "Lubridate Anomalies", subtitle = "STL + IQR Methods")
-```
-
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+Check out the [`anomalize` Quick Start
+Guide](https://business-science.github.io/anomalize/articles/anomalize_quick_start_guide.html).
 
 ## Reducing Forecast Error by 32%
 
@@ -152,15 +103,32 @@ tidyverse_cran_downloads %>%
     # New function that cleans & repairs anomalies!
     clean_anomalies() %>%
   
-    select(date, observed, observed_cleaned) %>%
-    
-    ggplot(aes(date, observed)) +
-    geom_point(color = palette_light()["blue"], alpha = 0.5) +
-    geom_point(aes(y = observed_cleaned), color = palette_light()["red"], alpha = 0.5) +
-    labs(title = "Cleaning Anomalies", subtitle = "Red has anomalies repaired by clean_anomalies()")
+    select(date, anomaly, observed, observed_cleaned) %>%
+    filter(anomaly == "Yes")
+#> # A time tibble: 19 x 4
+#> # Index: date
+#>    date       anomaly  observed observed_cleaned
+#>    <date>     <chr>       <dbl>            <dbl>
+#>  1 2017-01-12 Yes     -1.14e-13            3522.
+#>  2 2017-04-19 Yes      8.55e+ 3            5202.
+#>  3 2017-09-01 Yes      3.98e-13            4137.
+#>  4 2017-09-07 Yes      9.49e+ 3            4871.
+#>  5 2017-10-30 Yes      1.20e+ 4            6413.
+#>  6 2017-11-13 Yes      1.03e+ 4            6641.
+#>  7 2017-11-14 Yes      1.15e+ 4            7250.
+#>  8 2017-12-04 Yes      1.03e+ 4            6519.
+#>  9 2017-12-05 Yes      1.06e+ 4            7099.
+#> 10 2017-12-27 Yes      3.69e+ 3            7073.
+#> 11 2018-01-01 Yes      1.87e+ 3            6418.
+#> 12 2018-01-05 Yes     -5.68e-14            6293.
+#> 13 2018-01-13 Yes      7.64e+ 3            4141.
+#> 14 2018-02-07 Yes      1.19e+ 4            8539.
+#> 15 2018-02-08 Yes      1.17e+ 4            8237.
+#> 16 2018-02-09 Yes     -5.68e-14            7780.
+#> 17 2018-02-10 Yes      0.                  5478.
+#> 18 2018-02-23 Yes     -5.68e-14            8519.
+#> 19 2018-02-24 Yes      0.                  6218.
 ```
-
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ## But Wait, There’s More\!
 
@@ -181,7 +149,11 @@ tidyverse_cran_downloads %>%
     labs(title = "Decomposition of Anomalized Lubridate Downloads")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+For more information on the `anomalize` methods and the inner workings,
+please see [“Anomalize Methods”
+Vignette](https://business-science.github.io/anomalize/articles/anomalize_methods.html).
 
 ## References
 
