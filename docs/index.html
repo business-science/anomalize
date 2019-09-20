@@ -144,72 +144,56 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(anomalize)</a></code></pre></div>
 <p>Next, let’s get some data. <code>anomalize</code> ships with a data set called <code>tidyverse_cran_downloads</code> that contains the daily CRAN download counts for 15 “tidy” packages from 2017-01-01 to 2018-03-01.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, count)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">"#2c3e50"</span>, <span class="dt">alpha =</span> <span class="fl">0.25</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>package, <span class="dt">scale =</span> <span class="st">"free_y"</span>, <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">hjust =</span> <span class="dv">1</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Tidyverse Package Daily Download Counts"</span>,</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">         <span class="dt">subtitle =</span> <span class="st">"Data from CRAN by way of cranlogs package"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-tidyverse_plot_1-1.png" width="100%"></p>
 <p>Suppose we want to determine which daily download “counts” are anomalous. It’s as easy as using the three main functions (<code><a href="reference/time_decompose.html">time_decompose()</a></code>, <code><a href="reference/anomalize.html">anomalize()</a></code>, and <code><a href="reference/time_recompose.html">time_recompose()</a></code>) along with a visualization function, <code><a href="reference/plot_anomalies.html">plot_anomalies()</a></code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">    </span><span class="co"># Data Manipulation / Anomaly Detection</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count, <span class="dt">method =</span> <span class="st">"stl"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder, <span class="dt">method =</span> <span class="st">"iqr"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/time_recompose.html">time_recompose</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">    </span><span class="co"># Anomaly Visualization</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="reference/plot_anomalies.html">plot_anomalies</a></span>(<span class="dt">time_recomposed =</span> <span class="ot">TRUE</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">alpha_dots =</span> <span class="fl">0.25</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Tidyverse Anomalies"</span>, <span class="dt">subtitle =</span> <span class="st">"STL + IQR Methods"</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span><span class="co"># Data Manipulation / Anomaly Detection</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count, <span class="dt">method =</span> <span class="st">"stl"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder, <span class="dt">method =</span> <span class="st">"iqr"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/time_recompose.html">time_recompose</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">    </span><span class="co"># Anomaly Visualization</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="reference/plot_anomalies.html">plot_anomalies</a></span>(<span class="dt">time_recomposed =</span> <span class="ot">TRUE</span>, <span class="dt">ncol =</span> <span class="dv">3</span>, <span class="dt">alpha_dots =</span> <span class="fl">0.25</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Tidyverse Anomalies"</span>, <span class="dt">subtitle =</span> <span class="st">"STL + IQR Methods"</span>) </a></code></pre></div>
 <p><img src="reference/figures/README-tidyverse_anoms_1-1.png" width="100%"></p>
-<p>If you’re familiar with Twitter’s <code>AnomalyDetection</code> package, you can implement that method by combining <code><a href="reference/time_decompose.html">time_decompose(method = "twitter")</a></code> with <code><a href="reference/anomalize.html">anomalize(method = "gesd")</a></code>. Additionally, we’ll adjust the <code>trend = "2 months"</code> to adjust the median spans, which is how Twitter’s decomposition method works.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Get only lubridate downloads</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">lubridate_dloads &lt;-<span class="st"> </span>tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(package <span class="op">==</span><span class="st"> "lubridate"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">    </span><span class="kw">ungroup</span>()</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co"># Anomalize!!</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">lubridate_dloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">    </span><span class="co"># Twitter + GESD</span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count, <span class="dt">method =</span> <span class="st">"twitter"</span>, <span class="dt">trend =</span> <span class="st">"2 months"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder, <span class="dt">method =</span> <span class="st">"gesd"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">    </span><span class="kw"><a href="reference/time_recompose.html">time_recompose</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="st">    </span><span class="co"># Anomaly Visualziation</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="st">    </span><span class="kw"><a href="reference/plot_anomalies.html">plot_anomalies</a></span>(<span class="dt">time_recomposed =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Lubridate Anomalies"</span>, <span class="dt">subtitle =</span> <span class="st">"Twitter + GESD Methods"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
-<p>Last, we can compare to STL + IQR methods, which use different decomposition and anomaly detection approaches.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">lubridate_dloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">    </span><span class="co"># STL + IQR Anomaly Detection</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count, <span class="dt">method =</span> <span class="st">"stl"</span>, <span class="dt">trend =</span> <span class="st">"2 months"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder, <span class="dt">method =</span> <span class="st">"iqr"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/time_recompose.html">time_recompose</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span><span class="co"># Anomaly Visualization</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">    </span><span class="kw"><a href="reference/plot_anomalies.html">plot_anomalies</a></span>(<span class="dt">time_recomposed =</span> <span class="ot">TRUE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Lubridate Anomalies"</span>, <span class="dt">subtitle =</span> <span class="st">"STL + IQR Methods"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
+<p>Check out the <a href="https://business-science.github.io/anomalize/articles/anomalize_quick_start_guide.html"><code>anomalize</code> Quick Start Guide</a>.</p>
 </div>
 <div id="reducing-forecast-error-by-32" class="section level2">
 <h2 class="hasAnchor">
 <a href="#reducing-forecast-error-by-32" class="anchor"></a>Reducing Forecast Error by 32%</h2>
 <p>Yes! Anomalize has a new function, <code><a href="reference/clean_anomalies.html">clean_anomalies()</a></code>, that can be used to repair time series prior to forecasting. We have a <a href="https://business-science.github.io/anomalize/articles/forecasting_with_cleaned_anomalies.html">brand new vignette - Reduce Forecast Error (by 32%) with Cleaned Anomalies</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(package <span class="op">==</span><span class="st"> "lubridate"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">    </span><span class="co"># New function that cleans &amp; repairs anomalies!</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="reference/clean_anomalies.html">clean_anomalies</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="st">  </span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="st">    </span><span class="kw">select</span>(date, observed, observed_cleaned) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="st">    </span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(date, observed)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="kw">palette_light</span>()[<span class="st">"blue"</span>], <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> observed_cleaned), <span class="dt">color =</span> <span class="kw">palette_light</span>()[<span class="st">"red"</span>], <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Cleaning Anomalies"</span>, <span class="dt">subtitle =</span> <span class="st">"Red has anomalies repaired by clean_anomalies()"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(package <span class="op">==</span><span class="st"> "lubridate"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="st">  </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">    </span><span class="co"># New function that cleans &amp; repairs anomalies!</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">    </span><span class="kw"><a href="reference/clean_anomalies.html">clean_anomalies</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">    </span><span class="kw">select</span>(date, anomaly, observed, observed_cleaned) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(anomaly <span class="op">==</span><span class="st"> "Yes"</span>)</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; # A time tibble: 19 x 4</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; # Index: date</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;    date       anomaly  observed observed_cleaned</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;       &lt;dbl&gt;            &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  1 2017-01-12 Yes     -1.14e-13            3522.</span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  2 2017-04-19 Yes      8.55e+ 3            5202.</span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  3 2017-09-01 Yes      3.98e-13            4137.</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;  4 2017-09-07 Yes      9.49e+ 3            4871.</span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;  5 2017-10-30 Yes      1.20e+ 4            6413.</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;  6 2017-11-13 Yes      1.03e+ 4            6641.</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;  7 2017-11-14 Yes      1.15e+ 4            7250.</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt;  8 2017-12-04 Yes      1.03e+ 4            6519.</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt;  9 2017-12-05 Yes      1.06e+ 4            7099.</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; 10 2017-12-27 Yes      3.69e+ 3            7073.</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; 11 2018-01-01 Yes      1.87e+ 3            6418.</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; 12 2018-01-05 Yes     -5.68e-14            6293.</span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; 13 2018-01-13 Yes      7.64e+ 3            4141.</span></a>
+<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt; 14 2018-02-07 Yes      1.19e+ 4            8539.</span></a>
+<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; 15 2018-02-08 Yes      1.17e+ 4            8237.</span></a>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; 16 2018-02-09 Yes     -5.68e-14            7780.</span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; 17 2018-02-10 Yes      0.                  5478.</span></a>
+<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt; 18 2018-02-23 Yes     -5.68e-14            8519.</span></a>
+<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt; 19 2018-02-24 Yes      0.                  6218.</span></a></code></pre></div>
 </div>
 <div id="but-wait-theres-more" class="section level2">
 <h2 class="hasAnchor">
@@ -219,14 +203,15 @@
 <li>
 <code><a href="reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition()</a></code> for visualizing the inner workings of how algorithm detects anomalies in the “remainder”.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(package <span class="op">==</span><span class="st"> "lubridate"</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Decomposition of Anomalized Lubridate Downloads"</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">tidyverse_cran_downloads <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(package <span class="op">==</span><span class="st"> "lubridate"</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="reference/time_decompose.html">time_decompose</a></span>(count) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="reference/anomalize.html">anomalize</a></span>(remainder) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">    </span><span class="kw"><a href="reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">"Decomposition of Anomalized Lubridate Downloads"</span>)</a></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
+<p>For more information on the <code>anomalize</code> methods and the inner workings, please see <a href="https://business-science.github.io/anomalize/articles/anomalize_methods.html">“Anomalize Methods” Vignette</a>.</p>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
