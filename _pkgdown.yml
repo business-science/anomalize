@@ -17,6 +17,8 @@ navbar:
           href: articles/anomalize_quick_start_guide.html
         - text: "Anomalize Methods"
           href: articles/anomalize_methods.html
+        - text: "Reduce Forecast Error by Cleaning Anomalies"
+          href: articles/forecasting_with_cleaned_anomalies.html
     - text: "News"
       href: news/index.html
 
@@ -35,6 +37,7 @@ reference:
     - starts_with("time_decompose")
     - anomalize
     - starts_with("time_recompose")
+    - clean_anomalies
   - title: Visualization functions
     desc: __Plotting utilities for visualizing anomalies.__
     contents:

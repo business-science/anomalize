@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Recompose bands separating anomalies from "normal" observations — time_recompose • anomalize</title>
+<title>Clean anomalies from anomalized data — clean_anomalies • anomalize</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Recompose bands separating anomalies from "normal" observations — time_recompose" />
-<meta property="og:description" content="Recompose bands separating anomalies from &quot;normal&quot; observations" />
+<meta property="og:title" content="Clean anomalies from anomalized data — clean_anomalies" />
+<meta property="og:description" content="Clean anomalies from anomalized data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -133,45 +133,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Recompose bands separating anomalies from "normal" observations</h1>
-    <small class="dont-index">Source: <a href='https://github.com/business-science/anomalize/blob/master/R/time_recompose.R'><code>R/time_recompose.R</code></a></small>
-    <div class="hidden name"><code>time_recompose.Rd</code></div>
+    <h1>Clean anomalies from anomalized data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/business-science/anomalize/blob/master/R/anomalize_clean.R'><code>R/anomalize_clean.R</code></a></small>
+    <div class="hidden name"><code>clean_anomalies.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Recompose bands separating anomalies from "normal" observations</p>
+    <p>Clean anomalies from anomalized data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>time_recompose</span>(<span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>clean_anomalies</span>(<span class='no'>data</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>A <code>tibble</code> or <code>tbl_time</code> object that has been
-processed with <code><a href='time_decompose.html'>time_decompose()</a></code> and <code><a href='anomalize.html'>anomalize()</a></code>.</p></td>
+      <td><p>A <code>tibble</code> or <code>tbl_time</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a <code>tbl_time</code> object.</p>
+    <p>Returns a <code>tibble</code> / <code>tbl_time</code> object with a new column "observed_cleaned".</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>time_recompose()</code> function is used to generate bands around the
-"normal" levels of observed values. The function uses the remainder_l1
-and remainder_l2 levels produced during the <code><a href='anomalize.html'>anomalize()</a></code> step
-and the season and trend/median_spans values from the <code><a href='time_decompose.html'>time_decompose()</a></code>
-step to reconstruct bands around the normal values.</p>
-<p>The following key names are required: observed:remainder from the
-<code><a href='time_decompose.html'>time_decompose()</a></code> step and remainder_l1 and remainder_l2 from the
-<code><a href='anomalize.html'>anomalize()</a></code> step.</p>
+    <p>The <code>clean_anomalies()</code> function is used to replace outliers with the seasonal and trend component.
+This is often desirable when forecasting with noisy time series data to improve trend detection.</p>
+<p>To clean anomalies, the input data must be detrended with <code><a href='time_decompose.html'>time_decompose()</a></code> and anomalized with <code><a href='anomalize.html'>anomalize()</a></code>.
+The data can also be recomposed with <code><a href='time_recompose.html'>time_recompose()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Time Series Anomaly Detection Functions (anomaly detection workflow):</p><ul>
 <li><p><code><a href='time_decompose.html'>time_decompose()</a></code></p></li>
 <li><p><code><a href='anomalize.html'>anomalize()</a></code></p></li>
+<li><p><code><a href='time_recompose.html'>time_recompose()</a></code></p></li>
 </ul>
 </div>
 
@@ -179,13 +175,15 @@ step to reconstruct bands around the normal values.</p>
     <pre class="examples"><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
 
+<span class='co'># Needed to pass CRAN check / This is loaded by default</span>
+<span class='fu'><a href='time_scale_template.html'>set_time_scale_template</a></span>(<span class='fu'><a href='time_scale_template.html'>time_scale_template</a></span>())
+
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>tidyverse_cran_downloads</span>)
 
-<span class='co'># Basic Usage</span>
 <span class='no'>tidyverse_cran_downloads</span> <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='time_decompose.html'>time_decompose</a></span>(<span class='no'>count</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"stl"</span>) <span class='kw'>%&gt;%</span>
     <span class='fu'><a href='anomalize.html'>anomalize</a></span>(<span class='no'>remainder</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"iqr"</span>) <span class='kw'>%&gt;%</span>
-    <span class='fu'>time_recompose</span>()</div><div class='output co'>#&gt; # A time tibble: 6,375 x 11
+    <span class='fu'>clean_anomalies</span>()</div><div class='output co'>#&gt; # A time tibble: 6,375 x 10
 #&gt; <span style='color: #555555;'># Index:  date</span><span>
 #&gt; </span><span style='color: #555555;'># Groups: package [15]</span><span>
 #&gt;    package date       observed season trend remainder remainder_l1 remainder_l2
@@ -200,8 +198,8 @@ step to reconstruct bands around the normal values.</p>
 #&gt; </span><span style='color: #555555;'> 8</span><span> tidyr   2017-01-08     </span><span style='text-decoration: underline;'>1</span><span>556 -</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span style='color: #BB0000;'>761.</span><span> </span><span style='text-decoration: underline;'>5</span><span>012.     -</span><span style='color: #BB0000;'>695.</span><span>       -</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span style='color: #BB0000;'>748.</span><span>        </span><span style='text-decoration: underline;'>3</span><span>708.
 #&gt; </span><span style='color: #555555;'> 9</span><span> tidyr   2017-01-09     </span><span style='text-decoration: underline;'>3</span><span>678   901. </span><span style='text-decoration: underline;'>5</span><span>006.    -</span><span style='color: #BB0000;text-decoration: underline;'>2</span><span style='color: #BB0000;'>229.</span><span>       -</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span style='color: #BB0000;'>748.</span><span>        </span><span style='text-decoration: underline;'>3</span><span>708.
 #&gt; </span><span style='color: #555555;'>10</span><span> tidyr   2017-01-10     </span><span style='text-decoration: underline;'>7</span><span>086  </span><span style='text-decoration: underline;'>1</span><span>460. </span><span style='text-decoration: underline;'>5</span><span>000.      626.       -</span><span style='color: #BB0000;text-decoration: underline;'>3</span><span style='color: #BB0000;'>748.</span><span>        </span><span style='text-decoration: underline;'>3</span><span>708.
-#&gt; </span><span style='color: #555555;'># … with 6,365 more rows, and 3 more variables: anomaly </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
-#&gt; #   recomposed_l1 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, recomposed_l2 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'># … with 6,365 more rows, and 2 more variables: anomaly </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span style='color: #555555;'>,
+#&gt; #   observed_cleaned </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span></div><div class='input'>
 
 </div></span></pre>
   </div>

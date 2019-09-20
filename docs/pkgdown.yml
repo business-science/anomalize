@@ -1,7 +1,8 @@
-pandoc: 2.1.2
-pkgdown: 0.1.0.9000
-pkgdown_sha: bfbf38c443ef2dafc17b9255d7b5db9d05dfb537
+pandoc: 2.3.1
+pkgdown: 1.4.1
+pkgdown_sha: ~
 articles:
   anomalize_methods: anomalize_methods.html
   anomalize_quick_start_guide: anomalize_quick_start_guide.html
+  forecasting_with_cleaned_anomalies: forecasting_with_cleaned_anomalies.html
 

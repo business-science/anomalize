@@ -20,6 +20,14 @@ knitr::opts_chunk$set(
 devtools::load_all()
 ```
 
+
+
+> Forecasting error can often be reduced 20% to 50% by repairing anomolous data
+
+## Example - Reducing Forecasting Error by 32%
+
+We can often get better forecast performance by cleaning anomalous data prior to forecasting. This is the perfect use case for integrating the `clean_anomalies()` function into your ___forecast workflow___. 
+
 ```{r setup, message=FALSE}
 library(tidyverse)
 library(tidyquant)
@@ -27,13 +35,7 @@ library(anomalize)
 library(timetk)
 ```
 
-> Forecasting error can often be reduced 20% to 50% by repairing anomolous data
-
-We can often get better forecast performance by cleaning anomalous data prior to forecasting. This is the perfect use case for integrating the `clean_anomalies()` function into your ___forecast workflow___. 
-
-## Example - Forecasting R Package Downloads
-
-Here is a short example with the `tidyverse_cran_downloads` dataset that comes with `anomalize`.
+Here is a short example with the `tidyverse_cran_downloads` dataset that comes with `anomalize`. __We'll see how we can reduce the forecast error by 32% simply by repairing anomalies.__
 
 ```{r}
 tidyverse_cran_downloads
