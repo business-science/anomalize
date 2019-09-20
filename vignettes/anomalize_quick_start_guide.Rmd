@@ -274,6 +274,13 @@ In reality, you'll probably want to leave `alpha` in the range of 0.10 to 0.02, 
 If you haven't had your fill and want to dive into the methods that power anomalize, check out the vignette, "Anomalize Methods".
 
 
+# Interested in Learning Anomaly Detection?
+
+Business Science offers two 1-hour courses on Anomaly Detection:
+
+- [Learning Lab 18](https://university.business-science.io/p/learning-labs-pro) - Time Series Anomaly Detection with `anomalize`
+
+- [Learning Lab 17](https://university.business-science.io/p/learning-labs-pro) - Anomaly Detection with H`2O` Machine Learning
 
 
 

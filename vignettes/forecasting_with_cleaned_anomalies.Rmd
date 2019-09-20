@@ -139,4 +139,10 @@ This is approximately a 32% reduction in forecast error as measure by Mean Absol
 (2755 - 4054) / 4054 
 ```
 
+# Interested in Learning Anomaly Detection?
 
+Business Science offers two 1-hour courses on Anomaly Detection:
+
+- [Learning Lab 18](https://university.business-science.io/p/learning-labs-pro) - Time Series Anomaly Detection with `anomalize`
+
+- [Learning Lab 17](https://university.business-science.io/p/learning-labs-pro) - Anomaly Detection with H`2O` Machine Learning
