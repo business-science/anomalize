@@ -34,7 +34,7 @@ Imports:
     purrr,
     rlang,
     tibble,
-    tidyr,
+    tidyr (>= 1.0.0),
     ggplot2,
     cli,
     crayon,
