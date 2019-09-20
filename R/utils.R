@@ -8,8 +8,7 @@ grouped_mapper <- function(data, target, .f, ...) {
 
     target_expr     <- dplyr::enquo(target)
 
-    group_names     <- dplyr::groups(data)
-    group_vars_expr <- rlang::syms(group_names)
+    group_names     <- dplyr::group_vars(data)
 
     ret <- data %>%
         tidyr::nest() %>%
@@ -20,8 +19,8 @@ grouped_mapper <- function(data, target, .f, ...) {
             ...)
         ) %>%
         dplyr::select(-data) %>%
-        tidyr::unnest() %>%
-        dplyr::group_by(!!! group_vars_expr)
+        tidyr::unnest(cols = nested.col) %>%
+        dplyr::group_by_at(.vars = group_names)
 
     # if (merge) {
     #     ret <- merge_two_tibbles(tib1 = data, tib2 = ret, .f = .f)
@@ -146,7 +145,7 @@ arrange_by_date <- function(tib) {
                               purrr::map(data, arrange_date)
             ) %>%
             dplyr::select(-data) %>%
-            tidyr::unnest() %>%
+            tidyr::unnest(cols = nested.col) %>%
             dplyr::group_by_at(.vars = group_names)
 
 
