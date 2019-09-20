@@ -23,8 +23,8 @@
     bsu_main <- crayon::make_style(bsu_main_color)
 
     msg <- paste0(
-        cli::rule(left = "Using anomalize improved our Forecasts 50% - Need to Learn anomalize?", col = bsu_rule_color, line = 2),
-        bsu_main('\nBusiness Science offers a 1-hour course through Learning Labs PRO - Lab #18!\n'),
+        cli::rule(left = "Use anomalize to improve your Forecasts by 50%!", col = bsu_rule_color, line = 2),
+        bsu_main('\nBusiness Science offers a 1-hour course - Lab #18: Time Series Anomaly Detection!\n'),
         bsu_main('</> Learn more at: https://university.business-science.io/p/learning-labs-pro </>')
     )
 
