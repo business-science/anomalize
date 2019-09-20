@@ -1,0 +1,142 @@
+---
+title: "Reduce Forecast Error with Cleaned Anomalies"
+author: "Business Science"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Forecasting with Cleaned Anomalies}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = F,
+  fig.align = "center"
+)
+
+devtools::load_all()
+```
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(tidyquant)
+library(anomalize)
+library(timetk)
+```
+
+> Forecasting error can often be reduced 20% to 50% by repairing anomolous data
+
+We can often get better forecast performance by cleaning anomalous data prior to forecasting. This is the perfect use case for integrating the `clean_anomalies()` function into your ___forecast workflow___. 
+
+## Example - Forecasting R Package Downloads
+
+Here is a short example with the `tidyverse_cran_downloads` dataset that comes with `anomalize`.
+
+```{r}
+tidyverse_cran_downloads
+```
+
+Let's take one package with some extreme events. We can hone in on `lubridate`, which has some outliers that we can fix. 
+
+```{r, fig.height=8, fig.width=6}
+tidyverse_cran_downloads %>%
+  ggplot(aes(date, count, color = package)) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~ package, ncol = 3, scales = "free_y") +
+  scale_color_viridis_d() +
+  theme_tq() 
+```
+
+
+## Forecasting Lubridate Downloads
+
+Let's focus on downloads of the `lubridate` R package. 
+
+```{r}
+lubridate_tbl <- tidyverse_cran_downloads %>%
+  ungroup() %>%
+  filter(package == "lubridate")
+```
+
+First, we'll make a function, `forecast_mae()`, that can take the input of both cleaned and uncleaned anomalies and calculate forecast error of future uncleaned anomalies.
+
+The modeling function uses the following criteria:
+
+- Split the `data` into training and testing data that maintains the correct time-series sequence using the `prop` argument.
+- Models the daily time series of the training data set from observed (demonstrates no cleaning) or observed and cleaned (demonstrates improvement from cleaning). Specified by the `col_train` argument. 
+- Compares the predictions to the observed values. Specified by the `col_test` argument.
+
+```{r}
+forecast_mae <- function(data, col_train, col_test, prop = 0.8) {
+  
+  predict_expr <- enquo(col_train)
+  actual_expr <- enquo(col_test)
+  
+  idx_train <- 1:(floor(prop * nrow(data)))
+  
+  train_tbl <- data %>% filter(row_number() %in% idx_train)
+  test_tbl  <- data %>% filter(!row_number() %in% idx_train)
+  
+  # Model using training data (training) 
+  model_formula <- as.formula(paste0(quo_name(predict_expr), " ~ index.num + year + quarter + month.lbl + day + wday.lbl"))
+  
+  model_glm <- train_tbl %>%
+    tk_augment_timeseries_signature() %>%
+    glm(model_formula, data = .)
+  
+  # Make Prediction
+  suppressWarnings({
+    # Suppress rank-deficit warning
+    prediction <- predict(model_glm, newdata = test_tbl %>% tk_augment_timeseries_signature()) 
+    actual     <- test_tbl %>% pull(!! actual_expr)
+  })
+  
+  # Calculate MAE
+  mae <- mean(abs(prediction - actual))
+  
+  return(mae)
+  
+}
+```
+
+## Workflow for Cleaning Anomalies 
+
+We will use the `anomalize` workflow of decomposing (`time_decompose()`) and identifying anomalies (`anomalize()`). We use the function, __`clean_anomalies()`, to add new column called "observed_cleaned" that is repaired by replacing all anomalies with the trend + seasonal components from the decompose operation__. We can now experiment to see the improvment in forecasting performance by comparing a forecast made with "observed" versus "observed_cleaned"
+
+```{r}
+lubridate_anomalized_tbl <- lubridate_tbl %>%
+  time_decompose(count) %>%
+  anomalize(remainder) %>%
+  
+  # Function to clean & repair anomalous data
+  clean_anomalies()
+
+lubridate_anomalized_tbl
+```
+
+## Before Cleaning with anomalize
+
+```{r}
+lubridate_anomalized_tbl %>%
+  forecast_mae(col_train = observed, col_test = observed, prop = 0.8)
+```
+
+## After Cleaning with anomalize
+
+```{r}
+lubridate_anomalized_tbl %>%
+  forecast_mae(col_train = observed_cleaned, col_test = observed, prop = 0.8)
+```
+
+## 32% Reduction in Forecast Error
+
+This is approximately a 32% reduction in forecast error as measure by Mean Absolute Error (MAE). 
+
+```{r}
+(2755 - 4054) / 4054 
+```
+
+
