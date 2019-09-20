@@ -30,7 +30,7 @@ Imports:
     glue,
     timetk,
     sweep,
-    tibbletime,
+    tibbletime (>= 0.1.3),
     purrr,
     rlang,
     tibble,
