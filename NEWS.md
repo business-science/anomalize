@@ -1,3 +1,9 @@
+# anomalize 0.2.0.9000
+
+__Bug Fixes__
+
+* Fix issue with sign error in GESD Method (Issue #46).
+
 # anomalize 0.2.0
 
 * `clean_anomalies()` - A new function to simplify cleaning anomalies by replacing with trend and seasonal components. This is useful in preparing data for forecasting. 

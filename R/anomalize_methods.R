@@ -71,7 +71,7 @@ iqr <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
     dplyr::arrange(dplyr::desc(max_abs_diff)) %>%
     dplyr::mutate(
       outlier = ifelse(max_abs_diff > 0, "Yes", "No"),
-      below_max_anoms = ifelse(row_number() / n() > max_anoms,
+      below_max_anoms = ifelse(dplyr::row_number() / dplyr::n() > max_anoms,
         "No", "Yes"
       ),
       outlier_reported = ifelse(outlier == "Yes" & below_max_anoms == "Yes",
@@ -185,7 +185,7 @@ gesd <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
       median = median_new,
       mad = mad_new,
       limit_lower = median - critical_value * mad,
-      limit_upper = critical_value * mad - median
+      limit_upper = critical_value * mad + median
     ) %>%
       dplyr::mutate(
         outlier = ifelse(test_statistic > critical_value, "Yes", "No"),
