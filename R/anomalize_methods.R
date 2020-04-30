@@ -35,7 +35,7 @@
 #' @export
 #' @rdname anomalize_methods
 iqr <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
-  quantile_x <- stats::quantile(x, prob = c(0.25, 0.75), na.rm = TRUE)
+  quantile_x <- stats::quantile(x, probs = c(0.25, 0.75), na.rm = TRUE)
   iq_range <- quantile_x[[2]] - quantile_x[[1]]
   limits <- quantile_x + (0.15 / alpha) * iq_range * c(-1, 1)
 
