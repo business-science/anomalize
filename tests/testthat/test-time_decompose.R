@@ -25,6 +25,7 @@ test_that("single tbl_df", {
 test_that("grouped tbl_df", {
     stl_tbl_time <- tidyverse_cran_downloads %>%
         as_tibble() %>%
+        group_by(package) %>%
         time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
 
     expect_equal(ncol(stl_tbl_time), 6)
@@ -125,6 +126,7 @@ test_that("method = twitter, numeric freq/trend", {
 test_that("grouped_df works", {
     grouped_data <- tidyverse_cran_downloads %>%
         as_tibble() %>%
+        group_by(package) %>%
         time_decompose(count)
 
     expect_equal(ncol(grouped_data), 6)

@@ -1,7 +1,7 @@
 Package: anomalize
 Type: Package
 Title: Tidy Anomaly Detection
-Version: 0.2.0.9000
+Version: 0.2.1
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -30,7 +30,7 @@ Imports:
     glue,
     timetk,
     sweep,
-    tibbletime (>= 0.1.3),
+    tibbletime (>= 0.1.5),
     purrr,
     rlang,
     tibble,

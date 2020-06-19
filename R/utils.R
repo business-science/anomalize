@@ -11,7 +11,7 @@ grouped_mapper <- function(data, target, .f, ...) {
     group_names     <- dplyr::group_vars(data)
 
     ret <- data %>%
-        tidyr::nest() %>%
+        dplyr::group_nest() %>%
         dplyr::mutate(nested.col = purrr::map(
             .x           = data,
             .f           = .f,

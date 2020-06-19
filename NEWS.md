@@ -1,8 +1,9 @@
-# anomalize 0.2.0.9000
+# anomalize 0.2.1
 
 __Bug Fixes__
 
 * Fix issue with sign error in GESD Method (Issue #46).
+* Require `tibbletime` >= 0.1.5 
 
 # anomalize 0.2.0
 
