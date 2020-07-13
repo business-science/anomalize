@@ -3,11 +3,7 @@
 \docType{package}
 \name{anomalize_package}
 \alias{anomalize_package}
-\alias{anomalize_package-package}
 \title{anomalize: Tidy anomaly detection}
-\description{
-anomalize: Tidy anomaly detection
-}
 \details{
 The 'anomalize' package enables a "tidy" workflow for detecting anomalies in data.
 The main functions are time_decompose(), anomalize(), and time_recompose().
