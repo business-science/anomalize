@@ -6,11 +6,25 @@
 \alias{decompose_stl}
 \title{Methods that power time_decompose()}
 \usage{
-decompose_twitter(data, target, frequency = "auto", trend = "auto",
-  message = TRUE)
+decompose_twitter(
+  data,
+  target,
+  frequency = "auto",
+  trend = "auto",
+  message = TRUE,
+  robust = TRUE,
+  ...
+)
 
-decompose_stl(data, target, frequency = "auto", trend = "auto",
-  message = TRUE)
+decompose_stl(
+  data,
+  target,
+  frequency = "auto",
+  trend = "auto",
+  message = TRUE,
+  robust = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}
@@ -28,6 +42,10 @@ For twitter, the trend controls the period width of the median, which are used t
 
 \item{message}{A boolean. If \code{TRUE}, will output information related to \code{tbl_time} conversions, frequencies,
 and trend / median spans (if applicable).}
+
+\item{robust}{logical indicating if robust fitting be used in the loess procedure of the underlying function call to \code{\link[stats:stl]{stats::stl()}}.}
+
+\item{...}{Additional parameters passed to the underlying function call to \code{\link[stats:stl]{stats::stl()}}.}
 }
 \value{
 A \code{tbl_time} object containing the time series decomposition.
@@ -48,7 +66,7 @@ tidyverse_cran_downloads \%>\%
 }
 \references{
 \itemize{
-\item The "twitter" method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{AnomalyDetection package}
+\item The "twitter" method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{\code{AnomalyDetection} package}
 }
 }
 \seealso{

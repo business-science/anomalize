@@ -4,9 +4,17 @@
 \alias{plot_anomaly_decomposition}
 \title{Visualize the time series decomposition with anomalies shown}
 \usage{
-plot_anomaly_decomposition(data, ncol = 1, color_no = "#2c3e50",
-  color_yes = "#e31a1c", alpha_dots = 1, alpha_circles = 1,
-  size_dots = 1.5, size_circles = 4, strip.position = "right")
+plot_anomaly_decomposition(
+  data,
+  ncol = 1,
+  color_no = "#2c3e50",
+  color_yes = "#e31a1c",
+  alpha_dots = 1,
+  alpha_circles = 1,
+  size_dots = 1.5,
+  size_circles = 4,
+  strip.position = "right"
+)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}

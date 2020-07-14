@@ -4,9 +4,16 @@
 \alias{time_decompose}
 \title{Decompose a time series in preparation for anomaly detection}
 \usage{
-time_decompose(data, target, method = c("stl", "twitter"),
-  frequency = "auto", trend = "auto", ..., merge = FALSE,
-  message = TRUE)
+time_decompose(
+  data,
+  target,
+  method = c("stl", "twitter"),
+  frequency = "auto",
+  trend = "auto",
+  ...,
+  merge = FALSE,
+  message = TRUE
+)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}

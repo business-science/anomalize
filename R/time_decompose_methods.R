@@ -1,6 +1,8 @@
 #' Methods that power time_decompose()
 #'
 #' @inheritParams time_decompose
+#' @param robust logical indicating if robust fitting be used in the loess procedure of the underlying function call to [stats::stl()].
+#' @param ... Additional parameters passed to the underlying function call to [stats::stl()].
 #'
 #' @return A `tbl_time` object containing the time series decomposition.
 #'
@@ -25,7 +27,7 @@
 
 #' @export
 #' @rdname decompose_methods
-decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
+decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", message = TRUE, robust = TRUE, ...) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_twitter(): argument "target" is missing, with no default', call. = FALSE)
@@ -47,7 +49,7 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
     decomp_tbl <- data %>%
         dplyr::pull(!! target_expr) %>%
         stats::ts(frequency = freq) %>%
-        stats::stl(s.window = "periodic", robust = TRUE) %>%
+        stats::stl(s.window = "periodic", robust = robust, ...) %>%
         sweep::sw_tidy_decomp() %>%
         dplyr::select(-c(index, seasadj)) %>%
         # forecast::mstl() %>%
@@ -141,7 +143,7 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
 
 #' @export
 #' @rdname decompose_methods
-decompose_stl <- function(data, target, frequency = "auto", trend = "auto", message = TRUE) {
+decompose_stl <- function(data, target, frequency = "auto", trend = "auto", message = TRUE, robust = TRUE, ...) {
 
     # Checks
     if (missing(target)) stop('Error in decompose_stl(): argument "target" is missing, with no default', call. = FALSE)
@@ -162,7 +164,7 @@ decompose_stl <- function(data, target, frequency = "auto", trend = "auto", mess
     decomp_tbl <- data %>%
         dplyr::pull(!! target_expr) %>%
         stats::ts(frequency = freq) %>%
-        stats::stl(s.window = "periodic", t.window = trnd, robust = TRUE) %>%
+        stats::stl(s.window = "periodic", t.window = trnd, robust = robust, ...) %>%
         sweep::sw_tidy_decomp() %>%
         # forecast::mstl() %>%
         # as.tibble() %>%

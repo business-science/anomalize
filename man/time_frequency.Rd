@@ -45,8 +45,8 @@ The \code{period} argument has three basic options for returning a frequency.
 Options include:
 \itemize{
 \item \code{"auto"}: A target frequency is determined using a pre-defined template (see \code{template} below).
-\item \code{time-based duration}: (e.g. "1 week" or "2 quarters" per cycle)
-\item \code{numeric number of observations}: (e.g. 5 for 5 observations per cycle)
+\item \verb{time-based duration}: (e.g. "1 week" or "2 quarters" per cycle)
+\item \verb{numeric number of observations}: (e.g. 5 for 5 observations per cycle)
 }
 
 The \code{template} argument is only used when \code{period = "auto"}. The template is a tibble

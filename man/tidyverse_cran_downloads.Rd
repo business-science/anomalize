@@ -4,12 +4,14 @@
 \name{tidyverse_cran_downloads}
 \alias{tidyverse_cran_downloads}
 \title{Downloads of various "tidyverse" packages from CRAN}
-\format{A \code{grouped_tbl_time} object with 6,375 rows and 3 variables:
+\format{
+A \code{grouped_tbl_time} object with 6,375 rows and 3 variables:
 \describe{
 \item{date}{Date of the daily observation}
 \item{count}{Number of downloads that day}
 \item{package}{The package corresponding to the daily download number}
-}}
+}
+}
 \source{
 The package downloads come from CRAN by way of the \code{cranlogs} package.
 }
