@@ -8,7 +8,7 @@
 \usage{
 iqr(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE)
 
-gesd(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE)
+gesd(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE, na.rm = FALSE)
 }
 \arguments{
 \item{x}{A vector of numeric data.}
@@ -21,6 +21,9 @@ to incorrectly classifying "normal" observations.}
 
 \item{verbose}{A boolean. If \code{TRUE}, will return a list containing useful information
 about the anomalies. If \code{FALSE}, just returns a vector of "Yes" / "No" values.}
+
+\item{na.rm}{Should NA values be removed when calculating outliers? Only
+applicable to \code{"gesd"} method.}
 }
 \value{
 Returns character vector or list depending on the value of \code{verbose}.
@@ -45,8 +48,8 @@ gesd(x, alpha = 0.05, max_anoms = 0.2, verbose = TRUE)
 }
 \references{
 \itemize{
-\item The IQR method is used in \href{https://github.com/robjhyndman/forecast/blob/master/R/clean.R}{forecast::tsoutliers()}
-\item The GESD method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{AnomalyDetection} package and is also available as a function in \href{https://github.com/raunakms/GESD/blob/master/runGESD.R}{@raunakms's GESD method}
+\item The IQR method is used in \href{https://github.com/robjhyndman/forecast/blob/master/R/clean.R}{\code{forecast::tsoutliers()}}
+\item The GESD method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{\code{AnomalyDetection}} package and is also available as a function in \href{https://github.com/raunakms/GESD/blob/master/runGESD.R}{@raunakms's GESD method}
 }
 }
 \seealso{

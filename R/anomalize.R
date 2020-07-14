@@ -13,6 +13,8 @@
 #' @param verbose A boolean. If `TRUE`, will return a list containing useful information
 #' about the anomalies. If `FALSE`, just returns the data expanded with the anomalies and
 #' the lower (l1) and upper (l2) bounds.
+#' @param na.rm Should NA values be removed when calculating outliers? Only
+#' applicable to `"gesd"` method.
 #'
 #' @return Returns a `tibble` / `tbl_time` object or list depending on the value of `verbose`.
 #'
@@ -88,7 +90,7 @@
 #'
 #' @export
 anomalize <- function(data, target, method = c("iqr", "gesd"),
-                      alpha = 0.05, max_anoms = 0.20, verbose = FALSE) {
+                      alpha = 0.05, max_anoms = 0.20, verbose = FALSE, na.rm = FALSE) {
     UseMethod("anomalize", data)
 }
 
@@ -100,7 +102,7 @@ anomalize.default <- function(data, target, method = c("iqr", "gesd"),
 
 #' @export
 anomalize.tbl_df <- function(data, target, method = c("iqr", "gesd"),
-                      alpha = 0.05, max_anoms = 0.20, verbose = FALSE) {
+                      alpha = 0.05, max_anoms = 0.20, verbose = FALSE, na.rm = FALSE) {
 
     # Checks
     if (missing(target)) stop('Error in anomalize(): argument "target" is missing, with no default', call. = FALSE)
@@ -130,6 +132,7 @@ anomalize.tbl_df <- function(data, target, method = c("iqr", "gesd"),
         outlier_list <- anomalize::gesd(x         = x,
                                         alpha     = alpha,
                                         max_anoms = max_anoms,
+                                        na.rm     = na.rm,
                                         verbose   = TRUE)
 
     } else {

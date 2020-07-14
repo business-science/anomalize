@@ -132,7 +132,7 @@ iqr <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
 
 #' @export
 #' @rdname anomalize_methods
-gesd <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
+gesd <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE, na.rm = FALSE) {
 
   # Variables
   n <- length(x)
@@ -151,12 +151,12 @@ gesd <- function(x, alpha = 0.05, max_anoms = 0.2, verbose = FALSE) {
   for (i in seq_len(r)) {
 
     # Compute test statistic
-    median_new[i] <- median(x_new)
-    mad_new[i] <- mad(x_new)
+    median_new[i] <- median(x_new, na.rm = na.rm)
+    mad_new[i] <- mad(x_new, na.rm = na.rm)
 
-    z <- abs(x_new - median(x_new)) / (mad(x_new) + .Machine$double.eps) # Z-scores
+    z <- abs(x_new - median(x_new, na.rm = na.rm)) / (mad(x_new, na.rm = na.rm) + .Machine$double.eps) # Z-scores
 
-    max_ind <- which(z == max(z), arr.ind = T)[1] # in case of ties, return first one
+    max_ind <- which(z == max(z, na.rm = na.rm), arr.ind = T)[1] # in case of ties, return first one
     R[i] <- z[max_ind] # max Z-score
     outlier_val[i] <- x_new[max_ind] # removed outlier observation values
     outlier_ind[i] <- which(x_new[max_ind] == x, arr.ind = T)[1] # index of removed outlier observation values
