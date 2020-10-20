@@ -40,7 +40,9 @@
 
 
 <meta property="og:title" content="Detect anomalies using the tidyverse — anomalize" />
-<meta property="og:description" content="The anomalize package enables a &quot;tidy&quot; workflow for detecting anomalies in time series data." />
+<meta property="og:description" content="The anomalize() function is used to detect outliers in a distribution
+with no trend or seasonality present. It takes the output of time_decompose(),
+which has be de-trended and applies anomaly detection methods to identify outliers." />
 
 
 
@@ -142,7 +144,9 @@
     </div>
 
     <div class="ref-description">
-    <p>The <code>anomalize</code> package enables a "tidy" workflow for detecting anomalies in time series data.</p>
+    <p>The <code>anomalize()</code> function is used to detect outliers in a distribution
+with no trend or seasonality present. It takes the output of <code><a href='time_decompose.html'>time_decompose()</a></code>,
+which has be de-trended and applies anomaly detection methods to identify outliers.</p>
     </div>
 
     <pre class="usage"><span class='fu'>anomalize</span><span class='op'>(</span>
@@ -195,8 +199,7 @@ the lower (l1) and upper (l2) bounds.</p></td>
     <p>Returns a <code>tibble</code> / <code>tbl_time</code> object or list depending on the value of <code>verbose</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>anomalize()</code> function is used to detect outliers in a distribution
-with no trend or seasonality present. The return has three columns:
+    <p>The return has three columns:
 "remainder_l1" (lower limit for anomalies), "remainder_l2" (upper limit for
 anomalies), and "anomaly" (Yes/No).</p>
 <p>Use <code><a href='time_decompose.html'>time_decompose()</a></code> to decompose a time series prior to performing

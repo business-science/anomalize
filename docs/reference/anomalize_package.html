@@ -40,6 +40,17 @@
 
 
 <meta property="og:title" content="anomalize: Tidy anomaly detection — anomalize_package" />
+<meta property="og:description" content="The 'anomalize' package enables a &quot;tidy&quot; workflow for detecting anomalies in data.
+The main functions are time_decompose(), anomalize(), and time_recompose().
+When combined, it's quite simple to decompose time series, detect anomalies,
+and create bands separating the &quot;normal&quot; data from the anomalous data at scale (i.e. for multiple time series).
+Time series decomposition is used to remove trend and seasonal components via the time_decompose() function
+and methods include seasonal decomposition of time series by Loess and
+seasonal decomposition by piecewise medians. The anomalize() function implements
+two methods for anomaly detection of residuals including using an inner quartile range
+and generalized extreme studentized deviation. These methods are based on
+those used in the forecast package and the Twitter AnomalyDetection package.
+Refer to the associated functions for specific references for these methods." />
 
 
 
@@ -141,12 +152,6 @@
     </div>
 
     <div class="ref-description">
-    </div>
-
-
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
     <p>The 'anomalize' package enables a "tidy" workflow for detecting anomalies in data.
 The main functions are time_decompose(), anomalize(), and time_recompose().
 When combined, it's quite simple to decompose time series, detect anomalies,
@@ -158,7 +163,13 @@ two methods for anomaly detection of residuals including using an inner quartile
 and generalized extreme studentized deviation. These methods are based on
 those used in the <code>forecast</code> package and the Twitter <code>AnomalyDetection</code> package.
 Refer to the associated functions for specific references for these methods.</p>
-<p>To learn more about <code>anomalize</code>, start with the vignettes:
+    </div>
+
+
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>To learn more about <code>anomalize</code>, start with the vignettes:
 <code><a href='https://rdrr.io/r/utils/browseVignettes.html'>browseVignettes(package = "anomalize")</a></code></p>
 
   </div>
