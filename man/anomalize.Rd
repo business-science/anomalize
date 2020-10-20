@@ -37,7 +37,7 @@ the lower (l1) and upper (l2) bounds.}
 Returns a \code{tibble} / \code{tbl_time} object or list depending on the value of \code{verbose}.
 }
 \description{
-Detect anomalies using the tidyverse
+The \code{anomalize} package enables a "tidy" workflow for detecting anomalies in time series data.
 }
 \details{
 The \code{anomalize()} function is used to detect outliers in a distribution

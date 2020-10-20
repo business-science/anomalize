@@ -1,4 +1,4 @@
-# anomalize 0.2.1.9000
+# anomalize 0.2.2
 
 __Bug Fixes__
 

@@ -1,5 +1,7 @@
 #' Detect anomalies using the tidyverse
 #'
+#' The `anomalize` package enables a "tidy" workflow for detecting anomalies in time series data.
+#'
 #' @inheritParams time_apply
 #' @param data A `tibble` or `tbl_time` object.
 #' @param method The anomaly detection method. One of `"iqr"` or `"gesd"`.
