@@ -1,6 +1,8 @@
 #' Detect anomalies using the tidyverse
 #'
-#' The `anomalize` package enables a "tidy" workflow for detecting anomalies in time series data.
+#' The `anomalize()` function is used to detect outliers in a distribution
+#' with no trend or seasonality present. It takes the output of [time_decompose()],
+#' which has be de-trended and applies anomaly detection methods to identify outliers.
 #'
 #' @inheritParams time_apply
 #' @param data A `tibble` or `tbl_time` object.
@@ -19,8 +21,7 @@
 #' @return Returns a `tibble` / `tbl_time` object or list depending on the value of `verbose`.
 #'
 #' @details
-#' The `anomalize()` function is used to detect outliers in a distribution
-#' with no trend or seasonality present. The return has three columns:
+#' The return has three columns:
 #' "remainder_l1" (lower limit for anomalies), "remainder_l2" (upper limit for
 #' anomalies), and "anomaly" (Yes/No).
 #'

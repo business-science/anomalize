@@ -4,7 +4,7 @@
 \name{anomalize_package}
 \alias{anomalize_package}
 \title{anomalize: Tidy anomaly detection}
-\details{
+\description{
 The 'anomalize' package enables a "tidy" workflow for detecting anomalies in data.
 The main functions are time_decompose(), anomalize(), and time_recompose().
 When combined, it's quite simple to decompose time series, detect anomalies,
@@ -16,7 +16,8 @@ two methods for anomaly detection of residuals including using an inner quartile
 and generalized extreme studentized deviation. These methods are based on
 those used in the \code{forecast} package and the Twitter \code{AnomalyDetection} package.
 Refer to the associated functions for specific references for these methods.
-
+}
+\details{
 To learn more about \code{anomalize}, start with the vignettes:
 \code{browseVignettes(package = "anomalize")}
 }

@@ -37,11 +37,12 @@ the lower (l1) and upper (l2) bounds.}
 Returns a \code{tibble} / \code{tbl_time} object or list depending on the value of \code{verbose}.
 }
 \description{
-The \code{anomalize} package enables a "tidy" workflow for detecting anomalies in time series data.
+The \code{anomalize()} function is used to detect outliers in a distribution
+with no trend or seasonality present. It takes the output of \code{\link[=time_decompose]{time_decompose()}},
+which has be de-trended and applies anomaly detection methods to identify outliers.
 }
 \details{
-The \code{anomalize()} function is used to detect outliers in a distribution
-with no trend or seasonality present. The return has three columns:
+The return has three columns:
 "remainder_l1" (lower limit for anomalies), "remainder_l2" (upper limit for
 anomalies), and "anomaly" (Yes/No).
 
