@@ -4,8 +4,14 @@
 \alias{anomalize}
 \title{Detect anomalies using the tidyverse}
 \usage{
-anomalize(data, target, method = c("iqr", "gesd"), alpha = 0.05,
-  max_anoms = 0.2, verbose = FALSE)
+anomalize(
+  data,
+  target,
+  method = c("iqr", "gesd"),
+  alpha = 0.05,
+  max_anoms = 0.2,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}
@@ -51,13 +57,13 @@ each with benefits.
 
 \strong{IQR}:
 
-The IQR Method uses an innerquartile range of 25% and 75% to establish a baseline distribution around
+The IQR Method uses an innerquartile range of 25\% and 75\% to establish a baseline distribution around
 the median. With the default \code{alpha = 0.05}, the limits are established by expanding
 the 25/75 baseline by an IQR Factor of 3 (3X). The IQR Factor = 0.15 / alpha (hense 3X with alpha = 0.05).
 To increase the IQR Factor controling the limits, decrease the alpha, which makes
 it more difficult to be an outlier. Increase alpha to make it easier to be an outlier.
 
-The IQR method is used in \href{https://github.com/robjhyndman/forecast}{forecast::tsoutliers()}.
+The IQR method is used in \href{https://github.com/robjhyndman/forecast}{\code{forecast::tsoutliers()}}.
 
 \strong{GESD}:
 
@@ -68,7 +74,7 @@ drops below the critical value, all outliers are considered removed. Because thi
 involves continuous updating via a loop, it is slower than the IQR method. However, it
 tends to be the best performing method for outlier removal.
 
-The GESD method is used in \href{https://github.com/twitter/AnomalyDetection}{AnomalyDection::AnomalyDetectionTs()}.
+The GESD method is used in \href{https://github.com/twitter/AnomalyDetection}{\code{AnomalyDection::AnomalyDetectionTs()}}.
 }
 \examples{
 

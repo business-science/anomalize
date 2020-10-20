@@ -6,11 +6,15 @@
 \alias{decompose_stl}
 \title{Methods that power time_decompose()}
 \usage{
-decompose_twitter(data, target, frequency = "auto", trend = "auto",
-  message = TRUE)
+decompose_twitter(
+  data,
+  target,
+  frequency = "auto",
+  trend = "auto",
+  message = TRUE
+)
 
-decompose_stl(data, target, frequency = "auto", trend = "auto",
-  message = TRUE)
+decompose_stl(data, target, frequency = "auto", trend = "auto", message = TRUE)
 }
 \arguments{
 \item{data}{A \code{tibble} or \code{tbl_time} object.}
@@ -48,7 +52,7 @@ tidyverse_cran_downloads \%>\%
 }
 \references{
 \itemize{
-\item The "twitter" method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{AnomalyDetection package}
+\item The "twitter" method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{\code{AnomalyDetection} package}
 }
 }
 \seealso{

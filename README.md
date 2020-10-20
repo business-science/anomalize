@@ -19,8 +19,7 @@ status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/bad
 main functions are `time_decompose()`, `anomalize()`, and
 `time_recompose()`. When combined, it’s quite simple to decompose time
 series, detect anomalies, and create bands separating the “normal” data
-from the anomalous
-data.
+from the anomalous data.
 
 ## Anomalize In 2 Minutes (YouTube)
 

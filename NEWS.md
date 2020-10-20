@@ -1,3 +1,9 @@
+# anomalize 0.2.1.9000
+
+__Bug Fixes__
+
+- `theme_tq()`: Fix issues with `%+replace%`, `theme_gray`, and `rel` not found. 
+
 # anomalize 0.2.1
 
 __Bug Fixes__

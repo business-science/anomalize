@@ -45,8 +45,8 @@ gesd(x, alpha = 0.05, max_anoms = 0.2, verbose = TRUE)
 }
 \references{
 \itemize{
-\item The IQR method is used in \href{https://github.com/robjhyndman/forecast/blob/master/R/clean.R}{forecast::tsoutliers()}
-\item The GESD method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{AnomalyDetection} package and is also available as a function in \href{https://github.com/raunakms/GESD/blob/master/runGESD.R}{@raunakms's GESD method}
+\item The IQR method is used in \href{https://github.com/robjhyndman/forecast/blob/master/R/clean.R}{\code{forecast::tsoutliers()}}
+\item The GESD method is used in Twitter's \href{https://github.com/twitter/AnomalyDetection}{\code{AnomalyDetection}} package and is also available as a function in \href{https://github.com/raunakms/GESD/blob/master/runGESD.R}{@raunakms's GESD method}
 }
 }
 \seealso{
