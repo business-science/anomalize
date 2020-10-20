@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Methods that power anomalize() — anomalize_methods" />
 <meta property="og:description" content="Methods that power anomalize()" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -65,7 +68,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1.9000</span>
       </span>
     </div>
 
@@ -142,9 +145,9 @@
     <p>Methods that power anomalize()</p>
     </div>
 
-    <pre class="usage"><span class='fu'>iqr</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>max_anoms</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>iqr</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, max_anoms <span class='op'>=</span> <span class='fl'>0.2</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>gesd</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>max_anoms</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>gesd</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, max_anoms <span class='op'>=</span> <span class='fl'>0.2</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,8 +180,8 @@ about the anomalies. If <code>FALSE</code>, just returns a vector of "Yes" / "No
 
     
 <ul>
-<li><p>The IQR method is used in <a href='https://github.com/robjhyndman/forecast/blob/master/R/clean.R'>forecast::tsoutliers()</a></p></li>
-<li><p>The GESD method is used in Twitter's <a href='https://github.com/twitter/AnomalyDetection'>AnomalyDetection</a> package and is also available as a function in <a href='https://github.com/raunakms/GESD/blob/master/runGESD.R'>@raunakms's GESD method</a></p></li>
+<li><p>The IQR method is used in <a href='https://github.com/robjhyndman/forecast/blob/master/R/clean.R'><code><a href='https://pkg.robjhyndman.com/forecast/reference/tsoutliers.html'>forecast::tsoutliers()</a></code></a></p></li>
+<li><p>The GESD method is used in Twitter's <a href='https://github.com/twitter/AnomalyDetection'><code>AnomalyDetection</code></a> package and is also available as a function in <a href='https://github.com/raunakms/GESD/blob/master/runGESD.R'>@raunakms's GESD method</a></p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -187,138 +190,150 @@ about the anomalies. If <code>FALSE</code>, just returns a vector of "Yes" / "No
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>100</span>)
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>100</span>)
-<span class='no'>idx_outliers</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>100</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='no'>x</span>[<span class='no'>idx_outliers</span>] <span class='kw'>&lt;-</span> <span class='no'>x</span>[<span class='no'>idx_outliers</span>] + <span class='fl'>10</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+<span class='va'>idx_outliers</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>100</span>, size <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>x</span><span class='op'>[</span><span class='va'>idx_outliers</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>[</span><span class='va'>idx_outliers</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>10</span>
 
-<span class='fu'>iqr</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>max_anoms</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='output co'>#&gt;   [1] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [13] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [25] "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "No" 
-#&gt;  [37] "Yes" "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [49] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [61] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [73] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No" 
-#&gt;  [85] "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "Yes" "No" 
-#&gt;  [97] "No"  "No"  "No"  "No" </div><div class='input'><span class='fu'>iqr</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>max_anoms</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $outlier
-#&gt;   [1] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [13] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [25] "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "No" 
-#&gt;  [37] "Yes" "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [49] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [61] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [73] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No" 
-#&gt;  [85] "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "Yes" "No" 
-#&gt;  [97] "No"  "No"  "No"  "No" 
+<span class='fu'>iqr</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, max_anoms <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No" "Yes"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No" "Yes"  "No"  "No" "Yes"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No" "Yes"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No" "Yes"  "No"  "No"  "No" </div><div class='input'><span class='fu'>iqr</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, max_anoms <span class='op'>=</span> <span class='fl'>0.2</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $outlier
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No" "Yes"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No" "Yes"  "No"  "No" "Yes"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No" "Yes"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;   25%   25%   25%   25%   25%   25%   25%   25%   25% 
+#&gt;  "No"  "No"  "No"  "No"  "No" "Yes"  "No"  "No"  "No" 
 #&gt; 
 #&gt; $outlier_idx
-#&gt; [1] 37 31 90 95 80
+#&gt; [1] 74 71 30 82 97
 #&gt; 
 #&gt; $outlier_vals
-#&gt; [1] 10.182908  9.908886  9.896230  9.469704  7.925595
+#&gt; [1] 11.648522 10.448903 10.247076  9.950004  9.167504
 #&gt; 
 #&gt; $outlier_direction
 #&gt; [1] "Up" "Up" "Up" "Up" "Up"
 #&gt; 
 #&gt; $critical_limits
-#&gt; limit_lower limit_upper 
-#&gt;   -4.606339    4.827444 
+#&gt; limit_lower.25% limit_upper.75% 
+#&gt;       -4.552347        4.755455 
 #&gt; 
 #&gt; $outlier_report
 #&gt; <span style='color: #555555;'># A tibble: 20 x 7</span><span>
 #&gt;     rank index value limit_lower limit_upper outlier direction
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'> 1</span><span>     1    37 10.2        -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 2</span><span>     2    31  9.91       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 3</span><span>     3    90  9.90       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 4</span><span>     4    95  9.47       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 5</span><span>     5    80  7.93       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 6</span><span>     6    64  2.58       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'> 7</span><span>     7    55 -</span><span style='color: #BB0000;'>2.27</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'> 8</span><span>     8    96  2.45       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'> 9</span><span>     9    20  2.31       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>10</span><span>    10    75 -</span><span style='color: #BB0000;'>2.06</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>11</span><span>    11    84 -</span><span style='color: #BB0000;'>1.93</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>12</span><span>    12    50 -</span><span style='color: #BB0000;'>1.88</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>13</span><span>    13    43 -</span><span style='color: #BB0000;'>1.78</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>14</span><span>    14    52 -</span><span style='color: #BB0000;'>1.74</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>15</span><span>    15    54  1.90       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>16</span><span>    16    58  1.82       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>17</span><span>    17    32  1.76       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>18</span><span>    18    89  1.73       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>19</span><span>    19    74  1.65       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>20</span><span>    20    57 -</span><span style='color: #BB0000;'>1.40</span><span>       -</span><span style='color: #BB0000;'>4.61</span><span>        4.83 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 1</span><span>     1    74 11.6        -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 2</span><span>     2    71 10.4        -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 3</span><span>     3    30 10.2        -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 4</span><span>     4    82  9.95       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 5</span><span>     5    97  9.17       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 6</span><span>     6    64  2.58       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 7</span><span>     7    55 -</span><span style='color: #BB0000;'>2.27</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 8</span><span>     8    96  2.45       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 9</span><span>     9    20  2.31       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>10</span><span>    10    80 -</span><span style='color: #BB0000;'>2.07</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>11</span><span>    11    75 -</span><span style='color: #BB0000;'>2.06</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>12</span><span>    12    84 -</span><span style='color: #BB0000;'>1.93</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>13</span><span>    13    50 -</span><span style='color: #BB0000;'>1.88</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>14</span><span>    14    43 -</span><span style='color: #BB0000;'>1.78</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>15</span><span>    15    52 -</span><span style='color: #BB0000;'>1.74</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>16</span><span>    16    54  1.90       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>17</span><span>    17    58  1.82       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>18</span><span>    18    32  1.76       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>19</span><span>    19    89  1.73       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>20</span><span>    20    57 -</span><span style='color: #BB0000;'>1.40</span><span>       -</span><span style='color: #BB0000;'>4.55</span><span>        4.76 No      </span><span style='color: #BB0000;'>NA</span><span>       
 #&gt; </div><div class='input'>
-<span class='fu'>gesd</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>max_anoms</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='output co'>#&gt;   [1] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+<span class='fu'>gesd</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, max_anoms <span class='op'>=</span> <span class='fl'>0.2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;   [1] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
 #&gt;  [13] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [25] "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "No" 
-#&gt;  [37] "Yes" "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;  [25] "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;  [37] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
 #&gt;  [49] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [61] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [73] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No" 
-#&gt;  [85] "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "Yes" "No" 
-#&gt;  [97] "No"  "No"  "No"  "No" </div><div class='input'><span class='fu'>gesd</span>(<span class='no'>x</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>max_anoms</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; $outlier
+#&gt;  [61] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No" 
+#&gt;  [73] "No"  "Yes" "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No" 
+#&gt;  [85] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;  [97] "Yes" "No"  "No"  "No" </div><div class='input'><span class='fu'>gesd</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, max_anoms <span class='op'>=</span> <span class='fl'>0.2</span>, verbose <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $outlier
 #&gt;   [1] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
 #&gt;  [13] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [25] "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "No" 
-#&gt;  [37] "Yes" "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;  [25] "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;  [37] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
 #&gt;  [49] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [61] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
-#&gt;  [73] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No" 
-#&gt;  [85] "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No"  "No"  "No"  "Yes" "No" 
-#&gt;  [97] "No"  "No"  "No"  "No" 
+#&gt;  [61] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No" 
+#&gt;  [73] "No"  "Yes" "No"  "No"  "No"  "No"  "No"  "No"  "No"  "Yes" "No"  "No" 
+#&gt;  [85] "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No"  "No" 
+#&gt;  [97] "Yes" "No"  "No"  "No" 
 #&gt; 
 #&gt; $outlier_idx
-#&gt; [1] 37 31 90 95 80
+#&gt; [1] 74 71 30 82 97
 #&gt; 
 #&gt; $outlier_vals
-#&gt; [1] 10.182908  9.908886  9.896230  9.469704  7.925595
+#&gt; [1] 11.648522 10.448903 10.247076  9.950004  9.167504
 #&gt; 
 #&gt; $outlier_direction
 #&gt; [1] "Up" "Up" "Up" "Up" "Up"
 #&gt; 
 #&gt; $critical_limits
 #&gt; limit_lower limit_upper 
-#&gt;   -3.441812    3.441812 
+#&gt;   -3.315690    3.175856 
 #&gt; 
 #&gt; $outlier_report
 #&gt; </span><span style='color: #555555;'># A tibble: 20 x 7</span><span>
 #&gt;     rank index value limit_lower limit_upper outlier direction
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>    
-#&gt; </span><span style='color: #555555;'> 1</span><span>     1    37 10.2        -</span><span style='color: #BB0000;'>3.45</span><span>        3.45 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 2</span><span>     2    31  9.91       -</span><span style='color: #BB0000;'>3.57</span><span>        3.57 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 3</span><span>     3    90  9.90       -</span><span style='color: #BB0000;'>3.55</span><span>        3.55 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 4</span><span>     4    95  9.47       -</span><span style='color: #BB0000;'>3.50</span><span>        3.50 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 5</span><span>     5    80  7.93       -</span><span style='color: #BB0000;'>3.55</span><span>        3.55 Yes     Up       
-#&gt; </span><span style='color: #555555;'> 6</span><span>     6    64  2.58       -</span><span style='color: #BB0000;'>3.44</span><span>        3.44 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'> 7</span><span>     7    96  2.45       -</span><span style='color: #BB0000;'>3.41</span><span>        3.41 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'> 8</span><span>     8    20  2.31       -</span><span style='color: #BB0000;'>3.39</span><span>        3.39 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'> 9</span><span>     9    55 -</span><span style='color: #BB0000;'>2.27</span><span>       -</span><span style='color: #BB0000;'>3.33</span><span>        3.33 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>10</span><span>    10    75 -</span><span style='color: #BB0000;'>2.06</span><span>       -</span><span style='color: #BB0000;'>3.34</span><span>        3.34 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>11</span><span>    11    54  1.90       -</span><span style='color: #BB0000;'>3.30</span><span>        3.30 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>12</span><span>    12    84 -</span><span style='color: #BB0000;'>1.93</span><span>       -</span><span style='color: #BB0000;'>3.22</span><span>        3.22 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>13</span><span>    13    58  1.82       -</span><span style='color: #BB0000;'>3.01</span><span>        3.01 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>14</span><span>    14    50 -</span><span style='color: #BB0000;'>1.88</span><span>       -</span><span style='color: #BB0000;'>2.82</span><span>        2.82 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>15</span><span>    15    32  1.76       -</span><span style='color: #BB0000;'>2.74</span><span>        2.74 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>16</span><span>    16    89  1.73       -</span><span style='color: #BB0000;'>2.67</span><span>        2.67 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>17</span><span>    17    43 -</span><span style='color: #BB0000;'>1.78</span><span>       -</span><span style='color: #BB0000;'>2.60</span><span>        2.60 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>18</span><span>    18    74  1.65       -</span><span style='color: #BB0000;'>2.55</span><span>        2.55 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>19</span><span>    19    52 -</span><span style='color: #BB0000;'>1.74</span><span>       -</span><span style='color: #BB0000;'>2.53</span><span>        2.53 No      </span><span style='color: #BB0000;'>NA</span><span>       
-#&gt; </span><span style='color: #555555;'>20</span><span>    20    92  1.43       -</span><span style='color: #BB0000;'>2.50</span><span>        2.50 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 1</span><span>     1    74 11.6        -</span><span style='color: #BB0000;'>3.60</span><span>        3.58 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 2</span><span>     2    71 10.4        -</span><span style='color: #BB0000;'>3.49</span><span>        3.43 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 3</span><span>     3    30 10.2        -</span><span style='color: #BB0000;'>3.45</span><span>        3.35 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 4</span><span>     4    82  9.95       -</span><span style='color: #BB0000;'>3.53</span><span>        3.39 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 5</span><span>     5    97  9.17       -</span><span style='color: #BB0000;'>3.42</span><span>        3.29 Yes     Up       
+#&gt; </span><span style='color: #555555;'> 6</span><span>     6    64  2.58       -</span><span style='color: #BB0000;'>3.32</span><span>        3.18 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 7</span><span>     7    96  2.45       -</span><span style='color: #BB0000;'>3.28</span><span>        3.13 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 8</span><span>     8    20  2.31       -</span><span style='color: #BB0000;'>3.24</span><span>        3.08 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'> 9</span><span>     9    55 -</span><span style='color: #BB0000;'>2.27</span><span>       -</span><span style='color: #BB0000;'>3.15</span><span>        2.98 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>10</span><span>    10    80 -</span><span style='color: #BB0000;'>2.07</span><span>       -</span><span style='color: #BB0000;'>3.12</span><span>        2.96 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>11</span><span>    11    75 -</span><span style='color: #BB0000;'>2.06</span><span>       -</span><span style='color: #BB0000;'>3.05</span><span>        2.91 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>12</span><span>    12    54  1.90       -</span><span style='color: #BB0000;'>2.95</span><span>        2.81 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>13</span><span>    13    58  1.82       -</span><span style='color: #BB0000;'>2.78</span><span>        2.63 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>14</span><span>    14    84 -</span><span style='color: #BB0000;'>1.93</span><span>       -</span><span style='color: #BB0000;'>2.57</span><span>        2.41 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>15</span><span>    15    32  1.76       -</span><span style='color: #BB0000;'>2.54</span><span>        2.39 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>16</span><span>    16    89  1.73       -</span><span style='color: #BB0000;'>2.53</span><span>        2.37 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>17</span><span>    17    50 -</span><span style='color: #BB0000;'>1.88</span><span>       -</span><span style='color: #BB0000;'>2.54</span><span>        2.37 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>18</span><span>    18    43 -</span><span style='color: #BB0000;'>1.78</span><span>       -</span><span style='color: #BB0000;'>2.50</span><span>        2.34 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>19</span><span>    19    52 -</span><span style='color: #BB0000;'>1.74</span><span>       -</span><span style='color: #BB0000;'>2.46</span><span>        2.31 No      </span><span style='color: #BB0000;'>NA</span><span>       
+#&gt; </span><span style='color: #555555;'>20</span><span>    20    92  1.43       -</span><span style='color: #BB0000;'>2.44</span><span>        2.30 No      </span><span style='color: #BB0000;'>NA</span><span>       
 #&gt; </div><div class='input'>
 
 </div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -329,7 +344,7 @@ about the anomalies. If <code>FALSE</code>, just returns a vector of "Yes" / "No
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
