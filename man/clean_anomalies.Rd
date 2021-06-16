@@ -31,11 +31,19 @@ set_time_scale_template(time_scale_template())
 
 data(tidyverse_cran_downloads)
 
-tidyverse_cran_downloads \%>\%
+df <- tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl") \%>\%
     anomalize(remainder, method = "iqr") \%>\%
     clean_anomalies()
 
+library(tidyr)
+library(ggplot2)
+
+df \%>\%
+  pivot_longer(starts_with("observed")) \%>\%
+  ggplot(aes(x = date, y = value, color = name)) +
+    geom_line(alpha = 0.5) +
+    facet_wrap(~ package, scales = "free")
 
 }
 \seealso{
