@@ -22,7 +22,7 @@ decompose_stl(data, target, frequency = "auto", trend = "auto", message = TRUE)
 \item{target}{A column to apply the function to}
 
 \item{frequency}{Controls the seasonal adjustment (removal of seasonality).
-Input can be either "auto", a time-based definition (e.g. "2 weeks"),
+Input can be either "auto", a time-based definition (e.g. "1 week"),
 or a numeric number of observations per frequency (e.g. 10).
 Refer to \code{\link[=time_frequency]{time_frequency()}}.}
 

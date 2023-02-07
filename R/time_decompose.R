@@ -6,7 +6,7 @@
 #' The STL method uses seasonal decomposition (see [decompose_stl()]).
 #' The Twitter method uses `trend` to remove the trend (see [decompose_twitter()]).
 #' @param frequency Controls the seasonal adjustment (removal of seasonality).
-#' Input can be either "auto", a time-based definition (e.g. "2 weeks"),
+#' Input can be either "auto", a time-based definition (e.g. "1 week"),
 #' or a numeric number of observations per frequency (e.g. 10).
 #' Refer to [time_frequency()].
 #' @param trend Controls the trend component
@@ -39,7 +39,7 @@
 #' from the "observed" values. The `trend` parameter adjusts the
 #' trend window (`t.window` parameter from `stl()`) that is used.
 #' The user may supply both `frequency`
-#' and `trend` as time-based durations (e.g. "6 weeks") or numeric values
+#' and `trend` as time-based durations (e.g. "90 days") or numeric values
 #' (e.g. 180) or "auto", which predetermines the frequency and/or trend
 #' based on the scale of the time series.
 #'
@@ -56,7 +56,7 @@
 #' The `frequency` parameter adjusts the "season" component that is removed
 #' from the "observed" values. The `trend` parameter adjusts the
 #' period width of the median spans that are used. The user may supply both `frequency`
-#' and `trend` as time-based durations (e.g. "6 weeks") or numeric values
+#' and `trend` as time-based durations (e.g. "90 days") or numeric values
 #' (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 #' based on the scale of the time series.
 #'

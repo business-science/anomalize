@@ -21,7 +21,7 @@ time_apply(
 
 \item{target}{A column to apply the function to}
 
-\item{period}{A time-based definition (e.g. "2 weeks").
+\item{period}{A time-based definition (e.g. "1 week").
 or a numeric number of observations per frequency (e.g. 10).
 See \code{\link[tibbletime:collapse_by]{tibbletime::collapse_by()}} for period notation.}
 

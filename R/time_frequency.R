@@ -1,7 +1,7 @@
 #' Generate a time series frequency from a periodicity
 #'
 #' @param data A `tibble` with a date or datetime index.
-#' @param period Either "auto", a time-based definition (e.g. "2 weeks"),
+#' @param period Either "auto", a time-based definition (e.g. "14 days"),
 #' or a numeric number of observations per frequency (e.g. 10).
 #' See [tibbletime::collapse_by()] for period notation.
 #' @param message A boolean. If `message = TRUE`, the frequency used is output
@@ -111,7 +111,7 @@ time_frequency <- function(data, period = "auto", message = TRUE) {
         freq <- period
 
     } else if (period != "auto") {
-        # 2. Text (e.g. period = "2 Weeks")
+        # 2. Text (e.g. period = "14 days")
         freq <- data %>%
             tibbletime::collapse_by(period = period) %>%
             dplyr::count(!! index_expr) %>%
@@ -187,7 +187,7 @@ time_trend <- function(data, period = "auto", message = TRUE) {
         trend <- period
 
     } else if (period != "auto") {
-        # 2. Text (e.g. period = "2 Weeks")
+        # 2. Text (e.g. period = "14 days")
         trend <- data %>%
             tibbletime::collapse_by(period = period) %>%
             dplyr::count(!! index_expr) %>%

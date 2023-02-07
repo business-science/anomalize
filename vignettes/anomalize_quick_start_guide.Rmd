@@ -5,6 +5,7 @@ date: "`r Sys.Date()`"
 output: 
     rmarkdown::html_vignette:
         toc: TRUE
+        toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{Anomalize Quick Start Guide}
   %\VignetteEngine{knitr::rmarkdown}
@@ -19,10 +20,6 @@ knitr::opts_chunk$set(
   warning = F,
   fig.align = "center"
 )
-
-devtools::load_all()
-library(tidyverse)
-library(tibbletime)
 ```
 
 The `anomalize` package is a feature rich package for performing anomaly detection. It's geared towards time series analysis, which is one of the biggest needs for understanding when anomalies occur. We have a quick start section called "5-Minutes to Anomalize" for those looking to jump right in. We also have a detailed section on parameter adjustment for those looking to understand what nobs they can turn. Finally, for those really looking to get under the hood, we have another vignette called "Anomalize Methods" that gets into a deep discussion on STL, Twitter, IQR and GESD methods that are used to power `anomalize`. 
@@ -40,7 +37,7 @@ Check out our entire [Software Intro Series](https://www.youtube.com/watch?v=Gk_
 
 Load libraries. 
 
-```{r, eval = F}
+```{r, eval = T, message = F, warning = F}
 library(tidyverse)
 library(tibbletime)
 library(anomalize)
@@ -153,17 +150,17 @@ What this means is that if the scale is 1 day (meaning the difference between ea
 
 #### Local Parameter Adjustment
 
-Local parameter adjustment can be performed by tweaking the in-function parameters. Below we adjust `trend = "2 weeks"` which makes for a quite overfit trend. 
+Local parameter adjustment can be performed by tweaking the in-function parameters. Below we adjust `trend = "14 days"` which makes for a quite overfit trend. 
 
 ```{r, fig.show="hold", fig.height=6, fig.align="default"}
 # Local adjustment via time_decompose
 p2 <- lubridate_daily_downloads %>%
     time_decompose(count,
                    frequency = "auto",
-                   trend     = "2 weeks") %>%
+                   trend     = "14 days") %>%
     anomalize(remainder) %>%
     plot_anomaly_decomposition() +
-    ggtitle("Trend = 2 Weeks (Local)")
+    ggtitle("Trend = 14 Days (Local)")
 
 # Show plots
 p1
@@ -177,20 +174,20 @@ We can also adjust globally by using `set_time_scale_template()` to update the d
 ```{r}
 # Globally change time scale template options
 time_scale_template() %>%
-    mutate(trend = ifelse(time_scale == "day", "2 weeks", trend)) %>%
+    mutate(trend = ifelse(time_scale == "day", "14 days", trend)) %>%
     set_time_scale_template()
 
 get_time_scale_template()
 ```
 
-Finally we can re-run the `time_decompose()` with defaults, and we can see that the trend is "2 weeks". 
+Finally we can re-run the `time_decompose()` with defaults, and we can see that the trend is "14 days". 
 
 ```{r, fig.width=5, fig.height=6}
 p3 <- lubridate_daily_downloads %>%
     time_decompose(count) %>%
     anomalize(remainder) %>%
     plot_anomaly_decomposition() +
-    ggtitle("Trend = 2 Weeks (Global)")
+    ggtitle("Trend = 14 Days (Global)")
 
 p3
 ```

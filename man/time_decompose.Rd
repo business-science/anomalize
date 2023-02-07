@@ -25,7 +25,7 @@ The STL method uses seasonal decomposition (see \code{\link[=decompose_stl]{deco
 The Twitter method uses \code{trend} to remove the trend (see \code{\link[=decompose_twitter]{decompose_twitter()}}).}
 
 \item{frequency}{Controls the seasonal adjustment (removal of seasonality).
-Input can be either "auto", a time-based definition (e.g. "2 weeks"),
+Input can be either "auto", a time-based definition (e.g. "1 week"),
 or a numeric number of observations per frequency (e.g. 10).
 Refer to \code{\link[=time_frequency]{time_frequency()}}.}
 
@@ -66,7 +66,7 @@ The \code{frequency} parameter adjusts the "season" component that is removed
 from the "observed" values. The \code{trend} parameter adjusts the
 trend window (\code{t.window} parameter from \code{stl()}) that is used.
 The user may supply both \code{frequency}
-and \code{trend} as time-based durations (e.g. "6 weeks") or numeric values
+and \code{trend} as time-based durations (e.g. "90 days") or numeric values
 (e.g. 180) or "auto", which predetermines the frequency and/or trend
 based on the scale of the time series.
 
@@ -82,7 +82,7 @@ The user can control two parameters: \code{frequency} and \code{trend}.
 The \code{frequency} parameter adjusts the "season" component that is removed
 from the "observed" values. The \code{trend} parameter adjusts the
 period width of the median spans that are used. The user may supply both \code{frequency}
-and \code{trend} as time-based durations (e.g. "6 weeks") or numeric values
+and \code{trend} as time-based durations (e.g. "90 days") or numeric values
 (e.g. 180) or "auto", which predetermines the frequency and/or median spans
 based on the scale of the time series.
 }

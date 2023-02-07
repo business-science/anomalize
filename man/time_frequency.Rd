@@ -12,7 +12,7 @@ time_trend(data, period = "auto", message = TRUE)
 \arguments{
 \item{data}{A \code{tibble} with a date or datetime index.}
 
-\item{period}{Either "auto", a time-based definition (e.g. "2 weeks"),
+\item{period}{Either "auto", a time-based definition (e.g. "14 days"),
 or a numeric number of observations per frequency (e.g. 10).
 See \code{\link[tibbletime:collapse_by]{tibbletime::collapse_by()}} for period notation.}
 

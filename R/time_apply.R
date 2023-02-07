@@ -3,7 +3,7 @@
 #' @inheritParams tibbletime::collapse_by
 #' @param data A `tibble` with a date or datetime index.
 #' @param target A column to apply the function to
-#' @param period A time-based definition (e.g. "2 weeks").
+#' @param period A time-based definition (e.g. "1 week").
 #' or a numeric number of observations per frequency (e.g. 10).
 #' See [tibbletime::collapse_by()] for period notation.
 #' @param .fun A function to apply (e.g. `median`)
