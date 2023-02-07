@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -50,7 +52,7 @@
   <a href="../reference/index.html">Function Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -73,7 +75,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/business-science/anomalize">
+  <a href="https://github.com/business-science/anomalize" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -88,75 +90,119 @@
 
       
 
-      </header><script src="anomalize_methods_files/header-attrs-2.4/header-attrs.js"></script><script src="anomalize_methods_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Anomalize Methods</h1>
-                        <h4 class="author">Business Science</h4>
+                        <h4 data-toc-skip class="author">Business
+Science</h4>
             
-            <h4 class="date">2020-10-20</h4>
+            <h4 data-toc-skip class="date">2023-02-07</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/business-science/anomalize/blob/master/vignettes/anomalize_methods.Rmd"><code>vignettes/anomalize_methods.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/business-science/anomalize/blob/HEAD/vignettes/anomalize_methods.Rmd" class="external-link"><code>vignettes/anomalize_methods.Rmd</code></a></small>
       <div class="hidden name"><code>anomalize_methods.Rmd</code></div>
 
     </div>
 
     
     
-<p>Anomaly detection is critical to many disciplines, but possibly none more important than in <strong>time series analysis</strong>. A time series is the sequential set of values tracked over a time duration. The definition we use for an <strong>anomaly</strong> is simple: an anomaly is something that happens that (1) was unexpected or (2) was caused by an abnormal event. Therefore, the problem we intend to solve with <code>anomalize</code> is providing methods to accurately detect these “anomalous” events.</p>
-<p>The methods that <code>anomalize</code> uses can be separated into two main tasks:</p>
+<p>Anomaly detection is critical to many disciplines, but possibly none
+more important than in <strong>time series analysis</strong>. A time
+series is the sequential set of values tracked over a time duration. The
+definition we use for an <strong>anomaly</strong> is simple: an anomaly
+is something that happens that (1) was unexpected or (2) was caused by
+an abnormal event. Therefore, the problem we intend to solve with
+<code>anomalize</code> is providing methods to accurately detect these
+“anomalous” events.</p>
+<p>The methods that <code>anomalize</code> uses can be separated into
+two main tasks:</p>
 <ol style="list-style-type: decimal">
 <li>Generating Time Series Analysis Remainders</li>
 <li>Detecting Anomalies in the Remainders</li>
 </ol>
-<div id="generating-time-series-analysis-remainders" class="section level2">
-<h2 class="hasAnchor">
-<a href="#generating-time-series-analysis-remainders" class="anchor"></a>1. Generating Time Series Analysis Remainders</h2>
-<p>Anomaly detection is performed on <strong>remainders</strong> from a time series analysis that have had removed both:</p>
+<div class="section level3">
+<h3 id="generating-time-series-analysis-remainders">1. Generating Time Series Analysis Remainders<a class="anchor" aria-label="anchor" href="#generating-time-series-analysis-remainders"></a>
+</h3>
+<p>Anomaly detection is performed on <strong>remainders</strong> from a
+time series analysis that have had removed both:</p>
 <ul>
 <li>
-<strong>Seasonal Components</strong>: Cyclic pattern usually occurring on a daily cycle for minute or hour data or a weekly cycle for daily data</li>
+<strong>Seasonal Components</strong>: Cyclic pattern usually
+occurring on a daily cycle for minute or hour data or a weekly cycle for
+daily data</li>
 <li>
-<strong>Trend Components</strong>: Longer term growth that happens over many observations.</li>
+<strong>Trend Components</strong>: Longer term growth that happens
+over many observations.</li>
 </ul>
-<p>Therefore, the first objective is to generate remainders from a time series. Some analysis techniques are better for this task then others, and it’s probably not the ones you would think.</p>
-<p>There are many ways that a time series can be deconstructed to produce residuals. We have tried many including using ARIMA, Machine Learning (Regression), Seasonal Decomposition, and so on. For anomaly detection, we have seen the best performance using <strong>seasonal decomposition</strong>. Most high performance machine learning techniques perform poorly for anomaly detection because of <em>overfitting</em>, which downplays the difference between the actual value and the fitted value. This is not the objective of anomaly detection wherein we need to highlight the anomaly. Seasonal decomposition does very well for this task, removing the right features (i.e. seasonal and trend components) while preserving the characteristics of anomalies in the residuals.</p>
-<p>The <code>anomalize</code> package implements two techniques for seasonal decomposition:</p>
+<p>Therefore, the first objective is to generate remainders from a time
+series. Some analysis techniques are better for this task then others,
+and it’s probably not the ones you would think.</p>
+<p>There are many ways that a time series can be deconstructed to
+produce residuals. We have tried many including using ARIMA, Machine
+Learning (Regression), Seasonal Decomposition, and so on. For anomaly
+detection, we have seen the best performance using <strong>seasonal
+decomposition</strong>. Most high performance machine learning
+techniques perform poorly for anomaly detection because of
+<em>overfitting</em>, which downplays the difference between the actual
+value and the fitted value. This is not the objective of anomaly
+detection wherein we need to highlight the anomaly. Seasonal
+decomposition does very well for this task, removing the right features
+(i.e. seasonal and trend components) while preserving the
+characteristics of anomalies in the residuals.</p>
+<p>The <code>anomalize</code> package implements two techniques for
+seasonal decomposition:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>STL</strong>: Seasonal Decomposition of Time Series by Loess</li>
+<strong>STL</strong>: Seasonal Decomposition of Time Series by
+Loess</li>
 <li>
-<strong>Twitter</strong>: Seasonal Decomposition of Time Series by Median</li>
+<strong>Twitter</strong>: Seasonal Decomposition of Time Series by
+Median</li>
 </ol>
 <p>Each method has pros and cons.</p>
-<div id="a--stl" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--stl" class="anchor"></a>1.A. STL</h3>
-<p>The STL method uses the <code><a href="https://rdrr.io/r/stats/stl.html">stl()</a></code> function from the <code>stats</code> package. STL works very well in circumstances where a long term trend is present. The Loess algorithm typically does a very good job at detecting the trend. However, it circumstances when the seasonal component is more dominant than the trend, Twitter tends to perform better.</p>
+<div class="section level4">
+<h4 id="a--stl">1.A. STL<a class="anchor" aria-label="anchor" href="#a--stl"></a>
+</h4>
+<p>The STL method uses the <code><a href="https://rdrr.io/r/stats/stl.html" class="external-link">stl()</a></code> function from the
+<code>stats</code> package. STL works very well in circumstances where a
+long term trend is present. The Loess algorithm typically does a very
+good job at detecting the trend. However, it circumstances when the
+seasonal component is more dominant than the trend, Twitter tends to
+perform better.</p>
 </div>
-<div id="b--twitter" class="section level3">
-<h3 class="hasAnchor">
-<a href="#b--twitter" class="anchor"></a>1.B. Twitter</h3>
-<p>The Twitter method is a similar decomposition method to that used in Twitter’s <code>AnomalyDetection</code> package. The Twitter method works identically to STL for removing the seasonal component. The main difference is in removing the trend, which is performed by removing the median of the data rather than fitting a smoother. The median works well when a long-term trend is less dominant that the short-term seasonal component. This is because the smoother tends to overfit the anomalies.</p>
+<div class="section level4">
+<h4 id="b--twitter">1.B. Twitter<a class="anchor" aria-label="anchor" href="#b--twitter"></a>
+</h4>
+<p>The Twitter method is a similar decomposition method to that used in
+Twitter’s <code>AnomalyDetection</code> package. The Twitter method
+works identically to STL for removing the seasonal component. The main
+difference is in removing the trend, which is performed by removing the
+median of the data rather than fitting a smoother. The median works well
+when a long-term trend is less dominant that the short-term seasonal
+component. This is because the smoother tends to overfit the
+anomalies.</p>
 </div>
-<div id="c--comparison-of-stl-and-twitter-decomposition-methods" class="section level3">
-<h3 class="hasAnchor">
-<a href="#c--comparison-of-stl-and-twitter-decomposition-methods" class="anchor"></a>1.C. Comparison of STL and Twitter Decomposition Methods</h3>
+<div class="section level4">
+<h4 id="c--comparison-of-stl-and-twitter-decomposition-methods">1.C. Comparison of STL and Twitter Decomposition Methods<a class="anchor" aria-label="anchor" href="#c--comparison-of-stl-and-twitter-decomposition-methods"></a>
+</h4>
 <p>Load two libraries to perform the comparison.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize">anomalize</a></span><span class="op">)</span></pre></div>
-<p>Collect data on the daily downloads of the <code>lubridate</code> package. This comes from the data set, <code>tidyverse_cran_downloads</code> that is part of <code>anomalize</code> package.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="co"># Data on `lubridate` package daily downloads</span>
-<span class="va">lubridate_download_history</span> <span class="op">&lt;-</span> <span class="va">tidyverse_cran_downloads</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Output first 10 observations</span>
-<span class="va">lubridate_download_history</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span></code></pre></div>
+<p>Collect data on the daily downloads of the <code>lubridate</code>
+package. This comes from the data set,
+<code>tidyverse_cran_downloads</code> that is part of
+<code>anomalize</code> package.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Data on `lubridate` package daily downloads</span></span>
+<span><span class="va">lubridate_download_history</span> <span class="op">&lt;-</span> <span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Output first 10 observations</span></span>
+<span><span class="va">lubridate_download_history</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">date</th>
@@ -216,153 +262,228 @@
 </tr>
 </tbody>
 </table>
-<p>We can visualize the differences between the two decomposition methods.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="co"># STL Decomposition Method</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">lubridate_download_history</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span>, 
-                   method    <span class="op">=</span> <span class="st">"stl"</span>,
-                   frequency <span class="op">=</span> <span class="st">"1 week"</span>,
-                   trend     <span class="op">=</span> <span class="st">"3 months"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"STL Decomposition"</span><span class="op">)</span>
-<span class="co">#&gt; frequency = 7 days</span>
-<span class="co">#&gt; trend = 91 days</span>
-<span class="co">#&gt; Registered S3 method overwritten by 'quantmod':</span>
-<span class="co">#&gt;   method            from</span>
-<span class="co">#&gt;   as.zoo.data.frame zoo</span>
-
-<span class="co"># Twitter Decomposition Method</span>
-<span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">lubridate_download_history</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span>, 
-                   method    <span class="op">=</span> <span class="st">"twitter"</span>,
-                   frequency <span class="op">=</span> <span class="st">"1 week"</span>,
-                   trend     <span class="op">=</span> <span class="st">"3 months"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Twitter Decomposition"</span><span class="op">)</span>
-<span class="co">#&gt; frequency = 7 days</span>
-<span class="co">#&gt; median_span = 85 days</span>
-
-<span class="co"># Show plots</span>
-<span class="va">p1</span>
-<span class="va">p2</span></pre></div>
+<p>We can visualize the differences between the two decomposition
+methods.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># STL Decomposition Method</span></span>
+<span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="va">lubridate_download_history</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span>, </span>
+<span>                   method    <span class="op">=</span> <span class="st">"stl"</span>,</span>
+<span>                   frequency <span class="op">=</span> <span class="st">"1 week"</span>,</span>
+<span>                   trend     <span class="op">=</span> <span class="st">"3 months"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"STL Decomposition"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; frequency = 7 days</span></span>
+<span><span class="co">#&gt; trend = 91 days</span></span>
+<span><span class="co">#&gt; Registered S3 method overwritten by 'quantmod':</span></span>
+<span><span class="co">#&gt;   method            from</span></span>
+<span><span class="co">#&gt;   as.zoo.data.frame zoo</span></span>
+<span></span>
+<span><span class="co"># Twitter Decomposition Method</span></span>
+<span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">lubridate_download_history</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span>, </span>
+<span>                   method    <span class="op">=</span> <span class="st">"twitter"</span>,</span>
+<span>                   frequency <span class="op">=</span> <span class="st">"1 week"</span>,</span>
+<span>                   trend     <span class="op">=</span> <span class="st">"3 months"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Twitter Decomposition"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; frequency = 7 days</span></span>
+<span><span class="co">#&gt; median_span = 85 days</span></span>
+<span></span>
+<span><span class="co"># Show plots</span></span>
+<span><span class="va">p1</span></span>
+<span><span class="va">p2</span></span></code></pre></div>
 <p><img src="anomalize_methods_files/figure-html/unnamed-chunk-3-1.png" width="700"><img src="anomalize_methods_files/figure-html/unnamed-chunk-3-2.png" width="700"></p>
-<p>We can see that the season components for both STL and Twitter decomposition are exactly the same. The difference is the trend component:</p>
+<p>We can see that the season components for both STL and Twitter
+decomposition are exactly the same. The difference is the trend
+component:</p>
 <ul>
-<li><p>STL: The STL trend follows a smoothed Loess with a Loess trend window at 91 days (as defined by <code>trend = "3 months"</code>). The remainder of the decomposition is centered.</p></li>
-<li><p>Twitter: The Twitter trend is a series of medians that are removed. The median span logic is such that the medians are selected to have equal distribution of observations. Because of this, the trend span is 85 days, which is slightly less than the 91 days (or 3 months).</p></li>
+<li><p>STL: The STL trend follows a smoothed Loess with a Loess trend
+window at 91 days (as defined by <code>trend = "3 months"</code>). The
+remainder of the decomposition is centered.</p></li>
+<li><p>Twitter: The Twitter trend is a series of medians that are
+removed. The median span logic is such that the medians are selected to
+have equal distribution of observations. Because of this, the trend span
+is 85 days, which is slightly less than the 91 days (or 3
+months).</p></li>
 </ul>
 </div>
-<div id="d--transformations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#d--transformations" class="anchor"></a>1.D. Transformations</h3>
-<p>In certain circumstances such as multiplicative trends in which the residuals (remainders) have heteroskedastic properties, which is when the variance changes as the time series sequence progresses (e.g. the remainders fan out), it becomes difficult to detect anomalies in especially in the low variance regions. Logarithmic or power transformations can help in these situations. This is beyond the scope of the methods and is not implemented in the current version of <code>anomalize</code>. However, these transformations can be performed on the incoming target and the output can be inverse-transformed.</p>
+<div class="section level4">
+<h4 id="d--transformations">1.D. Transformations<a class="anchor" aria-label="anchor" href="#d--transformations"></a>
+</h4>
+<p>In certain circumstances such as multiplicative trends in which the
+residuals (remainders) have heteroskedastic properties, which is when
+the variance changes as the time series sequence progresses (e.g. the
+remainders fan out), it becomes difficult to detect anomalies in
+especially in the low variance regions. Logarithmic or power
+transformations can help in these situations. This is beyond the scope
+of the methods and is not implemented in the current version of
+<code>anomalize</code>. However, these transformations can be performed
+on the incoming target and the output can be inverse-transformed.</p>
 </div>
 </div>
-<div id="detecting-anomalies-in-the-remainders" class="section level2">
-<h2 class="hasAnchor">
-<a href="#detecting-anomalies-in-the-remainders" class="anchor"></a>2. Detecting Anomalies in the Remainders</h2>
-<p>Once a time series analysis is completed and the remainder has the desired characteristics, the remainders can be analyzed. The challenge is that anomalies are high leverage points that distort the distribution. The <code>anomalize</code> package implements two methods that are resistant to the high leverage points:</p>
+<div class="section level3">
+<h3 id="detecting-anomalies-in-the-remainders">2. Detecting Anomalies in the Remainders<a class="anchor" aria-label="anchor" href="#detecting-anomalies-in-the-remainders"></a>
+</h3>
+<p>Once a time series analysis is completed and the remainder has the
+desired characteristics, the remainders can be analyzed. The challenge
+is that anomalies are high leverage points that distort the
+distribution. The <code>anomalize</code> package implements two methods
+that are resistant to the high leverage points:</p>
 <ol style="list-style-type: decimal">
 <li>
 <strong>IQR</strong>: Inner Quartile Range</li>
 <li>
-<strong>GESD</strong>: Generalized Extreme Studentized Deviate Test</li>
+<strong>GESD</strong>: Generalized Extreme Studentized Deviate
+Test</li>
 </ol>
 <p>Both methods have pros and cons.</p>
-<div id="a--iqr" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a--iqr" class="anchor"></a>2.A. IQR</h3>
-<p>The IQR method is a similar method to that used in the <code>forecast</code> package for anomaly removal within the <code>tsoutliers()</code> function. It takes a distribution and uses the 25% and 75% inner quartile range to establish the distribution of the remainder. Limits are set by default to a factor of 3X above and below the inner quartile range, and any remainders beyond the limits are considered anomalies.</p>
-<p>The <code>alpha</code> parameter adjusts the 3X factor. By default, <code>alpha = 0.05</code> for consistency with the GESD method. An <code>alpha = 0.025</code>, results in a 6X factor, expanding the limits and making it more difficult for data to be an anomaly. Conversely, an <code>alpha = 0.10</code> contracts the limits to a factor of 1.5X making it more easy for data to be an anomaly.</p>
-<p>The IQR method does not depend on any loops and is therefore faster and more easily scaled than the GESD method. However, it may not be as accurate in detecting anomalies since the high leverage anomalies can skew the centerline (median) of the IQR.</p>
+<div class="section level4">
+<h4 id="a--iqr">2.A. IQR<a class="anchor" aria-label="anchor" href="#a--iqr"></a>
+</h4>
+<p>The IQR method is a similar method to that used in the
+<code>forecast</code> package for anomaly removal within the
+<code>tsoutliers()</code> function. It takes a distribution and uses the
+25% and 75% inner quartile range to establish the distribution of the
+remainder. Limits are set by default to a factor of 3X above and below
+the inner quartile range, and any remainders beyond the limits are
+considered anomalies.</p>
+<p>The <code>alpha</code> parameter adjusts the 3X factor. By default,
+<code>alpha = 0.05</code> for consistency with the GESD method. An
+<code>alpha = 0.025</code>, results in a 6X factor, expanding the limits
+and making it more difficult for data to be an anomaly. Conversely, an
+<code>alpha = 0.10</code> contracts the limits to a factor of 1.5X
+making it more easy for data to be an anomaly.</p>
+<p>The IQR method does not depend on any loops and is therefore faster
+and more easily scaled than the GESD method. However, it may not be as
+accurate in detecting anomalies since the high leverage anomalies can
+skew the centerline (median) of the IQR.</p>
 </div>
-<div id="b--gesd" class="section level3">
-<h3 class="hasAnchor">
-<a href="#b--gesd" class="anchor"></a>2.B. GESD</h3>
-<p>The GESD method is used in Twitter’s <code>AnomalyDetection</code> package. It involves an iterative evaluation of the Generalized Extreme Studentized Deviate test, which progressively evaluates anomalies, removing the worst offenders and recalculating the test statistic and critical value. The critical values progressively contract as more high leverage points are removed.</p>
-<p>The <code>alpha</code> parameter adjusts the width of the critical values. By default, <code>alpha = 0.05</code>.</p>
-<p>The GESD method is iterative, and therefore more expensive that the IQR method. The main benefit is that GESD is less resistant to high leverage points since the distribution of the data is progressively analyzed as anomalies are removed.</p>
+<div class="section level4">
+<h4 id="b--gesd">2.B. GESD<a class="anchor" aria-label="anchor" href="#b--gesd"></a>
+</h4>
+<p>The GESD method is used in Twitter’s <code>AnomalyDetection</code>
+package. It involves an iterative evaluation of the Generalized Extreme
+Studentized Deviate test, which progressively evaluates anomalies,
+removing the worst offenders and recalculating the test statistic and
+critical value. The critical values progressively contract as more high
+leverage points are removed.</p>
+<p>The <code>alpha</code> parameter adjusts the width of the critical
+values. By default, <code>alpha = 0.05</code>.</p>
+<p>The GESD method is iterative, and therefore more expensive that the
+IQR method. The main benefit is that GESD is less resistant to high
+leverage points since the distribution of the data is progressively
+analyzed as anomalies are removed.</p>
 </div>
-<div id="c-comparison-of-iqr-and-gesd-methods" class="section level3">
-<h3 class="hasAnchor">
-<a href="#c-comparison-of-iqr-and-gesd-methods" class="anchor"></a>2.C Comparison of IQR and GESD Methods</h3>
-<p>We can generate anomalous data to illustrate how each method work compares to each other.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co"># Generate anomalies</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
-<span class="va">idx_outliers</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">100</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
-<span class="va">x</span><span class="op">[</span><span class="va">idx_outliers</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">idx_outliers</span><span class="op">]</span> <span class="op">+</span> <span class="fl">10</span>
-
-<span class="co"># Visualize simulated anomalies</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/qplot.html">qplot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span>, 
-      main <span class="op">=</span> <span class="st">"Simulated Anomalies"</span>,
-      xlab <span class="op">=</span> <span class="st">"Index"</span><span class="op">)</span> </pre></div>
+<div class="section level4">
+<h4 id="c-comparison-of-iqr-and-gesd-methods">2.C Comparison of IQR and GESD Methods<a class="anchor" aria-label="anchor" href="#c-comparison-of-iqr-and-gesd-methods"></a>
+</h4>
+<p>We can generate anomalous data to illustrate how each method work
+compares to each other.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate anomalies</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">idx_outliers</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">100</span>, size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">[</span><span class="va">idx_outliers</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">[</span><span class="va">idx_outliers</span><span class="op">]</span> <span class="op">+</span> <span class="fl">10</span></span>
+<span></span>
+<span><span class="co"># Visualize simulated anomalies</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/qplot.html" class="external-link">qplot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="va">x</span>, </span>
+<span>      main <span class="op">=</span> <span class="st">"Simulated Anomalies"</span>,</span>
+<span>      xlab <span class="op">=</span> <span class="st">"Index"</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="anomalize_methods_files/figure-html/unnamed-chunk-4-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>Two functions power <code><a href="../reference/anomalize.html">anomalize()</a></code>, which are <code><a href="../reference/anomalize_methods.html">iqr()</a></code> and <code><a href="../reference/anomalize_methods.html">gesd()</a></code>. We can use these intermediate functions to illustrate the anomaly detection characteristics.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="co"># Analyze outliers: Outlier Report is available with verbose = TRUE</span>
-<span class="va">iqr_outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anomalize_methods.html">iqr</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, max_anoms <span class="op">=</span> <span class="fl">0.2</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">outlier_report</span>
-
-<span class="va">gesd_outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anomalize_methods.html">gesd</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, max_anoms <span class="op">=</span> <span class="fl">0.2</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">outlier_report</span>
-
-<span class="co"># ploting function for anomaly plots</span>
-<span class="va">ggsetup</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">data</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">outlier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">limit_upper</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">limit_lower</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">index</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"No"</span> <span class="op">=</span> <span class="st">"#2c3e50"</span>, <span class="st">"Yes"</span> <span class="op">=</span> <span class="st">"#e31a1c"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html">expand_limits</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">13</span><span class="op">)</span> <span class="op">+</span>
-        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span>
-<span class="op">}</span>
-    
-
-<span class="co"># Visualize</span>
-<span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">iqr_outliers</span> <span class="op">%&gt;%</span> 
-    <span class="fu">ggsetup</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"IQR: Top outliers sorted by rank"</span><span class="op">)</span> 
-
-<span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">gesd_outliers</span> <span class="op">%&gt;%</span> 
-    <span class="fu">ggsetup</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"GESD: Top outliers sorted by rank"</span><span class="op">)</span> 
-    
-<span class="co"># Show plots</span>
-<span class="va">p3</span>
-<span class="va">p4</span></pre></div>
+<p>Two functions power <code><a href="../reference/anomalize.html">anomalize()</a></code>, which are
+<code><a href="../reference/anomalize_methods.html">iqr()</a></code> and <code><a href="../reference/anomalize_methods.html">gesd()</a></code>. We can use these
+intermediate functions to illustrate the anomaly detection
+characteristics.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Analyze outliers: Outlier Report is available with verbose = TRUE</span></span>
+<span><span class="va">iqr_outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anomalize_methods.html">iqr</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, max_anoms <span class="op">=</span> <span class="fl">0.2</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">outlier_report</span></span>
+<span></span>
+<span><span class="va">gesd_outliers</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/anomalize_methods.html">gesd</a></span><span class="op">(</span><span class="va">x</span>, alpha <span class="op">=</span> <span class="fl">0.05</span>, max_anoms <span class="op">=</span> <span class="fl">0.2</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="va">outlier_report</span></span>
+<span></span>
+<span><span class="co"># ploting function for anomaly plots</span></span>
+<span><span class="va">ggsetup</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">rank</span>, <span class="va">value</span>, color <span class="op">=</span> <span class="va">outlier</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">limit_upper</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">limit_lower</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, linetype <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">index</span><span class="op">)</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"No"</span> <span class="op">=</span> <span class="st">"#2c3e50"</span>, <span class="st">"Yes"</span> <span class="op">=</span> <span class="st">"#e31a1c"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/expand_limits.html" class="external-link">expand_limits</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fl">13</span><span class="op">)</span> <span class="op">+</span></span>
+<span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"bottom"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span>    </span>
+<span></span>
+<span><span class="co"># Visualize</span></span>
+<span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="va">iqr_outliers</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">ggsetup</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"IQR: Top outliers sorted by rank"</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">p4</span> <span class="op">&lt;-</span> <span class="va">gesd_outliers</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">ggsetup</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"GESD: Top outliers sorted by rank"</span><span class="op">)</span> </span>
+<span>    </span>
+<span><span class="co"># Show plots</span></span>
+<span><span class="va">p3</span></span>
+<span><span class="va">p4</span></span></code></pre></div>
 <p><img src="anomalize_methods_files/figure-html/unnamed-chunk-5-1.png" width="480" style="display: block; margin: auto;"><img src="anomalize_methods_files/figure-html/unnamed-chunk-5-2.png" width="480" style="display: block; margin: auto;"></p>
-<p>We can see that the IQR limits don’t vary whereas the GESD limits get more stringent as anomalies are removed from the data. As a result, the GESD method tends to be more accurate in detecting anomalies at the expense of incurring more processing time for the looped anomaly removal. This expense is most noticeable with larger data sets (many observations or many time series).</p>
+<p>We can see that the IQR limits don’t vary whereas the GESD limits get
+more stringent as anomalies are removed from the data. As a result, the
+GESD method tends to be more accurate in detecting anomalies at the
+expense of incurring more processing time for the looped anomaly
+removal. This expense is most noticeable with larger data sets (many
+observations or many time series).</p>
 </div>
 </div>
-<div id="conclusion" class="section level2">
-<h2 class="hasAnchor">
-<a href="#conclusion" class="anchor"></a>3. Conclusion</h2>
-<p>The <code>anomalize</code> package implements several useful and accurate techniques for implementing anomaly detection. The user should now have a better understanding of how the algorithms work along with the strengths and weaknesses of each method.</p>
+<div class="section level3">
+<h3 id="conclusion">3. Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
+</h3>
+<p>The <code>anomalize</code> package implements several useful and
+accurate techniques for implementing anomaly detection. The user should
+now have a better understanding of how the algorithms work along with
+the strengths and weaknesses of each method.</p>
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>4. References</h2>
+<div class="section level3">
+<h3 id="references">4. References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
 <ol style="list-style-type: decimal">
-<li><p><a href="https://stats.stackexchange.com/questions/69874/how-to-correct-outliers-once-detected-for-time-series-data-forecasting">How to correct outliers once detected for time series data forecasting? Cross Validated, https://stats.stackexchange.com</a></p></li>
-<li><p><a href="https://stats.stackexchange.com/questions/1142/simple-algorithm-for-online-outlier-detection-of-a-generic-time-series?">Cross Validated: Simple algorithm for online outlier detection of a generic time series. Cross Validated, https://stats.stackexchange.com</a></p></li>
-<li><p><a href="https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf">Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.</a></p></li>
-<li><p><a href="https://github.com/twitter/AnomalyDetection">Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection Using Seasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.</a></p></li>
-<li><p><a href="https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf">Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn</a></p></li>
+<li><p><a href="https://stats.stackexchange.com/questions/69874/how-to-correct-outliers-once-detected-for-time-series-data-forecasting" class="external-link">How
+to correct outliers once detected for time series data forecasting?
+Cross Validated, https://stats.stackexchange.com</a></p></li>
+<li><p><a href="https://stats.stackexchange.com/questions/1142/simple-algorithm-for-online-outlier-detection-of-a-generic-time-series?" class="external-link">Cross
+Validated: Simple algorithm for online outlier detection of a generic
+time series. Cross Validated,
+https://stats.stackexchange.com</a></p></li>
+<li><p><a href="https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf" class="external-link">Owen
+S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). A Novel
+Technique for Long-Term Anomaly Detection in the Cloud. Twitter
+Inc.</a></p></li>
+<li><p><a href="https://github.com/twitter/AnomalyDetection" class="external-link">Owen S.
+Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection:
+Anomaly Detection Using Seasonal Hybrid Extreme Studentized Deviate
+Test. R package version 1.0.</a></p></li>
+<li><p><a href="https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf" class="external-link">Alex
+T.C. Lau (November/December 2015). GESD - A Robust and Effective
+Technique for Dealing with Multiple Outliers. ASTM Standardization News.
+www.astm.org/sn</a></p></li>
 </ol>
 </div>
-<div id="interested-in-learning-anomaly-detection" class="section level1">
-<h1 class="hasAnchor">
-<a href="#interested-in-learning-anomaly-detection" class="anchor"></a>Interested in Learning Anomaly Detection?</h1>
+<div class="section level2">
+<h2 id="interested-in-learning-anomaly-detection">Interested in Learning Anomaly Detection?<a class="anchor" aria-label="anchor" href="#interested-in-learning-anomaly-detection"></a>
+</h2>
 <p>Business Science offers two 1-hour courses on Anomaly Detection:</p>
 <ul>
-<li><p><a href="https://university.business-science.io/p/learning-labs-pro">Learning Lab 18</a> - Time Series Anomaly Detection with <code>anomalize</code></p></li>
-<li><p><a href="https://university.business-science.io/p/learning-labs-pro">Learning Lab 17</a> - Anomaly Detection with <code>H2O</code> Machine Learning</p></li>
+<li><p><a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning
+Lab 18</a> - Time Series Anomaly Detection with
+<code>anomalize</code></p></li>
+<li><p><a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning
+Lab 17</a> - Anomaly Detection with <code>H2O</code> Machine
+Learning</p></li>
 </ul>
 </div>
   </div>
@@ -378,11 +499,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Matt Dancho, Davis Vaughan.</p>
+  <p></p>
+<p>Developed by Matt Dancho, Davis Vaughan.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -390,6 +513,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -25,6 +25,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
       </span>
     </div>
 
@@ -50,7 +52,7 @@
   <a href="../reference/index.html">Function Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Vignettes
      
     <span class="caret"></span>
@@ -73,7 +75,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/business-science/anomalize">
+  <a href="https://github.com/business-science/anomalize" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -88,15 +90,17 @@
 
       
 
-      </header><script src="forecasting_with_cleaned_anomalies_files/header-attrs-2.4/header-attrs.js"></script><script src="forecasting_with_cleaned_anomalies_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Reduce Forecast Error with Cleaned Anomalies</h1>
-                        <h4 class="author">Business Science</h4>
+      <h1 data-toc-skip>Reduce Forecast Error with Cleaned
+Anomalies</h1>
+                        <h4 data-toc-skip class="author">Business
+Science</h4>
             
-            <h4 class="date">2020-10-20</h4>
+            <h4 data-toc-skip class="date">2023-02-07</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/business-science/anomalize/blob/master/vignettes/forecasting_with_cleaned_anomalies.Rmd"><code>vignettes/forecasting_with_cleaned_anomalies.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/business-science/anomalize/blob/HEAD/vignettes/forecasting_with_cleaned_anomalies.Rmd" class="external-link"><code>vignettes/forecasting_with_cleaned_anomalies.Rmd</code></a></small>
       <div class="hidden name"><code>forecasting_with_cleaned_anomalies.Rmd</code></div>
 
     </div>
@@ -104,159 +108,188 @@
     
     
 <blockquote>
-<p>Forecasting error can often be reduced 20% to 50% by repairing anomolous data</p>
+<p>Forecasting error can often be reduced 20% to 50% by repairing
+anomolous data</p>
 </blockquote>
-<div id="example---reducing-forecasting-error-by-32" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example---reducing-forecasting-error-by-32" class="anchor"></a>Example - Reducing Forecasting Error by 32%</h2>
-<p>We can often get better forecast performance by cleaning anomalous data prior to forecasting. This is the perfect use case for integrating the <code><a href="../reference/clean_anomalies.html">clean_anomalies()</a></code> function into your <strong><em>forecast workflow</em></strong>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant">tidyquant</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize">anomalize</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk">timetk</a></span><span class="op">)</span></pre></div>
-<p>Here is a short example with the <code>tidyverse_cran_downloads</code> dataset that comes with <code>anomalize</code>. <strong>We’ll see how we can reduce the forecast error by 32% simply by repairing anomalies.</strong></p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">tidyverse_cran_downloads</span>
-<span class="co">#&gt; # A time tibble: 6,375 x 3</span>
-<span class="co">#&gt; # Index:  date</span>
-<span class="co">#&gt; # Groups: package [15]</span>
-<span class="co">#&gt;    date       count package</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;dbl&gt; &lt;chr&gt;  </span>
-<span class="co">#&gt;  1 2017-01-01   873 tidyr  </span>
-<span class="co">#&gt;  2 2017-01-02  1840 tidyr  </span>
-<span class="co">#&gt;  3 2017-01-03  2495 tidyr  </span>
-<span class="co">#&gt;  4 2017-01-04  2906 tidyr  </span>
-<span class="co">#&gt;  5 2017-01-05  2847 tidyr  </span>
-<span class="co">#&gt;  6 2017-01-06  2756 tidyr  </span>
-<span class="co">#&gt;  7 2017-01-07  1439 tidyr  </span>
-<span class="co">#&gt;  8 2017-01-08  1556 tidyr  </span>
-<span class="co">#&gt;  9 2017-01-09  3678 tidyr  </span>
-<span class="co">#&gt; 10 2017-01-10  7086 tidyr  </span>
-<span class="co">#&gt; # … with 6,365 more rows</span></pre></div>
-<p>Let’s take one package with some extreme events. We can hone in on <code>lubridate</code>, which has some outliers that we can fix.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">tidyverse_cran_downloads</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">count</span>, color <span class="op">=</span> <span class="va">package</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">package</span>, ncol <span class="op">=</span> <span class="fl">3</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_color_viridis_d</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html">theme_tq</a></span><span class="op">(</span><span class="op">)</span> </pre></div>
+<div class="section level3">
+<h3 id="example---reducing-forecasting-error-by-32">Example - Reducing Forecasting Error by 32%<a class="anchor" aria-label="anchor" href="#example---reducing-forecasting-error-by-32"></a>
+</h3>
+<p>We can often get better forecast performance by cleaning anomalous
+data prior to forecasting. This is the perfect use case for integrating
+the <code><a href="../reference/clean_anomalies.html">clean_anomalies()</a></code> function into your
+<strong><em>forecast workflow</em></strong>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/tidyquant" class="external-link">tidyquant</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/timetk" class="external-link">timetk</a></span><span class="op">)</span></span></code></pre></div>
+<p>Here is a short example with the
+<code>tidyverse_cran_downloads</code> dataset that comes with
+<code>anomalize</code>. <strong>We’ll see how we can reduce the forecast
+error by 32% simply by repairing anomalies.</strong></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A time tibble: 6,375 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Index:         date</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:        package [15]</span></span></span>
+<span><span class="co">#&gt;    date       count package</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2017-01-01   873 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2017-01-02  <span style="text-decoration: underline;">1</span>840 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2017-01-03  <span style="text-decoration: underline;">2</span>495 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2017-01-04  <span style="text-decoration: underline;">2</span>906 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2017-01-05  <span style="text-decoration: underline;">2</span>847 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2017-01-06  <span style="text-decoration: underline;">2</span>756 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2017-01-07  <span style="text-decoration: underline;">1</span>439 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2017-01-08  <span style="text-decoration: underline;">1</span>556 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2017-01-09  <span style="text-decoration: underline;">3</span>678 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2017-01-10  <span style="text-decoration: underline;">7</span>086 tidyr  </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 6,365 more rows</span></span></span></code></pre></div>
+<p>Let’s take one package with some extreme events. We can hone in on
+<code>lubridate</code>, which has some outliers that we can fix.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">count</span>, color <span class="op">=</span> <span class="va">package</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">package</span>, ncol <span class="op">=</span> <span class="fl">3</span>, scales <span class="op">=</span> <span class="st">"free_y"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_d</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/tidyquant/man/theme_tq.html" class="external-link">theme_tq</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="forecasting_with_cleaned_anomalies_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;"></p>
 </div>
-<div id="forecasting-lubridate-downloads" class="section level2">
-<h2 class="hasAnchor">
-<a href="#forecasting-lubridate-downloads" class="anchor"></a>Forecasting Lubridate Downloads</h2>
+<div class="section level3">
+<h3 id="forecasting-lubridate-downloads">Forecasting Lubridate Downloads<a class="anchor" aria-label="anchor" href="#forecasting-lubridate-downloads"></a>
+</h3>
 <p>Let’s focus on downloads of the <code>lubridate</code> R package.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">lubridate_tbl</span> <span class="op">&lt;-</span> <span class="va">tidyverse_cran_downloads</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span></pre></div>
-<p>First, we’ll make a function, <code>forecast_mae()</code>, that can take the input of both cleaned and uncleaned anomalies and calculate forecast error of future uncleaned anomalies.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lubridate_tbl</span> <span class="op">&lt;-</span> <span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span></span></code></pre></div>
+<p>First, we’ll make a function, <code>forecast_mae()</code>, that can
+take the input of both cleaned and uncleaned anomalies and calculate
+forecast error of future uncleaned anomalies.</p>
 <p>The modeling function uses the following criteria:</p>
 <ul>
-<li>Split the <code>data</code> into training and testing data that maintains the correct time-series sequence using the <code>prop</code> argument.</li>
-<li>Models the daily time series of the training data set from observed (demonstrates no cleaning) or observed and cleaned (demonstrates improvement from cleaning). Specified by the <code>col_train</code> argument.</li>
-<li>Compares the predictions to the observed values. Specified by the <code>col_test</code> argument.</li>
+<li>Split the <code>data</code> into training and testing data that
+maintains the correct time-series sequence using the <code>prop</code>
+argument.</li>
+<li>Models the daily time series of the training data set from observed
+(demonstrates no cleaning) or observed and cleaned (demonstrates
+improvement from cleaning). Specified by the <code>col_train</code>
+argument.</li>
+<li>Compares the predictions to the observed values. Specified by the
+<code>col_test</code> argument.</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">forecast_mae</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">col_train</span>, <span class="va">col_test</span>, <span class="va">prop</span> <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">{</span>
-  
-  <span class="va">predict_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/tidyeval.html">enquo</a></span><span class="op">(</span><span class="va">col_train</span><span class="op">)</span>
-  <span class="va">actual_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/tidyeval.html">enquo</a></span><span class="op">(</span><span class="va">col_test</span><span class="op">)</span>
-  
-  <span class="va">idx_train</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="va">prop</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="va">train_tbl</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">idx_train</span><span class="op">)</span>
-  <span class="va">test_tbl</span>  <span class="op">&lt;-</span> <span class="va">data</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/ranking.html">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%in%</span> <span class="va">idx_train</span><span class="op">)</span>
-  
-  <span class="co"># Model using training data (training) </span>
-  <span class="va">model_formula</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html">as.formula</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tidyeval-compat.html">quo_name</a></span><span class="op">(</span><span class="va">predict_expr</span><span class="op">)</span>, <span class="st">" ~ index.num + year + quarter + month.lbl + day + wday.lbl"</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="va">model_glm</span> <span class="op">&lt;-</span> <span class="va">train_tbl</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">model_formula</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span>
-  
-  <span class="co"># Make Prediction</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/warning.html">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span>
-    <span class="co"># Suppress rank-deficit warning</span>
-    <span class="va">prediction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">model_glm</span>, newdata <span class="op">=</span> <span class="va">test_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/timetk/man/tk_augment_timeseries.html">tk_augment_timeseries_signature</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> 
-    <span class="va">actual</span>     <span class="op">&lt;-</span> <span class="va">test_tbl</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span> <span class="va">actual_expr</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-  
-  <span class="co"># Calculate MAE</span>
-  <span class="va">mae</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">prediction</span> <span class="op">-</span> <span class="va">actual</span><span class="op">)</span><span class="op">)</span>
-  
-  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">mae</span><span class="op">)</span>
-  
-<span class="op">}</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">forecast_mae</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span>, <span class="va">col_train</span>, <span class="va">col_test</span>, <span class="va">prop</span> <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="va">predict_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">col_train</span><span class="op">)</span></span>
+<span>  <span class="va">actual_expr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rlang.r-lib.org/reference/enquo.html" class="external-link">enquo</a></span><span class="op">(</span><span class="va">col_test</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">idx_train</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="va">prop</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">train_tbl</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">idx_train</span><span class="op">)</span></span>
+<span>  <span class="va">test_tbl</span>  <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/row_number.html" class="external-link">row_number</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">idx_train</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Model using training data (training) </span></span>
+<span>  <span class="va">model_formula</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/formula.html" class="external-link">as.formula</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rlang.r-lib.org/reference/quo_label.html" class="external-link">quo_name</a></span><span class="op">(</span><span class="va">predict_expr</span><span class="op">)</span>, <span class="st">" ~ index.num + year + quarter + month.lbl + day + wday.lbl"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">model_glm</span> <span class="op">&lt;-</span> <span class="va">train_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://business-science.github.io/timetk/reference/tk_augment_timeseries.html" class="external-link">tk_augment_timeseries_signature</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">model_formula</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Make Prediction</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/warning.html" class="external-link">suppressWarnings</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># Suppress rank-deficit warning</span></span>
+<span>    <span class="va">prediction</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html" class="external-link">predict</a></span><span class="op">(</span><span class="va">model_glm</span>, newdata <span class="op">=</span> <span class="va">test_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://business-science.github.io/timetk/reference/tk_augment_timeseries.html" class="external-link">tk_augment_timeseries_signature</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> </span>
+<span>    <span class="va">actual</span>     <span class="op">&lt;-</span> <span class="va">test_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="op">!</span><span class="op">!</span> <span class="va">actual_expr</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Calculate MAE</span></span>
+<span>  <span class="va">mae</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">prediction</span> <span class="op">-</span> <span class="va">actual</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">mae</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="workflow-for-cleaning-anomalies" class="section level2">
-<h2 class="hasAnchor">
-<a href="#workflow-for-cleaning-anomalies" class="anchor"></a>Workflow for Cleaning Anomalies</h2>
-<p>We will use the <code>anomalize</code> workflow of decomposing (<code><a href="../reference/time_decompose.html">time_decompose()</a></code>) and identifying anomalies (<code><a href="../reference/anomalize.html">anomalize()</a></code>). We use the function, <strong><code><a href="../reference/clean_anomalies.html">clean_anomalies()</a></code>, to add new column called “observed_cleaned” that is repaired by replacing all anomalies with the trend + seasonal components from the decompose operation</strong>. We can now experiment to see the improvment in forecasting performance by comparing a forecast made with “observed” versus “observed_cleaned”</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">lubridate_anomalized_tbl</span> <span class="op">&lt;-</span> <span class="va">lubridate_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  
-  <span class="co"># Function to clean &amp; repair anomalous data</span>
-  <span class="fu"><a href="../reference/clean_anomalies.html">clean_anomalies</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; frequency = 7 days</span>
-<span class="co">#&gt; trend = 91 days</span>
-
-<span class="va">lubridate_anomalized_tbl</span>
-<span class="co">#&gt; # A time tibble: 425 x 9</span>
-<span class="co">#&gt; # Index: date</span>
-<span class="co">#&gt;    date       observed season trend remainder remainder_l1 remainder_l2 anomaly</span>
-<span class="co">#&gt;    &lt;date&gt;        &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;  </span>
-<span class="co">#&gt;  1 2017-01-01      643 -2078. 2474.      246.       -3323.        3310. No     </span>
-<span class="co">#&gt;  2 2017-01-02     1350   518. 2491.    -1659.       -3323.        3310. No     </span>
-<span class="co">#&gt;  3 2017-01-03     2940  1117. 2508.     -685.       -3323.        3310. No     </span>
-<span class="co">#&gt;  4 2017-01-04     4269  1220. 2524.      525.       -3323.        3310. No     </span>
-<span class="co">#&gt;  5 2017-01-05     3724   865. 2541.      318.       -3323.        3310. No     </span>
-<span class="co">#&gt;  6 2017-01-06     2326   356. 2558.     -588.       -3323.        3310. No     </span>
-<span class="co">#&gt;  7 2017-01-07     1107 -1998. 2574.      531.       -3323.        3310. No     </span>
-<span class="co">#&gt;  8 2017-01-08     1058 -2078. 2591.      545.       -3323.        3310. No     </span>
-<span class="co">#&gt;  9 2017-01-09     2494   518. 2608.     -632.       -3323.        3310. No     </span>
-<span class="co">#&gt; 10 2017-01-10     3237  1117. 2624.     -504.       -3323.        3310. No     </span>
-<span class="co">#&gt; # … with 415 more rows, and 1 more variable: observed_cleaned &lt;dbl&gt;</span></pre></div>
+<div class="section level3">
+<h3 id="workflow-for-cleaning-anomalies">Workflow for Cleaning Anomalies<a class="anchor" aria-label="anchor" href="#workflow-for-cleaning-anomalies"></a>
+</h3>
+<p>We will use the <code>anomalize</code> workflow of decomposing
+(<code><a href="../reference/time_decompose.html">time_decompose()</a></code>) and identifying anomalies
+(<code><a href="../reference/anomalize.html">anomalize()</a></code>). We use the function,
+<strong><code><a href="../reference/clean_anomalies.html">clean_anomalies()</a></code>, to add new column called
+“observed_cleaned” that is repaired by replacing all anomalies with the
+trend + seasonal components from the decompose operation</strong>. We
+can now experiment to see the improvment in forecasting performance by
+comparing a forecast made with “observed” versus “observed_cleaned”</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lubridate_anomalized_tbl</span> <span class="op">&lt;-</span> <span class="va">lubridate_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  </span>
+<span>  <span class="co"># Function to clean &amp; repair anomalous data</span></span>
+<span>  <span class="fu"><a href="../reference/clean_anomalies.html">clean_anomalies</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; frequency = 7 days</span></span>
+<span><span class="co">#&gt; trend = 91 days</span></span>
+<span></span>
+<span><span class="va">lubridate_anomalized_tbl</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A time tibble: 425 × 9</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Index:         date</span></span></span>
+<span><span class="co">#&gt;    date       observed season trend remainder remainde…¹ remai…² anomaly obser…³</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2017-01-01      643 -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">078.</span> <span style="text-decoration: underline;">2</span>474.      246.     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No          643</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2017-01-02     <span style="text-decoration: underline;">1</span>350   518. <span style="text-decoration: underline;">2</span>491.    -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">659.</span>     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">1</span>350</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2017-01-03     <span style="text-decoration: underline;">2</span>940  <span style="text-decoration: underline;">1</span>117. <span style="text-decoration: underline;">2</span>508.     -<span style="color: #BB0000;">685.</span>     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">2</span>940</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2017-01-04     <span style="text-decoration: underline;">4</span>269  <span style="text-decoration: underline;">1</span>220. <span style="text-decoration: underline;">2</span>524.      525.     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">4</span>269</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2017-01-05     <span style="text-decoration: underline;">3</span>724   865. <span style="text-decoration: underline;">2</span>541.      318.     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">3</span>724</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2017-01-06     <span style="text-decoration: underline;">2</span>326   356. <span style="text-decoration: underline;">2</span>558.     -<span style="color: #BB0000;">588.</span>     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">2</span>326</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2017-01-07     <span style="text-decoration: underline;">1</span>107 -<span style="color: #BB0000; text-decoration: underline;">1</span><span style="color: #BB0000;">998.</span> <span style="text-decoration: underline;">2</span>574.      531.     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">1</span>107</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2017-01-08     <span style="text-decoration: underline;">1</span>058 -<span style="color: #BB0000; text-decoration: underline;">2</span><span style="color: #BB0000;">078.</span> <span style="text-decoration: underline;">2</span>591.      545.     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">1</span>058</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2017-01-09     <span style="text-decoration: underline;">2</span>494   518. <span style="text-decoration: underline;">2</span>608.     -<span style="color: #BB0000;">632.</span>     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">2</span>494</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2017-01-10     <span style="text-decoration: underline;">3</span>237  <span style="text-decoration: underline;">1</span>117. <span style="text-decoration: underline;">2</span>624.     -<span style="color: #BB0000;">504.</span>     -<span style="color: #BB0000; text-decoration: underline;">3</span><span style="color: #BB0000;">323.</span>   <span style="text-decoration: underline;">3</span>310. No         <span style="text-decoration: underline;">3</span>237</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 415 more rows, and abbreviated variable names ¹​remainder_l1,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ²​remainder_l2, ³​observed_cleaned</span></span></span></code></pre></div>
 </div>
-<div id="before-cleaning-with-anomalize" class="section level2">
-<h2 class="hasAnchor">
-<a href="#before-cleaning-with-anomalize" class="anchor"></a>Before Cleaning with anomalize</h2>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="va">lubridate_anomalized_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu">forecast_mae</span><span class="op">(</span>col_train <span class="op">=</span> <span class="va">observed</span>, col_test <span class="op">=</span> <span class="va">observed</span>, prop <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span>
-<span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span>
-<span class="co">#&gt; [1] 4054.053</span></pre></div>
+<div class="section level3">
+<h3 id="before-cleaning-with-anomalize">Before Cleaning with anomalize<a class="anchor" aria-label="anchor" href="#before-cleaning-with-anomalize"></a>
+</h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lubridate_anomalized_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">forecast_mae</span><span class="op">(</span>col_train <span class="op">=</span> <span class="va">observed</span>, col_test <span class="op">=</span> <span class="va">observed</span>, prop <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span></span>
+<span><span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span></span>
+<span><span class="co">#&gt; [1] 4054.053</span></span></code></pre></div>
 </div>
-<div id="after-cleaning-with-anomalize" class="section level2">
-<h2 class="hasAnchor">
-<a href="#after-cleaning-with-anomalize" class="anchor"></a>After Cleaning with anomalize</h2>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">lubridate_anomalized_tbl</span> <span class="op">%&gt;%</span>
-  <span class="fu">forecast_mae</span><span class="op">(</span>col_train <span class="op">=</span> <span class="va">observed_cleaned</span>, col_test <span class="op">=</span> <span class="va">observed</span>, prop <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span>
-<span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span>
-<span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span>
-<span class="co">#&gt; [1] 2755.297</span></pre></div>
+<div class="section level3">
+<h3 id="after-cleaning-with-anomalize">After Cleaning with anomalize<a class="anchor" aria-label="anchor" href="#after-cleaning-with-anomalize"></a>
+</h3>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lubridate_anomalized_tbl</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu">forecast_mae</span><span class="op">(</span>col_train <span class="op">=</span> <span class="va">observed_cleaned</span>, col_test <span class="op">=</span> <span class="va">observed</span>, prop <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span><span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span></span>
+<span><span class="co">#&gt; tk_augment_timeseries_signature(): Using the following .date_var variable: date</span></span>
+<span><span class="co">#&gt; [1] 2755.297</span></span></code></pre></div>
 </div>
-<div id="reduction-in-forecast-error" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reduction-in-forecast-error" class="anchor"></a>32% Reduction in Forecast Error</h2>
-<p>This is approximately a 32% reduction in forecast error as measure by Mean Absolute Error (MAE).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="op">(</span><span class="fl">2755</span> <span class="op">-</span> <span class="fl">4054</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4054</span> 
-<span class="co">#&gt; [1] -0.3204243</span></pre></div>
+<div class="section level3">
+<h3 id="reduction-in-forecast-error">32% Reduction in Forecast Error<a class="anchor" aria-label="anchor" href="#reduction-in-forecast-error"></a>
+</h3>
+<p>This is approximately a 32% reduction in forecast error as measure by
+Mean Absolute Error (MAE).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="fl">2755</span> <span class="op">-</span> <span class="fl">4054</span><span class="op">)</span> <span class="op">/</span> <span class="fl">4054</span> </span>
+<span><span class="co">#&gt; [1] -0.3204243</span></span></code></pre></div>
 </div>
-<div id="interested-in-learning-anomaly-detection" class="section level1">
-<h1 class="hasAnchor">
-<a href="#interested-in-learning-anomaly-detection" class="anchor"></a>Interested in Learning Anomaly Detection?</h1>
+<div class="section level2">
+<h2 id="interested-in-learning-anomaly-detection">Interested in Learning Anomaly Detection?<a class="anchor" aria-label="anchor" href="#interested-in-learning-anomaly-detection"></a>
+</h2>
 <p>Business Science offers two 1-hour courses on Anomaly Detection:</p>
 <ul>
-<li><p><a href="https://university.business-science.io/p/learning-labs-pro">Learning Lab 18</a> - Time Series Anomaly Detection with <code>anomalize</code></p></li>
-<li><p><a href="https://university.business-science.io/p/learning-labs-pro">Learning Lab 17</a> - Anomaly Detection with <code>H2O</code> Machine Learning</p></li>
+<li><p><a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning
+Lab 18</a> - Time Series Anomaly Detection with
+<code>anomalize</code></p></li>
+<li><p><a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning
+Lab 17</a> - Anomaly Detection with <code>H2O</code> Machine
+Learning</p></li>
 </ul>
 </div>
   </div>
@@ -272,11 +305,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Matt Dancho, Davis Vaughan.</p>
+  <p></p>
+<p>Developed by Matt Dancho, Davis Vaughan.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -284,6 +319,8 @@
 
   
 
+
+  
 
   </body>
 </html>
