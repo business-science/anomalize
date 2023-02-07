@@ -64,7 +64,7 @@
 #' A Novel Technique for Long-Term Anomaly Detection in the Cloud. Twitter Inc.](https://www.usenix.org/system/files/conference/hotcloud14/hotcloud14-vallis.pdf)
 #' 4. [Owen S. Vallis, Jordan Hochenbaum and Arun Kejariwal (2014). AnomalyDetection: Anomaly Detection Using
 #' Seasonal Hybrid Extreme Studentized Deviate Test. R package version 1.0.](https://github.com/twitter/AnomalyDetection)
-#' 5. [Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn](https://www.astm.org/standardization-news/images/nd15/nd15_datapoints.pdf)
+#' 5. Alex T.C. Lau (November/December 2015). GESD - A Robust and Effective Technique for Dealing with Multiple Outliers. ASTM Standardization News. www.astm.org/sn
 #'
 #' @seealso
 #' Anomaly Detection Methods (Powers `anomalize`)
