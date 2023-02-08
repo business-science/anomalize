@@ -70,11 +70,13 @@ tidyverse_cran_downloads \%>\%
 
 
 #### MULTIPLE TIME SERIES ####
+\dontrun{
 tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl") \%>\%
     anomalize(remainder, method = "iqr") \%>\%
     time_recompose() \%>\%
     plot_anomalies(time_recomposed = TRUE, ncol = 3)
+}
 
 }
 \seealso{

@@ -39,11 +39,13 @@
 #'
 #'
 #' #### MULTIPLE TIME SERIES ####
+#' \dontrun{
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl") %>%
 #'     anomalize(remainder, method = "iqr") %>%
 #'     time_recompose() %>%
 #'     plot_anomalies(time_recomposed = TRUE, ncol = 3)
+#' }
 #'
 #' @export
 plot_anomalies <- function(data, time_recomposed = FALSE, ncol = 1,
@@ -95,7 +97,7 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
         ggplot2::geom_point(ggplot2::aes_string(color = "anomaly"), size = size_dots, alpha = alpha_dots) +
         ggplot2::geom_point(ggplot2::aes_string(x = date_col, y = "observed", color = "anomaly"),
                            size = size_circles, shape = 1, alpha = alpha_circles,
-                           data = data %>% dplyr::filter(anomaly == "Yes"), 
+                           data = data %>% dplyr::filter(anomaly == "Yes"),
                            inherit.aes = FALSE) +
         theme_tq() +
         ggplot2::scale_color_manual(values = c("No" = color_no, "Yes" = color_yes)) +

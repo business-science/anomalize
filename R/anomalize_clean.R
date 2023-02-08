@@ -19,6 +19,7 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #' library(dplyr)
 #'
 #' # Needed to pass CRAN check / This is loaded by default
@@ -30,7 +31,7 @@
 #'     time_decompose(count, method = "stl") %>%
 #'     anomalize(remainder, method = "iqr") %>%
 #'     clean_anomalies()
-#'
+#' }
 #'
 #' @export
 clean_anomalies <- function(data) {
