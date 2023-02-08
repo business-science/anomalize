@@ -76,7 +76,7 @@
 #' - [time_recompose()]
 #'
 #' @examples
-#'
+#' \dontrun{
 #' library(dplyr)
 #'
 #' # Needed to pass CRAN check / This is loaded by default
@@ -87,7 +87,7 @@
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl") %>%
 #'     anomalize(remainder, method = "iqr")
-#'
+#' }
 #'
 #' @export
 anomalize <- function(data, target, method = c("iqr", "gesd"),

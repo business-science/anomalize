@@ -78,7 +78,7 @@ tends to be the best performing method for outlier removal.
 The GESD method is used in \href{https://github.com/twitter/AnomalyDetection}{\code{AnomalyDection::AnomalyDetectionTs()}}.
 }
 \examples{
-
+\dontrun{
 library(dplyr)
 
 # Needed to pass CRAN check / This is loaded by default
@@ -89,7 +89,7 @@ data(tidyverse_cran_downloads)
 tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl") \%>\%
     anomalize(remainder, method = "iqr")
-
+}
 
 }
 \references{
