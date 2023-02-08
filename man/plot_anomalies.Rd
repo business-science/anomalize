@@ -54,6 +54,7 @@ Multiple time series must be grouped using \code{dplyr::group_by()}.
 }
 \examples{
 
+\dontrun{
 library(dplyr)
 library(ggplot2)
 
@@ -70,7 +71,6 @@ tidyverse_cran_downloads \%>\%
 
 
 #### MULTIPLE TIME SERIES ####
-\dontrun{
 tidyverse_cran_downloads \%>\%
     time_decompose(count, method = "stl") \%>\%
     anomalize(remainder, method = "iqr") \%>\%

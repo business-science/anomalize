@@ -23,6 +23,7 @@
 #'
 #' @examples
 #'
+#' \dontrun{
 #' library(dplyr)
 #' library(ggplot2)
 #'
@@ -39,7 +40,6 @@
 #'
 #'
 #' #### MULTIPLE TIME SERIES ####
-#' \dontrun{
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl") %>%
 #'     anomalize(remainder, method = "iqr") %>%
