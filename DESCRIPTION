@@ -1,7 +1,7 @@
 Package: anomalize
 Type: Package
 Title: Tidy Anomaly Detection
-Version: 0.2.3
+Version: 0.2.4
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -35,10 +35,7 @@ Imports:
     rlang,
     tibble,
     tidyr (>= 1.0.0),
-    ggplot2,
-    cli,
-    crayon,
-    rstudioapi
+    ggplot2
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 

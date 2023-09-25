@@ -1,3 +1,7 @@
+# anomalize 0.2.4
+
+Republish on CRAN.
+
 # anomalize 0.2.2
 
 __Bug Fixes__

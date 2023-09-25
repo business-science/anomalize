@@ -3,6 +3,7 @@
 \docType{package}
 \name{anomalize_package}
 \alias{anomalize_package}
+\alias{anomalize-package}
 \title{anomalize: Tidy anomaly detection}
 \description{
 The 'anomalize' package enables a "tidy" workflow for detecting anomalies in data.
