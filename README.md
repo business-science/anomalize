@@ -1,15 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- # anomalize -->
 
 # anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
 
-[![Travis build
-status](https://travis-ci.org/business-science/anomalize.svg?branch=master)](https://travis-ci.org/business-science/anomalize)
 [![Coverage
-status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://codecov.io/github/business-science/anomalize?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/anomalize)](https://cran.r-project.org/package=anomalize)
+status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://app.codecov.io/github/business-science/anomalize?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/anomalize)](https://cran.r-project.org/package=anomalize)
 ![](http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen)
 
@@ -28,7 +25,7 @@ alt="Anomalize" width="100%" height="350"/></a>
 
 Check out our entire [Software Intro
 Series](https://www.youtube.com/watch?v=Gk_HwjhlQJs&list=PLo32uKohmrXsYNhpdwr15W143rX6uMAze)
-on YouTube\!
+on YouTube!
 
 ## Installation
 
@@ -44,12 +41,12 @@ install.packages("anomalize")
 
 `anomalize` has three main functions:
 
-  - `time_decompose()`: Separates the time series into seasonal, trend,
-    and remainder components
-  - `anomalize()`: Applies anomaly detection methods to the remainder
-    component.
-  - `time_recompose()`: Calculates limits that separate the “normal”
-    data from the anomalies\!
+- `time_decompose()`: Separates the time series into seasonal, trend,
+  and remainder components
+- `anomalize()`: Applies anomaly detection methods to the remainder
+  component.
+- `time_recompose()`: Calculates limits that separate the “normal” data
+  from the anomalies!
 
 ## Getting Started
 
@@ -87,8 +84,8 @@ Guide](https://business-science.github.io/anomalize/articles/anomalize_quick_sta
 
 ## Reducing Forecast Error by 32%
 
-Yes\! Anomalize has a new function, `clean_anomalies()`, that can be
-used to repair time series prior to forecasting. We have a [brand new
+Yes! Anomalize has a new function, `clean_anomalies()`, that can be used
+to repair time series prior to forecasting. We have a [brand new
 vignette - Reduce Forecast Error (by 32%) with Cleaned
 Anomalies](https://business-science.github.io/anomalize/articles/forecasting_with_cleaned_anomalies.html).
 
@@ -104,8 +101,8 @@ tidyverse_cran_downloads %>%
   
     select(date, anomaly, observed, observed_cleaned) %>%
     filter(anomaly == "Yes")
-#> # A time tibble: 19 x 4
-#> # Index: date
+#> # A time tibble: 19 × 4
+#> # Index:         date
 #>    date       anomaly  observed observed_cleaned
 #>    <date>     <chr>       <dbl>            <dbl>
 #>  1 2017-01-12 Yes     -1.14e-13            3522.
@@ -124,19 +121,17 @@ tidyverse_cran_downloads %>%
 #> 14 2018-02-07 Yes      1.19e+ 4            8539.
 #> 15 2018-02-08 Yes      1.17e+ 4            8237.
 #> 16 2018-02-09 Yes     -5.68e-14            7780.
-#> 17 2018-02-10 Yes      0.                  5478.
+#> 17 2018-02-10 Yes      0                   5478.
 #> 18 2018-02-23 Yes     -5.68e-14            8519.
-#> 19 2018-02-24 Yes      0.                  6218.
+#> 19 2018-02-24 Yes      0                   6218.
 ```
 
-## But Wait, There’s More\!
+## But Wait, There’s More!
 
 There are a several extra capabilities:
 
-  - `plot_anomaly_decomposition()` for visualizing the inner workings of
-    how algorithm detects anomalies in the “remainder”.
-
-<!-- end list -->
+- `plot_anomaly_decomposition()` for visualizing the inner workings of
+  how algorithm detects anomalies in the “remainder”.
 
 ``` r
 tidyverse_cran_downloads %>%
@@ -159,19 +154,19 @@ Vignette](https://business-science.github.io/anomalize/articles/anomalize_method
 Several other packages were instrumental in developing anomaly detection
 methods used in `anomalize`:
 
-  - Twitter’s `AnomalyDetection`, which implements decomposition using
-    median spans and the Generalized Extreme Studentized Deviation
-    (GESD) test for anomalies.
-  - `forecast::tsoutliers()` function, which implements the IQR method.
+- Twitter’s `AnomalyDetection`, which implements decomposition using
+  median spans and the Generalized Extreme Studentized Deviation (GESD)
+  test for anomalies.
+- `forecast::tsoutliers()` function, which implements the IQR method.
 
 # Interested in Learning Anomaly Detection?
 
 Business Science offers two 1-hour courses on Anomaly Detection:
 
-  - [Learning
-    Lab 18](https://university.business-science.io/p/learning-labs-pro)
-    - Time Series Anomaly Detection with `anomalize`
+- [Learning Lab
+  18](https://university.business-science.io/p/learning-labs-pro) - Time
+  Series Anomaly Detection with `anomalize`
 
-  - [Learning
-    Lab 17](https://university.business-science.io/p/learning-labs-pro)
-    - Anomaly Detection with `H2O` Machine Learning
+- [Learning Lab
+  17](https://university.business-science.io/p/learning-labs-pro) -
+  Anomaly Detection with `H2O` Machine Learning
