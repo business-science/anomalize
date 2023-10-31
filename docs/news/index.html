@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -72,6 +72,20 @@
       <small>Source: <a href="https://github.com/business-science/anomalize/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.3.0" id="anomalize-030">anomalize 0.3.0<a class="anchor" aria-label="anchor" href="#anomalize-030"></a></h2>
+<p>Prepare for supercession by <code>timetk</code>. Note that <code>anomalize</code> R package will be maintained for backwards compatibility. Users may wish to add these 2 lines of code to existing codebases that use the legacy anomalize R package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">anomalize</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="../reference/anomalize.html">anomalize</a></span></span>
+<span><span class="va">plot_anomalies</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="../reference/plot_anomalies.html">plot_anomalies</a></span></span></code></pre></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="0.2.4" id="anomalize-024">anomalize 0.2.4<small>2023-09-25</small><a class="anchor" aria-label="anchor" href="#anomalize-024"></a></h2>
+<p>Republish on CRAN.</p>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.2.2" id="anomalize-022">anomalize 0.2.2<small>2020-10-20</small><a class="anchor" aria-label="anchor" href="#anomalize-022"></a></h2>
 <p><strong>Bug Fixes</strong></p>

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">anomalize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -97,7 +97,7 @@
                         <h4 data-toc-skip class="author">Business
 Science</h4>
             
-            <h4 data-toc-skip class="date">2023-02-08</h4>
+            <h4 data-toc-skip class="date">2023-10-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/anomalize/blob/HEAD/vignettes/anomalize_methods.Rmd" class="external-link"><code>vignettes/anomalize_methods.Rmd</code></a></small>
       <div class="hidden name"><code>anomalize_methods.Rmd</code></div>
@@ -188,7 +188,13 @@ anomalies.</p>
 <p>Load two libraries to perform the comparison.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># NOTE: timetk now has anomaly detection built in, which </span></span>
+<span><span class="co">#  will get the new functionality going forward.</span></span>
+<span></span>
+<span><span class="va">anomalize</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="../reference/anomalize.html">anomalize</a></span></span>
+<span><span class="va">plot_anomalies</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="../reference/plot_anomalies.html">plot_anomalies</a></span></span></code></pre></div>
 <p>Collect data on the daily downloads of the <code>lubridate</code>
 package. This comes from the data set,
 <code>tidyverse_cran_downloads</code> that is part of

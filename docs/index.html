@@ -50,7 +50,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">anomalize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -105,9 +105,22 @@
   <div class="contents col-md-9">
 
 <div class="section level1">
-<div class="page-header"><h1 id="anomalize-">anomalize <img src="reference/figures/anomalize-logo.png" width="147" height="170" align="right"><a class="anchor" aria-label="anchor" href="#anomalize-"></a>
+<div class="page-header"><h1 id="anomalize-is-being-superceded-by-timetk">Anomalize is being Superceded by Timetk:<a class="anchor" aria-label="anchor" href="#anomalize-is-being-superceded-by-timetk"></a>
 </h1></div>
-<p><a href="https://travis-ci.org/business-science/anomalize" class="external-link"><img src="https://travis-ci.org/business-science/anomalize.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/github/business-science/anomalize?branch=master" class="external-link"><img src="https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg" alt="Coverage status"></a> <a href="https://cran.r-project.org/package=anomalize" class="external-link"><img src="http://www.r-pkg.org/badges/version/anomalize" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen"></p>
+<p>The <code>anomalize</code> package functionality has been superceded by <code>timetk</code>. We suggest you begin to use the <code><a href="https://rdrr.io/pkg/timetk/man/anomalize.html" class="external-link">timetk::anomalize()</a></code> to benefit from enhanced functionality to get improvements going forward. <a href="https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html" class="external-link">Learn more about Anomaly Detection with <code>timetk</code> here.</a></p>
+<p>The original <code>anomalize</code> package functionality will be maintained for previous code bases that use the legacy functionality.</p>
+<p>To prevent the new <code>timetk</code> functionality from conflicting with old <code>anomalize</code> code, use these lines:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">anomalize</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="reference/anomalize.html">anomalize</a></span></span>
+<span><span class="va">plot_anomalies</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="reference/plot_anomalies.html">plot_anomalies</a></span></span></code></pre></div>
+<!-- # anomalize -->
+</div>
+<div class="section level1">
+<h1 id="anomalize-">anomalize <img src="reference/figures/anomalize-logo.png" width="147" height="170" align="right"><a class="anchor" aria-label="anchor" href="#anomalize-"></a>
+</h1>
+<p><a href="https://app.codecov.io/github/business-science/anomalize?branch=master" class="external-link"><img src="https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg" alt="Coverage status"></a> <a href="https://cran.r-project.org/package=anomalize" class="external-link"><img src="http://www.r-pkg.org/badges/version/anomalize" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen"></p>
 <blockquote>
 <p>Tidy anomaly detection</p>
 </blockquote>
@@ -122,7 +135,7 @@
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version with <code>devtools</code> or the most recent CRAN version with <code><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages()</a></code>:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># devtools::install_github("business-science/anomalize")</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"anomalize"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -143,12 +156,19 @@
 <h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
 </h2>
 <p>Load the <code>tidyverse</code> and <code>anomalize</code> packages.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/business-science/anomalize" class="external-link">anomalize</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># NOTE: timetk now has anomaly detection built in, which </span></span>
+<span><span class="co">#  will get the new functionality going forward.</span></span>
+<span><span class="co">#  Use this script to prevent overwriting legacy anomalize:</span></span>
+<span></span>
+<span><span class="va">anomalize</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="reference/anomalize.html">anomalize</a></span></span>
+<span><span class="va">plot_anomalies</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="reference/plot_anomalies.html">plot_anomalies</a></span></span></code></pre></div>
 <p>Next, let’s get some data. <code>anomalize</code> ships with a data set called <code>tidyverse_cran_downloads</code> that contains the daily CRAN download counts for 15 “tidy” packages from 2017-01-01 to 2018-03-01.</p>
 <p>Suppose we want to determine which daily download “counts” are anomalous. It’s as easy as using the three main functions (<code><a href="reference/time_decompose.html">time_decompose()</a></code>, <code><a href="reference/anomalize.html">anomalize()</a></code>, and <code><a href="reference/time_recompose.html">time_recompose()</a></code>) along with a visualization function, <code><a href="reference/plot_anomalies.html">plot_anomalies()</a></code>.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Data Manipulation / Anomaly Detection</span></span>
 <span>    <span class="fu"><a href="reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span>, method <span class="op">=</span> <span class="st">"stl"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -164,7 +184,7 @@
 <h2 id="reducing-forecast-error-by-32">Reducing Forecast Error by 32%<a class="anchor" aria-label="anchor" href="#reducing-forecast-error-by-32"></a>
 </h2>
 <p>Yes! Anomalize has a new function, <code><a href="reference/clean_anomalies.html">clean_anomalies()</a></code>, that can be used to repair time series prior to forecasting. We have a <a href="https://business-science.github.io/anomalize/articles/forecasting_with_cleaned_anomalies.html" class="external-link">brand new vignette - Reduce Forecast Error (by 32%) with Cleaned Anomalies</a>.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -176,8 +196,8 @@
 <span>  </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">anomaly</span>, <span class="va">observed</span>, <span class="va">observed_cleaned</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">anomaly</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; # A time tibble: 19 x 4</span></span>
-<span><span class="co">#&gt; # Index: date</span></span>
+<span><span class="co">#&gt; # A time tibble: 19 × 4</span></span>
+<span><span class="co">#&gt; # Index:         date</span></span>
 <span><span class="co">#&gt;    date       anomaly  observed observed_cleaned</span></span>
 <span><span class="co">#&gt;    &lt;date&gt;     &lt;chr&gt;       &lt;dbl&gt;            &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt;  1 2017-01-12 Yes     -1.14e-13            3522.</span></span>
@@ -196,9 +216,9 @@
 <span><span class="co">#&gt; 14 2018-02-07 Yes      1.19e+ 4            8539.</span></span>
 <span><span class="co">#&gt; 15 2018-02-08 Yes      1.17e+ 4            8237.</span></span>
 <span><span class="co">#&gt; 16 2018-02-09 Yes     -5.68e-14            7780.</span></span>
-<span><span class="co">#&gt; 17 2018-02-10 Yes      0.                  5478.</span></span>
+<span><span class="co">#&gt; 17 2018-02-10 Yes      0                   5478.</span></span>
 <span><span class="co">#&gt; 18 2018-02-23 Yes     -5.68e-14            8519.</span></span>
-<span><span class="co">#&gt; 19 2018-02-24 Yes      0.                  6218.</span></span></code></pre></div>
+<span><span class="co">#&gt; 19 2018-02-24 Yes      0                   6218.</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="but-wait-theres-more">But Wait, There’s More!<a class="anchor" aria-label="anchor" href="#but-wait-theres-more"></a>
@@ -208,7 +228,7 @@
 <li>
 <code><a href="reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition()</a></code> for visualizing the inner workings of how algorithm detects anomalies in the “remainder”.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -235,19 +255,8 @@
 </h1>
 <p>Business Science offers two 1-hour courses on Anomaly Detection:</p>
 <ul>
-<li>
-<a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning Lab 18</a>
-<ul>
-<li>Time Series Anomaly Detection with <code>anomalize</code>
-</li>
-</ul>
-</li>
-<li>
-<a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning Lab 17</a>
-<ul>
-<li>Anomaly Detection with <code>H2O</code> Machine Learning</li>
-</ul>
-</li>
+<li><p><a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning Lab 18</a> - Time Series Anomaly Detection with <code>anomalize</code></p></li>
+<li><p><a href="https://university.business-science.io/p/learning-labs-pro" class="external-link">Learning Lab 17</a> - Anomaly Detection with <code>H2O</code> Machine Learning</p></li>
 </ul>
 </div>
 
