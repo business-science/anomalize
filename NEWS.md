@@ -1,3 +1,14 @@
+# anomalize 0.3.0
+
+Prepare for supercession by `timetk`. Note that `anomalize` R package will be maintained for backwards compatibility. Users may wish to add these 2 lines of code to existing codebases that use the legacy anomalize R package:
+
+``` r
+library(anomalize)
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
+```
+
 # anomalize 0.2.4
 
 Republish on CRAN.
