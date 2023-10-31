@@ -41,6 +41,12 @@ Load libraries.
 library(tidyverse)
 library(tibbletime)
 library(anomalize)
+
+# NOTE: timetk now has anomaly detection built in, which 
+#  will get the new functionality going forward.
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
 ```
 
 Get some data. We'll use the `tidyverse_cran_downloads` data set that comes with `anomalize`. A few points:

@@ -1,5 +1,27 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Anomalize is being Superceded by Timetk:
+
+The `anomalize` package functionality has been superceded by `timetk`.
+We suggest you begin to use the `timetk::anomalize()` to benefit from
+enhanced functionality to get improvements going forward. [Learn more
+about Anomaly Detection with `timetk`
+here.](https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html)
+
+The original `anomalize` package functionality will be maintained for
+previous code bases that use the legacy functionality.
+
+To prevent the new `timetk` functionality from conflicting with old
+`anomalize` code, use these lines:
+
+``` r
+library(anomalize)
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
+```
+
 <!-- # anomalize -->
 
 # anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
@@ -55,6 +77,13 @@ Load the `tidyverse` and `anomalize` packages.
 ``` r
 library(tidyverse)
 library(anomalize)
+
+# NOTE: timetk now has anomaly detection built in, which 
+#  will get the new functionality going forward.
+#  Use this script to prevent overwriting legacy anomalize:
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
 ```
 
 Next, let’s get some data. `anomalize` ships with a data set called

@@ -63,6 +63,12 @@ Load two libraries to perform the comparison.
 ```{r, eval = F}
 library(tidyverse)
 library(anomalize)
+
+# NOTE: timetk now has anomaly detection built in, which 
+#  will get the new functionality going forward.
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
 ```
 
 

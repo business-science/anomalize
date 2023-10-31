@@ -33,6 +33,13 @@ library(tidyverse)
 library(tidyquant)
 library(anomalize)
 library(timetk)
+
+# NOTE: timetk now has anomaly detection built in, which 
+#  will get the new functionality going forward.
+#  Use this script to prevent overwriting legacy anomalize:
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
 ```
 
 Here is a short example with the `tidyverse_cran_downloads` dataset that comes with `anomalize`. __We'll see how we can reduce the forecast error by 32% simply by repairing anomalies.__
