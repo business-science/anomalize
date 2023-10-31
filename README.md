@@ -26,6 +26,8 @@ plot_anomalies <- anomalize::plot_anomalies
 
 # anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
 
+[![Lifecycle
+Status](https://img.shields.io/badge/lifecycle-superceded-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![Coverage
 status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://app.codecov.io/github/business-science/anomalize?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/anomalize)](https://cran.r-project.org/package=anomalize)
