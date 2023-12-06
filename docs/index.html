@@ -107,6 +107,13 @@
 <div class="section level1">
 <div class="page-header"><h1 id="anomalize-is-being-superceded-by-timetk">Anomalize is being Superceded by Timetk:<a class="anchor" aria-label="anchor" href="#anomalize-is-being-superceded-by-timetk"></a>
 </h1></div>
+</div>
+<div class="section level1">
+<h1 id="anomalize-">anomalize <img src="reference/figures/anomalize-logo.png" width="147" height="170" align="right"><a class="anchor" aria-label="anchor" href="#anomalize-"></a>
+</h1>
+<!-- badges: start -->
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 <p>The <code>anomalize</code> package functionality has been superceded by <code>timetk</code>. We suggest you begin to use the <code><a href="https://rdrr.io/pkg/timetk/man/anomalize.html" class="external-link">timetk::anomalize()</a></code> to benefit from enhanced functionality to get improvements going forward. <a href="https://business-science.github.io/timetk/articles/TK08_Automatic_Anomaly_Detection.html" class="external-link">Learn more about Anomaly Detection with <code>timetk</code> here.</a></p>
 <p>The original <code>anomalize</code> package functionality will be maintained for previous code bases that use the legacy functionality.</p>
 <p>To prevent the new <code>timetk</code> functionality from conflicting with old <code>anomalize</code> code, use these lines:</p>
@@ -116,11 +123,6 @@
 <span><span class="va">anomalize</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="reference/anomalize.html">anomalize</a></span></span>
 <span><span class="va">plot_anomalies</span> <span class="op">&lt;-</span> <span class="fu">anomalize</span><span class="fu">::</span><span class="va"><a href="reference/plot_anomalies.html">plot_anomalies</a></span></span></code></pre></div>
 <!-- # anomalize -->
-</div>
-<div class="section level1">
-<h1 id="anomalize-">anomalize <img src="reference/figures/anomalize-logo.png" width="147" height="170" align="right"><a class="anchor" aria-label="anchor" href="#anomalize-"></a>
-</h1>
-<p><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-superceded-orange.svg" alt="Lifecycle Status"></a> <a href="https://app.codecov.io/github/business-science/anomalize?branch=master" class="external-link"><img src="https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg" alt="Coverage status"></a> <a href="https://cran.r-project.org/package=anomalize" class="external-link"><img src="http://www.r-pkg.org/badges/version/anomalize" alt="CRAN_Status_Badge"></a> <img src="http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen"><img src="http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen"></p>
 <blockquote>
 <p>Tidy anomaly detection</p>
 </blockquote>
@@ -169,14 +171,15 @@
 <p>Next, let’s get some data. <code>anomalize</code> ships with a data set called <code>tidyverse_cran_downloads</code> that contains the daily CRAN download counts for 15 “tidy” packages from 2017-01-01 to 2018-03-01.</p>
 <p>Suppose we want to determine which daily download “counts” are anomalous. It’s as easy as using the three main functions (<code><a href="reference/time_decompose.html">time_decompose()</a></code>, <code><a href="reference/anomalize.html">anomalize()</a></code>, and <code><a href="reference/time_recompose.html">time_recompose()</a></code>) along with a visualization function, <code><a href="reference/plot_anomalies.html">plot_anomalies()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
+<span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Data Manipulation / Anomaly Detection</span></span>
 <span>    <span class="fu"><a href="reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span>, method <span class="op">=</span> <span class="st">"stl"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span>, method <span class="op">=</span> <span class="st">"iqr"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/time_recompose.html">time_recompose</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="co"># Anomaly Visualization</span></span>
 <span>    <span class="fu"><a href="reference/plot_anomalies.html">plot_anomalies</a></span><span class="op">(</span>time_recomposed <span class="op">=</span> <span class="cn">TRUE</span>, ncol <span class="op">=</span> <span class="fl">3</span>, alpha_dots <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tidyverse Anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"STL + IQR Methods"</span><span class="op">)</span> </span></code></pre></div>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Tidyverse Anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"STL + IQR Methods"</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="reference/figures/README-tidyverse_anoms_1-1.png" width="100%"></p>
 <p>Check out the <a href="https://business-science.github.io/anomalize/articles/anomalize_quick_start_guide.html" class="external-link"><code>anomalize</code> Quick Start Guide</a>.</p>
 </div>
@@ -186,16 +189,16 @@
 <p>Yes! Anomalize has a new function, <code><a href="reference/clean_anomalies.html">clean_anomalies()</a></code>, that can be used to repair time series prior to forecasting. We have a <a href="https://business-science.github.io/anomalize/articles/forecasting_with_cleaned_anomalies.html" class="external-link">brand new vignette - Reduce Forecast Error (by 32%) with Cleaned Anomalies</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  </span>
 <span>    <span class="co"># New function that cleans &amp; repairs anomalies!</span></span>
 <span>    <span class="fu"><a href="reference/clean_anomalies.html">clean_anomalies</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">anomaly</span>, <span class="va">observed</span>, <span class="va">observed_cleaned</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">anomaly</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">date</span>, <span class="va">anomaly</span>, <span class="va">observed</span>, <span class="va">observed_cleaned</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">anomaly</span> <span class="op">==</span> <span class="st">"Yes"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A time tibble: 19 × 4</span></span>
 <span><span class="co">#&gt; # Index:         date</span></span>
 <span><span class="co">#&gt;    date       anomaly  observed observed_cleaned</span></span>
@@ -230,12 +233,12 @@
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">package</span> <span class="op">==</span> <span class="st">"lubridate"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/time_decompose.html">time_decompose</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/anomalize.html">anomalize</a></span><span class="op">(</span><span class="va">remainder</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="reference/plot_anomaly_decomposition.html">plot_anomaly_decomposition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Decomposition of Anomalized Lubridate Downloads"</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Decomposition of Anomalized Lubridate Downloads"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
 <p>For more information on the <code>anomalize</code> methods and the inner workings, please see <a href="https://business-science.github.io/anomalize/articles/anomalize_methods.html" class="external-link">“Anomalize Methods” Vignette</a>.</p>
 </div>
@@ -295,7 +298,15 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/business-science/anomalize/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/business-science/anomalize/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-superceded-orange.svg" alt="Lifecycle Status"></a></li>
+<li><a href="https://app.codecov.io/github/business-science/anomalize?branch=master" class="external-link"><img src="https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://cran.r-project.org/package=anomalize" class="external-link"><img src="http://www.r-pkg.org/badges/version/anomalize" alt="CRAN_Status_Badge"></a></li>
+</ul>
+</div>
 
   </div>
 </div>

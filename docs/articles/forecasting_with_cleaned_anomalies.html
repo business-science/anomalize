@@ -98,7 +98,7 @@ Anomalies</h1>
                         <h4 data-toc-skip class="author">Business
 Science</h4>
             
-            <h4 data-toc-skip class="date">2023-10-31</h4>
+            <h4 data-toc-skip class="date">2023-12-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/business-science/anomalize/blob/HEAD/vignettes/forecasting_with_cleaned_anomalies.Rmd" class="external-link"><code>vignettes/forecasting_with_cleaned_anomalies.Rmd</code></a></small>
       <div class="hidden name"><code>forecasting_with_cleaned_anomalies.Rmd</code></div>
@@ -136,9 +136,8 @@ the <code><a href="../reference/clean_anomalies.html">clean_anomalies()</a></cod
 error by 32% simply by repairing anomalies.</strong></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tidyverse_cran_downloads</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A time tibble: 6,375 × 3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Index:         date</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Groups:        package [15]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6,375 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   package [15]</span></span></span>
 <span><span class="co">#&gt;    date       count package</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2017-01-01   873 tidyr  </span></span>
@@ -236,6 +235,8 @@ comparing a forecast made with “observed” versus “observed_cleaned”</p>
 <span>  </span>
 <span>  <span class="co"># Function to clean &amp; repair anomalous data</span></span>
 <span>  <span class="fu"><a href="../reference/clean_anomalies.html">clean_anomalies</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Converting from tbl_df to tbl_time.</span></span>
+<span><span class="co">#&gt; Auto-index message: index = date</span></span>
 <span><span class="co">#&gt; frequency = 7 days</span></span>
 <span><span class="co">#&gt; trend = 91 days</span></span>
 <span></span>
