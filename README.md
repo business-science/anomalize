@@ -78,12 +78,12 @@ install.packages("anomalize")
 
 ## Getting Started
 
-Load the `tidyverse` and `anomalize` packages.
+Load the `anomalize` package. Usually, you will also load the tidyverse
+as well!
 
 ``` r
-library(tidyverse)
 library(anomalize)
-
+library(tidyverse)
 # NOTE: timetk now has anomaly detection built in, which 
 #  will get the new functionality going forward.
 #  Use this script to prevent overwriting legacy anomalize:
@@ -102,7 +102,6 @@ anomalous. It’s as easy as using the three main functions
 visualization function, `plot_anomalies()`.
 
 ``` r
-library(magrittr)
 tidyverse_cran_downloads %>%
     # Data Manipulation / Anomaly Detection
     time_decompose(count, method = "stl") %>%

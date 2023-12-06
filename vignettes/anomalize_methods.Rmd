@@ -23,6 +23,12 @@ library(anomalize)
 # load necessary tidyverse packages for analysis
 library(dplyr)
 library(ggplot2)
+
+# NOTE: timetk now has anomaly detection built in, which 
+#  will get the new functionality going forward.
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
 ```
 
 Anomaly detection is critical to many disciplines, but possibly none more important than in __time series analysis__. A time series is the sequential set of values tracked over a time duration. The definition we use for an __anomaly__ is simple: an anomaly is something that happens that (1) was unexpected or (2) was caused by an abnormal event. Therefore, the problem we intend to solve with `anomalize` is providing methods to accurately detect these "anomalous" events. 
@@ -62,7 +68,7 @@ The Twitter method is a similar decomposition method to that used in Twitter's `
 
 Load two libraries to perform the comparison.
 
-```{r, eval = F}
+```r
 library(tidyverse)
 library(anomalize)
 
