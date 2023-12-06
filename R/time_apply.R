@@ -24,8 +24,6 @@
 #'
 #' library(dplyr)
 #'
-#' data(tidyverse_cran_downloads)
-#'
 #' # Basic Usage
 #' tidyverse_cran_downloads %>%
 #'     time_apply(count, period = "1 week", .fun = mean, na.rm = TRUE)

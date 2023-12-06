@@ -82,8 +82,6 @@
 #' # Needed to pass CRAN check / This is loaded by default
 #' set_time_scale_template(time_scale_template())
 #'
-#' data(tidyverse_cran_downloads)
-#'
 #' tidyverse_cran_downloads %>%
 #'     time_decompose(count, method = "stl") %>%
 #'     anomalize(remainder, method = "iqr")
@@ -145,8 +143,8 @@ anomalize.tbl_df <- function(data, target, method = c("iqr", "gesd"),
 
     # Returns
     ret <- data %>%
-        dplyr::mutate(!! paste0(dplyr::quo_name(target_expr), "_l1") := limit_lower,
-                      !! paste0(dplyr::quo_name(target_expr), "_l2") := limit_upper) %>%
+        dplyr::mutate(!!paste0(dplyr::quo_name(target_expr), "_l1") := limit_lower,
+                      !!paste0(dplyr::quo_name(target_expr), "_l2") := limit_upper) %>%
         tibble::add_column(anomaly = outlier)
 
     if (verbose) {

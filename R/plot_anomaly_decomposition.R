@@ -80,7 +80,7 @@ plot_anomaly_decomposition.tbl_time <- function(data, ncol = 1, color_no = "#2c3
         tidyr::gather(key = key, value = value, -dplyr::one_of(c(!! date_col, 'anomaly')), factor_key = T)
 
     g <- data_anomaly_tbl  %>%
-        ggplot2::ggplot(ggplot2::aes(x = .data[[date_col]], y = .data$value, color = .fata$anomaly)) +
+        ggplot2::ggplot(ggplot2::aes(x = .data[[date_col]], y = .data$value, color = .data$anomaly)) +
         # Points
         ggplot2::geom_point(size = size_dots, alpha = alpha_dots) +
         # Circles
