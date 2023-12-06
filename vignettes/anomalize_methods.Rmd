@@ -20,7 +20,9 @@ knitr::opts_chunk$set(
 )
 
 library(anomalize)
-library(tidyverse)
+# load necessary tidyverse packages for analysis
+library(dplyr)
+library(ggplot2)
 ```
 
 Anomaly detection is critical to many disciplines, but possibly none more important than in __time series analysis__. A time series is the sequential set of values tracked over a time duration. The definition we use for an __anomaly__ is simple: an anomaly is something that happens that (1) was unexpected or (2) was caused by an abnormal event. Therefore, the problem we intend to solve with `anomalize` is providing methods to accurately detect these "anomalous" events. 

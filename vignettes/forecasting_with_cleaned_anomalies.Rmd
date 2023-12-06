@@ -17,8 +17,11 @@ knitr::opts_chunk$set(
   fig.align = "center"
 )
 
+library(dplyr)
+library(ggplot2)
+library(tidyquant)
 library(anomalize)
-library(tidyverse)
+library(timetk)
 ```
 
 
@@ -29,12 +32,14 @@ library(tidyverse)
 
 We can often get better forecast performance by cleaning anomalous data prior to forecasting. This is the perfect use case for integrating the `clean_anomalies()` function into your ___forecast workflow___. 
 
-```{r setup, message=FALSE}
+```{r setup, message=FALSE, eval=FALSE}
 library(tidyverse)
 library(tidyquant)
 library(anomalize)
 library(timetk)
+```
 
+```{r}
 # NOTE: timetk now has anomaly detection built in, which 
 #  will get the new functionality going forward.
 #  Use this script to prevent overwriting legacy anomalize:
