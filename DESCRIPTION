@@ -1,7 +1,7 @@
 Package: anomalize
 Type: Package
 Title: Tidy Anomaly Detection
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -18,7 +18,7 @@ Description:
     and generalized extreme studentized deviation ("gesd"). These methods are based on
     those used in the 'forecast' package and the Twitter 'AnomalyDetection' package. 
     Refer to the associated functions for specific references for these methods. 
-URL: https://github.com/business-science/anomalize
+URL: https://business-science.github.io/anomalize/, https://github.com/business-science/anomalize
 BugReports: https://github.com/business-science/anomalize/issues
 License: GPL (>= 3)
 Encoding: UTF-8
