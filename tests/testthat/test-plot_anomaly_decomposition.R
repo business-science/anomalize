@@ -3,12 +3,13 @@ test_that("errors on incorrect input", {
 })
 
 test_that("returns a ggplot", {
-    g <- tidyverse_cran_downloads %>%
-        dplyr::filter(package == "tidyquant") %>%
-        dplyr::ungroup() %>%
-        time_decompose(count, method = "stl") %>%
-        anomalize(remainder, method = "iqr") %>%
-        plot_anomaly_decomposition()
+    expect_snapshot(
+        g <- tidyverse_cran_downloads %>%
+            dplyr::filter(package == "tidyquant") %>%
+            dplyr::ungroup() %>%
+            time_decompose(count, method = "stl") %>%
+            anomalize(remainder, method = "iqr")
+    )
 
-    expect_s3_class(g, "ggplot")
+    expect_s3_class(plot_anomaly_decomposition(g), "ggplot")
 })

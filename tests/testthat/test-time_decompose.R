@@ -8,12 +8,14 @@ test_that("No target errors", {
 })
 
 test_that("single tbl_df", {
-    stl_tbl_time <- tidyverse_cran_downloads %>%
+    # Capture output
+    expect_snapshot(
+        stl_tbl_time <- tidyverse_cran_downloads %>%
         dplyr::filter(package == "lubridate") %>%
         dplyr::ungroup() %>%
         dplyr::as_tibble() %>%
         time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
-
+    )
     expect_equal(ncol(stl_tbl_time), 5)
     expect_equal(nrow(stl_tbl_time), 425)
 

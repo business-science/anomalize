@@ -179,7 +179,7 @@ anomalize.grouped_df <- function(data, target, method = c("iqr", "gesd"),
             method    = method[[1]],
             alpha     = alpha,
             max_anoms = max_anoms,
-            verbose   = F,
+            verbose   = FALSE,
             ...)
 
     return(ret)

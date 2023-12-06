@@ -4,7 +4,7 @@
 
 grouped_mapper <- function(data, target, .f, ...) {
 
-    data            <- prep_tbl_time(data, message = F)
+    data            <- prep_tbl_time(data, message = FALSE)
 
     target_expr     <- dplyr::enquo(target)
 

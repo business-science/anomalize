@@ -41,8 +41,8 @@ Roxygen: list(markdown = TRUE)
 Suggests: 
     tidyquant,
     stringr,
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Config/testthat/edition: 2
+Config/testthat/edition: 3
