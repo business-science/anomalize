@@ -139,11 +139,14 @@ test_that("gesd can handle low variance data", {
     anomalize(count, method = "gesd") %>%
     expect_no_error()
   # Capture messages in snapshots
+  low_var %>%
+    time_decompose(count, method = "stl") %>%
+    anomalize(remainder, method = "gesd") %>%
+    expect_message("Converting") %>%
+    expect_message("frequency") %>%
+    expect_message("trend")
   expect_snapshot({
-    low_var %>%
-      time_decompose(count, method = "stl") %>%
-      anomalize(remainder, method = "gesd") %>%
-      expect_message("Converting")
+
 
     low_var %>%
       time_decompose(count, method = "twitter") %>%
