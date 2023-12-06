@@ -54,8 +54,6 @@ alpha, frequency, and so on should be adjusted.
 library(dplyr)
 library(ggplot2)
 
-data(tidyverse_cran_downloads)
-
 tidyverse_cran_downloads \%>\%
     filter(package == "tidyquant") \%>\%
     ungroup() \%>\%
