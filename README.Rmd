@@ -28,6 +28,7 @@ knitr::opts_chunk$set(
   warning = F
 )
 library(anomalize)
+library(dplyr) # for pipe 
 ```
 
 
@@ -79,12 +80,11 @@ install.packages("anomalize")
 
 ## Getting Started
 
-Load the `tidyverse` and `anomalize` packages.
+Load the `anomalize` package. Usually, you will also load the tidyverse as well!
 
 ```{r, eval = F}
-library(tidyverse)
 library(anomalize)
-
+library(tidyverse)
 # NOTE: timetk now has anomaly detection built in, which 
 #  will get the new functionality going forward.
 #  Use this script to prevent overwriting legacy anomalize:
@@ -99,7 +99,6 @@ Next, let's get some data.  `anomalize` ships with a data set called `tidyverse_
 Suppose we want to determine which daily download "counts" are anomalous. It's as easy as using the three main functions (`time_decompose()`, `anomalize()`, and `time_recompose()`) along with a visualization function, `plot_anomalies()`.
 
 ```{r tidyverse_anoms_1, fig.height=8}
-library(magrittr)
 tidyverse_cran_downloads %>%
     # Data Manipulation / Anomaly Detection
     time_decompose(count, method = "stl") %>%

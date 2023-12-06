@@ -1,7 +1,7 @@
 Package: anomalize
 Type: Package
 Title: Tidy Anomaly Detection
-Version: 0.3.0
+Version: 0.3.0.9000
 Authors@R: c(
     person("Matt", "Dancho", email = "mdancho@business-science.io", role = c("aut", "cre")),
     person("Davis", "Vaughan", email = "dvaughan@business-science.io", role = c("aut"))
@@ -18,7 +18,7 @@ Description:
     and generalized extreme studentized deviation ("gesd"). These methods are based on
     those used in the 'forecast' package and the Twitter 'AnomalyDetection' package. 
     Refer to the associated functions for specific references for these methods. 
-URL: https://github.com/business-science/anomalize
+URL: https://business-science.github.io/anomalize/, https://github.com/business-science/anomalize
 BugReports: https://github.com/business-science/anomalize/issues
 License: GPL (>= 3)
 Encoding: UTF-8
@@ -35,14 +35,14 @@ Imports:
     rlang,
     tibble,
     tidyr (>= 1.0.0),
-    ggplot2
+    ggplot2 (>= 3.4.0)
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    tidyverse,
     tidyquant,
     stringr,
-    testthat (>= 2.1.0),
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Config/testthat/edition: 3

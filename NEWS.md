@@ -1,3 +1,9 @@
+# anomalize (development version)
+
+* anomalize works better with ggplot2 3.4.0
+
+* anomalize no longer depends on tidyverse, devtools and roxygen2 (@olivroy, #70)
+
 # anomalize 0.3.0
 
 Prepare for supercession by `timetk`. Note that `anomalize` R package will be maintained for backwards compatibility. Users may wish to add these 2 lines of code to existing codebases that use the legacy anomalize R package:

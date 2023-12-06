@@ -1,12 +1,10 @@
-context("test-prep_tbl_time.R")
-
 test_that("prep_tbl_time errors on incorrect input", {
     expect_error(prep_tbl_time(1))
-    expect_error(prep_tbl_time(tibble(x = stats::rnorm(100))))
+    expect_error(prep_tbl_time(dplyr::tibble(x = stats::rnorm(100))))
 })
 
 test_that("converts tibble to tbl_time", {
-    data_tbl <- tibble(
+    data_tbl <- dplyr::tibble(
         date  = seq.Date(from = as.Date("2018-01-01"), by = "day", length.out = 10),
         value = rnorm(10)
     )
@@ -16,7 +14,7 @@ test_that("converts tibble to tbl_time", {
 })
 
 test_that("tbl_time returns tbl_time", {
-    data_tbl <- tibble(
+    data_tbl <- dplyr::tibble(
         date  = seq.Date(from = as.Date("2018-01-01"), by = "day", length.out = 10),
         value = rnorm(10)
     ) %>%

@@ -20,6 +20,16 @@ knitr::opts_chunk$set(
   warning = F,
   fig.align = "center"
 )
+
+library(tibbletime)
+library(dplyr)
+library(ggplot2)
+library(anomalize)
+# NOTE: timetk now has anomaly detection built in, which 
+#  will get the new functionality going forward.
+
+anomalize <- anomalize::anomalize
+plot_anomalies <- anomalize::plot_anomalies
 ```
 
 The `anomalize` package is a feature rich package for performing anomaly detection. It's geared towards time series analysis, which is one of the biggest needs for understanding when anomalies occur. We have a quick start section called "5-Minutes to Anomalize" for those looking to jump right in. We also have a detailed section on parameter adjustment for those looking to understand what nobs they can turn. Finally, for those really looking to get under the hood, we have another vignette called "Anomalize Methods" that gets into a deep discussion on STL, Twitter, IQR and GESD methods that are used to power `anomalize`. 
@@ -37,7 +47,7 @@ Check out our entire [Software Intro Series](https://www.youtube.com/watch?v=Gk_
 
 Load libraries. 
 
-```{r, eval = T, message = F, warning = F}
+```r
 library(tidyverse)
 library(tibbletime)
 library(anomalize)
@@ -284,7 +294,3 @@ Business Science offers two 1-hour courses on Anomaly Detection:
 - [Learning Lab 18](https://university.business-science.io/p/learning-labs-pro) - Time Series Anomaly Detection with `anomalize`
 
 - [Learning Lab 17](https://university.business-science.io/p/learning-labs-pro) - Anomaly Detection with `H2O` Machine Learning
-
-
-
-

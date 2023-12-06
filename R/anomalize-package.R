@@ -1,5 +1,4 @@
-#' anomalize: Tidy anomaly detection
-#'
+#' @description
 #' The 'anomalize' package enables a "tidy" workflow for detecting anomalies in data.
 #' The main functions are time_decompose(), anomalize(), and time_recompose().
 #' When combined, it's quite simple to decompose time series, detect anomalies,
@@ -14,14 +13,14 @@
 #'
 #' To learn more about `anomalize`, start with the vignettes:
 #'  `browseVignettes(package = "anomalize")`
-#'
-#'
-#' @docType package
-#' @name anomalize_package
-#'
 #' @aliases anomalize-package
-#' @importFrom rlang := !! !!!
+#' @keywords internal
+"_PACKAGE"
+
+## usethis namespace: start
+#' @importFrom rlang := !! !!! .data
 #' @importFrom dplyr %>% n row_number contains quo_name
 #' @importFrom stats median mad qt as.formula
 #' @import ggplot2
+## usethis namespace: end
 NULL

@@ -1,13 +1,11 @@
-context("test-time_frequency.R")
-
 # Setup
 
 tq_dloads <- tidyverse_cran_downloads %>%
-    ungroup() %>%
-    filter(package == "tidyquant")
+    dplyr::ungroup() %>%
+    dplyr::filter(package == "tidyquant")
 
 tq_dloads_small <- tq_dloads %>%
-    slice(1:60)
+    dplyr::slice_head(n = 60)
 
 # Tests
 
@@ -23,8 +21,7 @@ test_that("time_trend fails with incorrect input", {
 
 test_that("time_frequency works: period = 'auto'", {
 
-    freq <- tq_dloads %>%
-        time_frequency()
+    expect_message(freq <- time_frequency(tq_dloads))
 
     expect_equal(freq, 7)
 
@@ -32,8 +29,7 @@ test_that("time_frequency works: period = 'auto'", {
 
 test_that("time_frequency works: period = '1 month'", {
 
-    freq <- tq_dloads %>%
-        time_frequency(period = "1 month")
+    expect_message(freq <- time_frequency(tq_dloads, period = "1 month"))
 
     expect_equal(freq, 31)
 
@@ -41,8 +37,7 @@ test_that("time_frequency works: period = '1 month'", {
 
 test_that("time_frequency works: period = 5", {
 
-    freq <- tq_dloads %>%
-        time_frequency(period = 5)
+    expect_message(freq <- time_frequency(tq_dloads, period = 5))
 
     expect_equal(freq, 5)
 
@@ -52,8 +47,7 @@ test_that("time_frequency works: period = 5", {
 
 test_that("time_trend works: period = 'auto'", {
 
-    trend <- tq_dloads %>%
-        time_trend()
+    expect_message(trend <- time_trend(tq_dloads))
 
     expect_equal(trend, 91)
 
@@ -61,8 +55,7 @@ test_that("time_trend works: period = 'auto'", {
 
 test_that("time_trend works: period = '90 days'", {
 
-    trend <- tq_dloads %>%
-        time_trend(period = "30 days")
+    expect_message(trend <- time_trend(tq_dloads, period = "30 days"))
 
     expect_equal(trend, 30)
 
@@ -70,8 +63,7 @@ test_that("time_trend works: period = '90 days'", {
 
 test_that("time_trend works: period = 90", {
 
-    trend <- tq_dloads %>%
-        time_trend(period = 90)
+    expect_message(trend <- time_trend(tq_dloads, period = 90))
 
     expect_equal(trend, 90)
 
@@ -79,8 +71,7 @@ test_that("time_trend works: period = 90", {
 
 test_that("time_trend works with small data: period = 'auto'", {
 
-    trend <- tq_dloads_small %>%
-        time_trend()
+    expect_message(trend <- time_trend(tq_dloads_small))
 
     expect_equal(trend, 28)
 

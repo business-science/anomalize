@@ -55,7 +55,7 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
         tibble::add_column(!! date_col_name := date_col_vals, .after = 0) %>%
         purrr::set_names(c(date_col_name, "observed", "season", "trend", "remainder")) %>%
         dplyr::mutate(seasadj = observed - season) %>%
-        dplyr::select(!! date_col_expr, observed, season, seasadj, trend, remainder)
+        dplyr::select(!!date_col_expr, observed, season, seasadj, trend, remainder)
 
     # Median Span Logic
     trnd <- time_trend(data, period = trend, message = FALSE)
@@ -74,7 +74,7 @@ decompose_twitter <- function(data, target, frequency = "auto", trend = "auto", 
         med_span <- decomp_tbl %>%
             dplyr::count(median_spans) %>%
             dplyr::pull(n) %>%
-            median(na.rm = TRUE)
+            stats::median(na.rm = TRUE)
 
         med_scale <- decomp_tbl %>%
             timetk::tk_index() %>%

@@ -27,7 +27,6 @@
 #' library(dplyr)
 #' library(ggplot2)
 #'
-#' data(tidyverse_cran_downloads)
 #'
 #' #### SINGLE TIME SERIES ####
 #' tidyverse_cran_downloads %>%
@@ -80,7 +79,7 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
     date_col   <- tibbletime::get_index_char(data)
 
     g <- data %>%
-        ggplot2::ggplot(ggplot2::aes_string(x = date_col, y = "observed"))
+        ggplot2::ggplot(ggplot2::aes(x = .data[[date_col]], y = .data[["observed"]]))
 
 
     if (time_recomposed) {
@@ -94,8 +93,8 @@ plot_anomalies.tbl_time <- function(data, time_recomposed = FALSE, ncol = 1,
     }
 
     g <- g +
-        ggplot2::geom_point(ggplot2::aes_string(color = "anomaly"), size = size_dots, alpha = alpha_dots) +
-        ggplot2::geom_point(ggplot2::aes_string(x = date_col, y = "observed", color = "anomaly"),
+        ggplot2::geom_point(ggplot2::aes(color = .data[["anomaly"]]), size = size_dots, alpha = alpha_dots) +
+        ggplot2::geom_point(ggplot2::aes(x = .data[[date_col]], y = .data[["observed"]], color = .data[["anomaly"]]),
                            size = size_circles, shape = 1, alpha = alpha_circles,
                            data = data %>% dplyr::filter(anomaly == "Yes"),
                            inherit.aes = FALSE) +

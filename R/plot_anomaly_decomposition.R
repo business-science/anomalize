@@ -27,8 +27,6 @@
 #' library(dplyr)
 #' library(ggplot2)
 #'
-#' data(tidyverse_cran_downloads)
-#'
 #' tidyverse_cran_downloads %>%
 #'     filter(package == "tidyquant") %>%
 #'     ungroup() %>%
@@ -78,11 +76,11 @@ plot_anomaly_decomposition.tbl_time <- function(data, ncol = 1, color_no = "#2c3
     date_col   <- tibbletime::get_index_char(data)
 
     data_anomaly_tbl <- data %>%
-        dplyr::select(!! date_expr, observed:remainder, anomaly) %>%
+        dplyr::select(!!date_expr, observed:remainder, anomaly) %>%
         tidyr::gather(key = key, value = value, -dplyr::one_of(c(!! date_col, 'anomaly')), factor_key = T)
 
     g <- data_anomaly_tbl  %>%
-        ggplot2::ggplot(ggplot2::aes_string(x = date_col, y = "value", color = "anomaly")) +
+        ggplot2::ggplot(ggplot2::aes(x = .data[[date_col]], y = .data$value, color = .data$anomaly)) +
         # Points
         ggplot2::geom_point(size = size_dots, alpha = alpha_dots) +
         # Circles

@@ -1,22 +1,21 @@
-context("test-time_decompose.R")
-
-
 test_that("Incorrect data type errors", {
     expect_error(time_decompose(5))
 })
 
 test_that("No target errors", {
     expect_error(time_decompose(tidyverse_cran_downloads))
-    expect_error(time_decompose(ungroup(tidyverse_cran_downloads)))
+    expect_error(time_decompose(dplyr::ungroup(tidyverse_cran_downloads)))
 })
 
 test_that("single tbl_df", {
-    stl_tbl_time <- tidyverse_cran_downloads %>%
-        filter(package == "lubridate") %>%
-        ungroup() %>%
-        as_tibble() %>%
+    # Capture output
+    expect_snapshot(
+        stl_tbl_time <- tidyverse_cran_downloads %>%
+        dplyr::filter(package == "lubridate") %>%
+        dplyr::ungroup() %>%
+        dplyr::as_tibble() %>%
         time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
-
+    )
     expect_equal(ncol(stl_tbl_time), 5)
     expect_equal(nrow(stl_tbl_time), 425)
 
@@ -24,8 +23,8 @@ test_that("single tbl_df", {
 
 test_that("grouped tbl_df", {
     stl_tbl_time <- tidyverse_cran_downloads %>%
-        as_tibble() %>%
-        group_by(package) %>%
+        dplyr::as_tibble() %>%
+        dplyr::group_by(package) %>%
         time_decompose(count, method = "stl", frequency = "auto", trend = "auto")
 
     expect_equal(ncol(stl_tbl_time), 6)
@@ -39,7 +38,7 @@ test_that("method = stl, auto freq/trend", {
 
     expect_equal(ncol(stl_tbl_time), 6)
     expect_equal(nrow(stl_tbl_time), 6375)
-    expect_equal(group_size(stl_tbl_time) %>% length(), 15)
+    expect_equal(dplyr::n_groups(stl_tbl_time), 15)
 
 })
 
@@ -49,7 +48,7 @@ test_that("method = stl, character freq/trend", {
 
     expect_equal(ncol(stl_tbl_time), 6)
     expect_equal(nrow(stl_tbl_time), 6375)
-    expect_equal(group_size(stl_tbl_time) %>% length(), 15)
+    expect_equal(dplyr::n_groups(stl_tbl_time), 15)
 
 })
 
@@ -59,7 +58,7 @@ test_that("method = stl, numeric freq/trend", {
 
     expect_equal(ncol(stl_tbl_time), 6)
     expect_equal(nrow(stl_tbl_time), 6375)
-    expect_equal(group_size(stl_tbl_time) %>% length(), 15)
+    expect_equal(dplyr::n_groups(stl_tbl_time), 15)
 
 })
 
@@ -69,7 +68,7 @@ test_that("method = twitter, auto freq/trend", {
 
     expect_equal(ncol(twitter_tbl_time), 6)
     expect_equal(nrow(twitter_tbl_time), 6375)
-    expect_equal(group_size(twitter_tbl_time) %>% length(), 15)
+    expect_equal(dplyr::n_groups(twitter_tbl_time), 15)
 
 })
 
@@ -79,7 +78,7 @@ test_that("method = twitter, character freq/trend", {
 
     expect_equal(ncol(twitter_tbl_time), 6)
     expect_equal(nrow(twitter_tbl_time), 6375)
-    expect_equal(group_size(twitter_tbl_time) %>% length(), 15)
+    expect_equal(dplyr::n_groups(twitter_tbl_time), 15)
 
 })
 
@@ -89,7 +88,7 @@ test_that("method = twitter, numeric freq/trend", {
 
     expect_equal(ncol(twitter_tbl_time), 6)
     expect_equal(nrow(twitter_tbl_time), 6375)
-    expect_equal(group_size(twitter_tbl_time) %>% length(), 15)
+    expect_equal(dplyr::n_groups(twitter_tbl_time), 15)
 
 })
 
@@ -99,7 +98,7 @@ test_that("method = twitter, numeric freq/trend", {
 #
 #     expect_equal(ncol(mult_tbl_time), 6)
 #     expect_equal(nrow(mult_tbl_time), 6375)
-#     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+#     expect_equal(dplyr::n_groups(mult_tbl_time), 15)
 #
 # })
 #
@@ -109,7 +108,7 @@ test_that("method = twitter, numeric freq/trend", {
 #
 #     expect_equal(ncol(mult_tbl_time), 6)
 #     expect_equal(nrow(mult_tbl_time), 6375)
-#     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+#     expect_equal(dplyr::n_groups(mult_tbl_time), 15)
 #
 # })
 #
@@ -119,18 +118,18 @@ test_that("method = twitter, numeric freq/trend", {
 #
 #     expect_equal(ncol(mult_tbl_time), 6)
 #     expect_equal(nrow(mult_tbl_time), 6375)
-#     expect_equal(group_size(mult_tbl_time) %>% length(), 15)
+#     expect_equal(dplyr::n_groups(mult_tbl_time), 15)
 #
 # })
 
 test_that("grouped_df works", {
     grouped_data <- tidyverse_cran_downloads %>%
-        as_tibble() %>%
-        group_by(package) %>%
+        dplyr::as_tibble() %>%
+        dplyr::group_by(package) %>%
         time_decompose(count)
 
     expect_equal(ncol(grouped_data), 6)
     expect_equal(nrow(grouped_data), 6375)
-    expect_equal(group_size(grouped_data) %>% length(), 15)
+    expect_equal(dplyr::n_groups(grouped_data), 15)
 
 })

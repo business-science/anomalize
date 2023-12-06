@@ -58,7 +58,6 @@ Multiple time series must be grouped using \code{dplyr::group_by()}.
 library(dplyr)
 library(ggplot2)
 
-data(tidyverse_cran_downloads)
 
 #### SINGLE TIME SERIES ####
 tidyverse_cran_downloads \%>\%
