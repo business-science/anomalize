@@ -25,13 +25,13 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/anomalize-package.html</loc>
+  </url>
+  <url>
     <loc>/reference/anomalize.html</loc>
   </url>
   <url>
     <loc>/reference/anomalize_methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/anomalize_package.html</loc>
   </url>
   <url>
     <loc>/reference/clean_anomalies.html</loc>
