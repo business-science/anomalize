@@ -1,7 +1,21 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # Anomalize is being Superceded by Timetk:
+
+# anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
+
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/business-science/anomalize/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/business-science/anomalize/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle
+Status](https://img.shields.io/badge/lifecycle-superceded-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![Coverage
+status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://app.codecov.io/github/business-science/anomalize?branch=master)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/anomalize)](https://cran.r-project.org/package=anomalize)
+![](http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen)
+![](http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen)
+<!-- badges: end -->
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 The `anomalize` package functionality has been superceded by `timetk`.
 We suggest you begin to use the `timetk::anomalize()` to benefit from
@@ -23,16 +37,6 @@ plot_anomalies <- anomalize::plot_anomalies
 ```
 
 <!-- # anomalize -->
-
-# anomalize <img src="man/figures/anomalize-logo.png" width="147" height="170" align="right" />
-
-[![Lifecycle
-Status](https://img.shields.io/badge/lifecycle-superceded-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![Coverage
-status](https://codecov.io/gh/business-science/anomalize/branch/master/graph/badge.svg)](https://app.codecov.io/github/business-science/anomalize?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/anomalize)](https://cran.r-project.org/package=anomalize)
-![](http://cranlogs.r-pkg.org/badges/anomalize?color=brightgreen)
-![](http://cranlogs.r-pkg.org/badges/grand-total/anomalize?color=brightgreen)
 
 > Tidy anomaly detection
 
@@ -98,6 +102,7 @@ anomalous. It’s as easy as using the three main functions
 visualization function, `plot_anomalies()`.
 
 ``` r
+library(magrittr)
 tidyverse_cran_downloads %>%
     # Data Manipulation / Anomaly Detection
     time_decompose(count, method = "stl") %>%
@@ -105,7 +110,7 @@ tidyverse_cran_downloads %>%
     time_recompose() %>%
     # Anomaly Visualization
     plot_anomalies(time_recomposed = TRUE, ncol = 3, alpha_dots = 0.25) +
-    labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") 
+    ggplot2::labs(title = "Tidyverse Anomalies", subtitle = "STL + IQR Methods") 
 ```
 
 <img src="man/figures/README-tidyverse_anoms_1-1.png" width="100%" />
@@ -122,16 +127,16 @@ Anomalies](https://business-science.github.io/anomalize/articles/forecasting_wit
 
 ``` r
 tidyverse_cran_downloads %>%
-    filter(package == "lubridate") %>%
-    ungroup() %>%
+    dplyr::filter(package == "lubridate") %>%
+    dplyr::ungroup() %>%
     time_decompose(count) %>%
     anomalize(remainder) %>%
   
     # New function that cleans & repairs anomalies!
     clean_anomalies() %>%
   
-    select(date, anomaly, observed, observed_cleaned) %>%
-    filter(anomaly == "Yes")
+    dplyr::select(date, anomaly, observed, observed_cleaned) %>%
+    dplyr::filter(anomaly == "Yes")
 #> # A time tibble: 19 × 4
 #> # Index:         date
 #>    date       anomaly  observed observed_cleaned
@@ -166,12 +171,12 @@ There are a several extra capabilities:
 
 ``` r
 tidyverse_cran_downloads %>%
-    filter(package == "lubridate") %>%
-    ungroup() %>%
+    dplyr::filter(package == "lubridate") %>%
+    dplyr::ungroup() %>%
     time_decompose(count) %>%
     anomalize(remainder) %>%
     plot_anomaly_decomposition() +
-    labs(title = "Decomposition of Anomalized Lubridate Downloads")
+    ggplot2::labs(title = "Decomposition of Anomalized Lubridate Downloads")
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
