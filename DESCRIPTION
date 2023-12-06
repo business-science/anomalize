@@ -39,10 +39,10 @@ Imports:
 RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 Suggests: 
-    tidyverse,
     tidyquant,
     stringr,
     testthat (>= 2.1.0),
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Config/testthat/edition: 2

@@ -1,5 +1,3 @@
-context("test-anomalize.R")
-
 # Setup
 tq_dloads <- tidyverse_cran_downloads %>%
     dplyr::ungroup() %>%
@@ -111,7 +109,7 @@ low_var <- dplyr::tibble(
     0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0
   )
 ) %>%
-  mutate(time = time + row_number())
+  dplyr::mutate(time = time + dplyr::row_number())
 
 # Tests
 
@@ -137,15 +135,18 @@ test_that("gesd_tbl_df works", {
 
 test_that("gesd can handle low variance data", {
   low_var %>%
-    anomalize(count, method = "gesd")
+    anomalize(count, method = "gesd") %>%
+    expect_no_error()
 
   low_var %>%
     time_decompose(count, method = "stl") %>%
-    anomalize(remainder, method = "gesd")
+    anomalize(remainder, method = "gesd") %>%
+    expect_message("Converting")
 
   low_var %>%
     time_decompose(count, method = "twitter") %>%
-    anomalize(remainder, method = "gesd")
+    anomalize(remainder, method = "gesd") %>%
+    expect_message("Converting")
 })
 
 test_that("iqr_grouped_df works", {
@@ -173,7 +174,3 @@ test_that("gesd_grouped_df works", {
     expect_equal(ncol(gesd_grouped_df), 6)
 
 })
-
-
-
-

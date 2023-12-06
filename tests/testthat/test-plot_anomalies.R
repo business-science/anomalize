@@ -1,5 +1,3 @@
-context("test-plot_anomalies.R")
-
 test_that("errors on incorrect input", {
   expect_error(plot_anomalies(3))
 })

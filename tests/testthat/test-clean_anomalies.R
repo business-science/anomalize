@@ -16,21 +16,9 @@ test_that("bad data returns error", {
 })
 
 test_that("Clean Anomalies from STL Method", {
-
-    expect_true(data_stl %>%
-                    clean_anomalies() %>%
-                    names() %>%
-                    str_detect("observed_cleaned") %>%
-                    any())
-
+    expect_match(names(clean_anomalies(data_stl)), "observed_cleaned", all = FALSE)
 })
 
 test_that("Clean Anomalies from Twitter Method", {
-
-    expect_true(data_twitter %>%
-                    clean_anomalies() %>%
-                    names() %>%
-                    str_detect("observed_cleaned") %>%
-                    any())
-
+    expect_match(names(clean_anomalies(data_twitter)), "observed_cleaned", all = FALSE)
 })
