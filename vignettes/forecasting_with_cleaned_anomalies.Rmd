@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
   fig.align = "center"
 )
 
-devtools::load_all()
+library(anomalize)
+library(tidyverse)
 ```
 
 

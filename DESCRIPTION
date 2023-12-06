@@ -43,9 +43,6 @@ Suggests:
     tidyquant,
     stringr,
     testthat (>= 2.1.0),
-    covr,
     knitr,
-    rmarkdown,
-    devtools,
-    roxygen2
+    rmarkdown
 VignetteBuilder: knitr
