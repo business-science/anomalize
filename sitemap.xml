@@ -1,72 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://business-science.github.io/anomalize/404.html</loc>
   </url>
   <url>
-    <loc>/articles/anomalize_methods.html</loc>
+    <loc>https://business-science.github.io/anomalize/articles/anomalize_methods.html</loc>
   </url>
   <url>
-    <loc>/articles/anomalize_quick_start_guide.html</loc>
+    <loc>https://business-science.github.io/anomalize/articles/anomalize_quick_start_guide.html</loc>
   </url>
   <url>
-    <loc>/articles/forecasting_with_cleaned_anomalies.html</loc>
+    <loc>https://business-science.github.io/anomalize/articles/forecasting_with_cleaned_anomalies.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://business-science.github.io/anomalize/articles/index.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://business-science.github.io/anomalize/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://business-science.github.io/anomalize/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://business-science.github.io/anomalize/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/anomalize-package.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/anomalize-package.html</loc>
   </url>
   <url>
-    <loc>/reference/anomalize.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/anomalize.html</loc>
   </url>
   <url>
-    <loc>/reference/anomalize_methods.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/anomalize_methods.html</loc>
   </url>
   <url>
-    <loc>/reference/clean_anomalies.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/clean_anomalies.html</loc>
   </url>
   <url>
-    <loc>/reference/decompose_methods.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/decompose_methods.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_anomalies.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/plot_anomalies.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_anomaly_decomposition.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/plot_anomaly_decomposition.html</loc>
   </url>
   <url>
-    <loc>/reference/prep_tbl_time.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/prep_tbl_time.html</loc>
   </url>
   <url>
-    <loc>/reference/tidyverse_cran_downloads.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/tidyverse_cran_downloads.html</loc>
   </url>
   <url>
-    <loc>/reference/time_apply.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/time_apply.html</loc>
   </url>
   <url>
-    <loc>/reference/time_decompose.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/time_decompose.html</loc>
   </url>
   <url>
-    <loc>/reference/time_frequency.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/time_frequency.html</loc>
   </url>
   <url>
-    <loc>/reference/time_recompose.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/time_recompose.html</loc>
   </url>
   <url>
-    <loc>/reference/time_scale_template.html</loc>
+    <loc>https://business-science.github.io/anomalize/reference/time_scale_template.html</loc>
   </url>
 </urlset>
